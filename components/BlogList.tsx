@@ -11,21 +11,20 @@ interface BlogListProps {
 
 export default function BlogList({ posts }: BlogListProps) {
   return (
-    <>
+    <div className="min-h-screen pt-24">
       {/* Hero Section */}
       <section className="relative py-20 bg-gradient-to-br from-primary-50 via-secondary-50 to-accent-50 overflow-hidden">
-        {/* Decorative Background Elements */}
         <div className="absolute inset-0 opacity-10 overflow-hidden w-full">
           <div className="absolute top-0 left-0 w-96 h-96 bg-gradient-to-br from-primary-400 to-secondary-400 rounded-full blur-3xl"></div>
           <div className="absolute bottom-0 right-0 w-96 h-96 bg-gradient-to-br from-accent-400 to-primary-400 rounded-full blur-3xl"></div>
         </div>
-
+        
         <div className="container mx-auto px-4 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="text-center max-w-3xl mx-auto"
+            className="max-w-4xl mx-auto text-center"
           >
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-gray-900 mb-6 leading-[1.2]">
               Genève Nettoyage Blog
@@ -37,7 +36,7 @@ export default function BlogList({ posts }: BlogListProps) {
         </div>
       </section>
 
-      {/* Blog Posts */}
+      {/* Blog Posts - Simple Vertical List */}
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
           {posts.length === 0 ? (
@@ -61,8 +60,8 @@ export default function BlogList({ posts }: BlogListProps) {
                     </span>
                   </div>
                   
-                  <Link href={`/blog/${post.slug}`} prefetch={true}>
-                    <h2 className="text-2xl md:text-3xl lg:text-4xl font-display font-bold text-gray-900 mb-4 leading-[1.25] hover:text-primary-600 transition-colors">
+                  <Link href={`/blog/${post.slug}`} prefetch={true} className="block group">
+                    <h2 className="text-2xl md:text-3xl lg:text-4xl font-display font-bold text-gray-900 mb-4 leading-[1.25] group-hover:text-primary-600 transition-colors">
                       {post.title}
                     </h2>
                   </Link>
@@ -93,11 +92,11 @@ export default function BlogList({ posts }: BlogListProps) {
                     <Link
                       href={`/blog/${post.slug}`}
                       prefetch={true}
-                      className="inline-flex items-center text-primary-600 font-semibold hover:text-primary-700 transition-colors group"
+                      className="inline-flex items-center text-primary-600 font-semibold hover:text-primary-700 transition-colors group/link"
                     >
                       Lire la suite
                       {/* @ts-ignore */}
-                      <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                      <ArrowRight className="w-4 h-4 ml-2 group-hover/link:translate-x-1 transition-transform" />
                     </Link>
                   </div>
                 </motion.article>
@@ -106,6 +105,6 @@ export default function BlogList({ posts }: BlogListProps) {
           )}
         </div>
       </section>
-    </>
+    </div>
   )
 }

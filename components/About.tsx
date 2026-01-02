@@ -65,7 +65,7 @@ export default function About() {
   ]
 
   return (
-    <section id="apropos" className="py-20 bg-silver-50">
+    <section id="apropos" className="py-20 bg-primary-50/50">
       <div className="container mx-auto px-4">
         {/* Section 1: Excellence dans les Services */}
         <div className="max-w-6xl mx-auto mb-20">

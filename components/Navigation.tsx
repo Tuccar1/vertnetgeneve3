@@ -31,8 +31,8 @@ export default function Navigation() {
       transition={{ duration: 0.5, ease: 'easeOut' }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         scrolled
-          ? 'bg-white/98 backdrop-blur-xl shadow-lg border-b border-silver-200'
-          : 'bg-white/80 backdrop-blur-md'
+          ? 'bg-primary-50/98 backdrop-blur-xl shadow-lg border-b border-primary-200'
+          : 'bg-primary-50/80 backdrop-blur-md'
       }`}
     >
       <div className="container mx-auto px-4 lg:px-6">
@@ -140,7 +140,7 @@ export default function Navigation() {
 
           {/* Mobile Menu Button */}
           <motion.button
-            className="lg:hidden text-gray-700 p-2.5 rounded-xl hover:bg-silver-100 transition-colors"
+            className="lg:hidden text-gray-700 p-2.5 rounded-xl hover:bg-primary-100 transition-colors"
             onClick={() => setIsOpen(!isOpen)}
             aria-label="Toggle menu"
             whileTap={{ scale: 0.9 }}
@@ -181,7 +181,7 @@ export default function Navigation() {
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3, ease: 'easeInOut' }}
-              className="lg:hidden overflow-hidden border-t border-silver-200 bg-white"
+              className="lg:hidden overflow-hidden border-t border-primary-200 bg-white"
             >
               <div className="py-6 space-y-2">
                 {navItems.map((item, index) => (
@@ -200,7 +200,7 @@ export default function Navigation() {
                     </Link>
                   </motion.div>
                 ))}
-                <div className="pt-6 mt-6 border-t border-silver-200 space-y-3 px-2">
+                <div className="pt-6 mt-6 border-t border-primary-200 space-y-3 px-2">
                   <motion.a
                     href="tel:+41772152255"
                     className="flex items-center space-x-3 px-6 py-4 bg-gradient-to-br from-accent-50 to-accent-100 rounded-xl text-accent-700 font-bold shadow-md"

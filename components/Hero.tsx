@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { ArrowRight, Sparkles, Shield, Clock } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import Link from 'next/link'
 
 export default function Hero() {
@@ -26,10 +26,39 @@ export default function Hero() {
     },
   }
 
+  const cardVariants = {
+    hidden: { y: 30, opacity: 0, scale: 0.9 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      scale: 1,
+      transition: {
+        duration: 0.6,
+        type: 'spring',
+        stiffness: 100,
+      },
+    },
+  }
+
   const features = [
-    { icon: Shield, text: 'Garantie Qualité', color: 'text-secondary-500' },
-    { icon: Clock, text: 'Disponible 24/7', color: 'text-accent-500' },
-    { icon: Sparkles, text: 'Équipe Certifiée', color: 'text-primary-500' },
+    { 
+      text: 'Garantie Qualité', 
+      gradient: 'from-secondary-500 to-secondary-600',
+      borderColor: 'border-secondary-400',
+      bgGradient: 'from-secondary-50 to-secondary-100',
+    },
+    { 
+      text: 'Disponible 24/7', 
+      gradient: 'from-primary-500 to-primary-600',
+      borderColor: 'border-primary-400',
+      bgGradient: 'from-primary-50 to-primary-100',
+    },
+    { 
+      text: 'Équipe Certifiée', 
+      gradient: 'from-accent-500 to-accent-600',
+      borderColor: 'border-accent-400',
+      bgGradient: 'from-accent-50 to-accent-100',
+    },
   ]
 
   return (
@@ -45,8 +74,8 @@ export default function Hero() {
             backgroundImage: 'url(https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80)',
           }}
         >
-          {/* Darker overlay for better text readability */}
-          <div className="absolute inset-0 bg-gradient-to-br from-silver-900/85 via-silver-800/75 to-silver-900/85"></div>
+          {/* Premium gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-br from-primary-900/80 via-secondary-800/70 to-accent-900/80"></div>
         </div>
       </div>
 
@@ -98,7 +127,7 @@ export default function Hero() {
           className="max-w-4xl mx-auto text-center"
         >
           <motion.div variants={itemVariants}>
-            <span className="inline-block px-4 py-2 bg-white/90 backdrop-blur-sm rounded-full text-gray-800 text-sm font-semibold mb-6 shadow-lg border border-silver-200">
+            <span className="inline-block px-6 py-3 bg-gradient-to-r from-primary-500/90 via-secondary-500/90 to-accent-500/90 backdrop-blur-md rounded-full text-white text-sm font-bold mb-6 shadow-xl border-2 border-white/30">
               Excellence en Nettoyage Professionnel
             </span>
           </motion.div>
@@ -108,7 +137,7 @@ export default function Hero() {
             className="text-4xl md:text-6xl font-display font-bold text-white mb-6 leading-tight drop-shadow-lg"
           >
             Votre Partenaire de{' '}
-            <span className="bg-gradient-to-r from-secondary-400 to-secondary-500 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-primary-400 via-secondary-400 to-accent-400 bg-clip-text text-transparent">
               Confiance
             </span>
           </motion.h1>
@@ -138,26 +167,72 @@ export default function Hero() {
             </Link>
           </motion.div>
 
-          {/* Features - Mavi, Yeşil, Sarı renkler */}
+          {/* Features - Premium Çerçeveli Kartlar */}
           <motion.div
             variants={itemVariants}
-            className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16"
+            className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16"
           >
-            {features.map((feature, index) => {
-              const IconComponent = feature.icon
-              return (
-                <motion.div
-                  key={index}
-                  className="bg-white/90 backdrop-blur-md rounded-xl p-6 border border-white/30 shadow-xl"
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ type: 'spring', stiffness: 300 }}
-                >
-                  {/* @ts-ignore */}
-                  <IconComponent className={`w-8 h-8 ${feature.color} mx-auto mb-3`} />
-                  <p className="text-gray-800 font-semibold">{feature.text}</p>
-                </motion.div>
-              )
-            })}
+            {features.map((feature, index) => (
+              <motion.div
+                key={index}
+                variants={cardVariants}
+                initial="hidden"
+                animate="visible"
+                whileHover={{ 
+                  scale: 1.08,
+                  y: -8,
+                  rotateY: 5,
+                }}
+                whileTap={{ scale: 0.98 }}
+                className="relative group"
+              >
+                {/* Çerçeve ve Glow Efekti */}
+                <div className={`absolute -inset-0.5 bg-gradient-to-r ${feature.gradient} rounded-2xl blur-sm opacity-60 group-hover:opacity-100 transition-opacity duration-300`}></div>
+                
+                {/* Ana Kart */}
+                <div className={`relative bg-gradient-to-br ${feature.bgGradient} backdrop-blur-xl rounded-2xl p-8 border-4 ${feature.borderColor} shadow-2xl transform transition-all duration-300`}>
+                  {/* İç Glow */}
+                  <div className={`absolute inset-0 bg-gradient-to-br ${feature.gradient} opacity-0 group-hover:opacity-10 rounded-2xl transition-opacity duration-300`}></div>
+                  
+                  {/* İçerik */}
+                  <div className="relative z-10">
+                    {/* Animated Border */}
+                    <motion.div
+                      className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${feature.gradient} rounded-t-2xl`}
+                      initial={{ scaleX: 0 }}
+                      animate={{ scaleX: 1 }}
+                      transition={{ duration: 0.8, delay: index * 0.2 }}
+                    />
+                    
+                    {/* Text */}
+                    <motion.p
+                      className={`text-center font-bold text-xl bg-gradient-to-r ${feature.gradient} bg-clip-text text-transparent mt-4`}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: index * 0.2 + 0.4 }}
+                    >
+                      {feature.text}
+                    </motion.p>
+                    
+                    {/* Floating Animation */}
+                    <motion.div
+                      className={`absolute -bottom-2 -right-2 w-20 h-20 bg-gradient-to-br ${feature.gradient} rounded-full opacity-20 blur-xl`}
+                      animate={{
+                        y: [0, -10, 0],
+                        x: [0, 5, 0],
+                        scale: [1, 1.2, 1],
+                      }}
+                      transition={{
+                        duration: 3,
+                        repeat: Infinity,
+                        ease: 'easeInOut',
+                        delay: index * 0.3,
+                      }}
+                    />
+                  </div>
+                </div>
+              </motion.div>
+            ))}
           </motion.div>
         </motion.div>
       </div>

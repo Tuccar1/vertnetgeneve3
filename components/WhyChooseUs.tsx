@@ -59,18 +59,18 @@ export default function WhyChooseUs() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-display font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-gray-900 mb-6 leading-[1.25]">
             Pourquoi Nous Choisir
           </h2>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+          <p className="text-base md:text-lg text-gray-600 max-w-3xl mx-auto leading-[1.7] mb-6">
             Chez nous, chaque client est une priorité. Basés à Genève, nous sommes fiers de contribuer au bien-être de notre communauté locale en offrant des services de nettoyage de qualité.
           </p>
-          <p className="text-xl font-semibold text-primary-600 mt-6">
+          <p className="text-lg md:text-xl font-semibold text-primary-600 mt-6 leading-[1.5]">
             Ensemble, bâtissons un environnement plus propre et plus fort!
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {reasons.map((reason, index) => {
             const IconComponent = reason.icon
             return (
@@ -81,16 +81,16 @@ export default function WhyChooseUs() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 whileHover={{ scale: 1.05 }}
-                className={`${reason.bgColor} rounded-xl p-8 shadow-lg hover:shadow-xl transition-all duration-300`}
+                className={`${reason.bgColor} rounded-xl p-6 md:p-8 shadow-lg hover:shadow-xl transition-all duration-300`}
               >
-                <div className={`w-16 h-16 rounded-xl ${reason.bgColor} flex items-center justify-center mb-6`}>
+                <div className={`w-14 h-14 md:w-16 md:h-16 rounded-xl ${reason.bgColor} flex items-center justify-center mb-6`}>
                   {/* @ts-ignore */}
-                  <IconComponent className={`w-8 h-8 ${reason.color}`} />
+                  <IconComponent className={`w-7 h-7 md:w-8 md:h-8 ${reason.color}`} />
                 </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-4">
+              <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-4 leading-[1.3]">
                 {reason.title}
               </h3>
-              <p className="text-gray-600 leading-relaxed">
+              <p className="text-base text-gray-600 leading-[1.7]">
                 {reason.description}
               </p>
             </motion.div>

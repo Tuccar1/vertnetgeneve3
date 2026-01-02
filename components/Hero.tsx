@@ -127,14 +127,14 @@ export default function Hero() {
           className="max-w-4xl mx-auto text-center"
         >
           <motion.div variants={itemVariants}>
-            <span className="inline-block px-6 py-3 bg-gradient-to-r from-primary-500/90 via-secondary-500/90 to-accent-500/90 backdrop-blur-md rounded-full text-white text-sm font-bold mb-6 shadow-xl border-2 border-white/30">
+            <span className="inline-block px-5 py-2.5 bg-gradient-to-r from-primary-500/90 via-secondary-500/90 to-accent-500/90 backdrop-blur-md rounded-full text-white text-sm font-bold mb-8 shadow-xl border-2 border-white/30">
               Excellence en Nettoyage Professionnel
             </span>
           </motion.div>
 
           <motion.h1
             variants={itemVariants}
-            className="text-4xl md:text-6xl font-display font-bold text-white mb-6 leading-tight drop-shadow-lg"
+            className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-white mb-6 leading-[1.2] drop-shadow-lg tracking-tight"
           >
             Votre Partenaire de{' '}
             <span className="bg-gradient-to-r from-primary-400 via-secondary-400 to-accent-400 bg-clip-text text-transparent">
@@ -144,7 +144,7 @@ export default function Hero() {
 
           <motion.p
             variants={itemVariants}
-            className="text-lg md:text-xl text-white/95 mb-8 leading-relaxed drop-shadow-md"
+            className="text-lg md:text-xl text-white/95 mb-10 leading-[1.7] drop-shadow-md max-w-2xl mx-auto"
           >
             Services de nettoyage professionnel de qualité supérieure pour les
             entreprises et particuliers à Genève. Disponible 24h/24 et 7j/7.
@@ -152,7 +152,7 @@ export default function Hero() {
 
           <motion.div
             variants={itemVariants}
-            className="flex flex-col sm:flex-row gap-4 justify-center mb-12"
+            className="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center mb-16"
           >
             <Link href="/booking" prefetch={true} className="btn-primary text-lg group">
               Demander un Devis
@@ -171,7 +171,7 @@ export default function Hero() {
           {/* Features - Premium Çerçeveli Kartlar */}
           <motion.div
             variants={itemVariants}
-            className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16"
+            className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mt-20"
           >
             {features.map((feature, index) => (
               <motion.div
@@ -191,7 +191,7 @@ export default function Hero() {
                 <div className={`absolute -inset-0.5 bg-gradient-to-r ${feature.gradient} rounded-2xl blur-sm opacity-60 group-hover:opacity-100 transition-opacity duration-300`}></div>
                 
                 {/* Ana Kart */}
-                <div className={`relative bg-gradient-to-br ${feature.bgGradient} backdrop-blur-xl rounded-2xl p-8 border-4 ${feature.borderColor} shadow-2xl transform transition-all duration-300`}>
+                <div className={`relative bg-gradient-to-br ${feature.bgGradient} backdrop-blur-xl rounded-2xl p-6 md:p-8 border-4 ${feature.borderColor} shadow-2xl transform transition-all duration-300`}>
                   {/* İç Glow */}
                   <div className={`absolute inset-0 bg-gradient-to-br ${feature.gradient} opacity-0 group-hover:opacity-10 rounded-2xl transition-opacity duration-300`}></div>
                   
@@ -207,7 +207,7 @@ export default function Hero() {
                     
                     {/* Text */}
                     <motion.p
-                      className={`text-center font-bold text-xl bg-gradient-to-r ${feature.gradient} bg-clip-text text-transparent mt-4`}
+                      className={`text-center font-bold text-lg md:text-xl bg-gradient-to-r ${feature.gradient} bg-clip-text text-transparent mt-6 leading-tight`}
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       transition={{ delay: index * 0.2 + 0.4 }}

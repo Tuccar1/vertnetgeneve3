@@ -89,15 +89,15 @@ export default function Services() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-display font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-gray-900 mb-6 leading-[1.25]">
             Nos Services
           </h2>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+          <p className="text-base md:text-lg text-gray-600 max-w-3xl mx-auto leading-[1.7]">
             Des solutions de nettoyage complètes adaptées à tous vos besoins professionnels et résidentiels
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {services.map((service, index) => {
             const IconComponent = service.icon
             return (
@@ -111,25 +111,25 @@ export default function Services() {
                 className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 group"
               >
                 <div className={`h-2 bg-gradient-to-r ${service.color}`}></div>
-                <div className="p-8">
-                  <div className={`w-16 h-16 rounded-xl bg-gradient-to-br ${service.color} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
+                <div className="p-6 md:p-8">
+                  <div className={`w-14 h-14 md:w-16 md:h-16 rounded-xl bg-gradient-to-br ${service.color} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
                     {/* @ts-ignore */}
-                    <IconComponent className="w-8 h-8 text-white" />
+                    <IconComponent className="w-7 h-7 md:w-8 md:h-8 text-white" />
                   </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-4 leading-[1.3]">
                   {service.title}
                 </h3>
-                <p className="text-gray-600 leading-relaxed mb-6">
+                <p className="text-base text-gray-600 leading-[1.7] mb-6">
                   {service.description}
                 </p>
                        <Link
                          href={service.href}
                          prefetch={true}
-                         className="inline-flex items-center text-primary-600 font-semibold hover:text-primary-700 transition-colors group/link"
+                         className="inline-flex items-center text-primary-600 font-semibold hover:text-primary-700 transition-colors group/link text-base leading-[1.5]"
                        >
                   En Savoir Plus
                   <svg
-                    className="w-5 h-5 ml-2 group-hover/link:translate-x-1 transition-transform"
+                    className="w-4 h-4 md:w-5 md:h-5 ml-2 group-hover/link:translate-x-1 transition-transform flex-shrink-0"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"

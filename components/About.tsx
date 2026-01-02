@@ -16,16 +16,16 @@ const FeatureCard = ({
   color: string
   bgColor: string
 }) => (
-  <div className="flex items-start space-x-4">
-    <div className={`p-3 rounded-lg ${bgColor}`}>
+      <div className="flex items-start space-x-4">
+    <div className={`p-3 rounded-lg ${bgColor} flex-shrink-0`}>
       {/* @ts-ignore */}
       <Icon className={`w-6 h-6 ${color}`} />
     </div>
     <div className="flex-1">
-      <h4 className="text-xl font-bold text-gray-900 mb-3">
+      <h4 className="text-lg md:text-xl font-bold text-gray-900 mb-3 leading-[1.3]">
         {title}
       </h4>
-      <p className="text-gray-600 leading-relaxed">
+      <p className="text-base text-gray-600 leading-[1.7]">
         {description}
       </p>
     </div>
@@ -76,18 +76,18 @@ export default function About() {
             transition={{ duration: 0.6 }}
             className="text-center mb-12"
           >
-            <h2 className="text-3xl md:text-4xl font-display font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-gray-900 mb-6 leading-[1.25]">
               À Propos de Notre Entreprise
             </h2>
-            <h3 className="text-2xl md:text-3xl font-display font-semibold text-primary-600 mb-6">
+            <h3 className="text-2xl md:text-3xl font-display font-semibold text-primary-600 mb-6 leading-[1.3]">
               L'excellence dans les Services de Nettoyage
             </h3>
-            <p className="text-lg text-gray-700 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-base md:text-lg text-gray-700 max-w-3xl mx-auto leading-[1.7]">
               Chez Genève Nettoyage, nous ne sommes pas seulement un prestataire de services de nettoyage—nous sommes votre partenaire de confiance pour maintenir un environnement propre, sain et durable. Notre mission est non seulement de répondre à vos attentes, mais de les dépasser à chaque visite.
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 gap-8 mb-16">
+          <div className="grid md:grid-cols-2 gap-6 md:gap-8 mb-16">
             {features.map((feature, index) => (
               <motion.div
                 key={index}
@@ -95,7 +95,7 @@ export default function About() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-shadow"
+                className="bg-white rounded-xl p-6 md:p-8 shadow-lg hover:shadow-xl transition-shadow"
               >
                 <FeatureCard {...feature} />
               </motion.div>
@@ -112,26 +112,26 @@ export default function About() {
             transition={{ duration: 0.6 }}
             className="bg-gradient-to-br from-primary-50 via-secondary-50 to-accent-50 rounded-2xl p-12 shadow-xl"
           >
-            <div className="text-center mb-8">
-              <h2 className="text-3xl md:text-4xl font-display font-bold text-gray-900 mb-4">
+            <div className="text-center mb-10">
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-gray-900 mb-6 leading-[1.25]">
                 Notre Entreprise
               </h2>
-              <h3 className="text-xl md:text-2xl font-display font-semibold text-primary-600 mb-6">
+              <h3 className="text-xl md:text-2xl font-display font-semibold text-primary-600 mb-6 leading-[1.3]">
                 Au cœur de Genève, pour un avenir plus propre
               </h3>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-8">
+            <div className="grid md:grid-cols-2 gap-8 md:gap-12">
               <div>
-                <p className="text-gray-700 text-lg leading-relaxed mb-6">
+                <p className="text-base md:text-lg text-gray-700 leading-[1.7] mb-8">
                   Notre entreprise, basée à Genève, se consacre à offrir des services de nettoyage respectueux à la fois de ses clients et de l'environnement. Fondée dans le but de créer un environnement plus propre, notre mission va au-delà du nettoyage : nous prenons part à la construction d'un avenir durable.
                 </p>
                 <div className="flex items-center space-x-3 mb-4">
                   {/* @ts-ignore */}
-                  <Target className="w-6 h-6 text-primary-600" />
-                  <h4 className="text-xl font-bold text-gray-900">Notre Vision</h4>
+                  <Target className="w-6 h-6 text-primary-600 flex-shrink-0" />
+                  <h4 className="text-lg md:text-xl font-bold text-gray-900 leading-[1.3]">Notre Vision</h4>
                 </div>
-                <p className="text-gray-600 leading-relaxed mb-6">
+                <p className="text-base text-gray-600 leading-[1.7] mb-6">
                   Devenir un leader dans la fourniture de solutions de nettoyage innovantes et durables à Genève et dans ses environs.
                 </p>
               </div>
@@ -139,14 +139,14 @@ export default function About() {
               <div>
                 <div className="flex items-center space-x-3 mb-4">
                   {/* @ts-ignore */}
-                  <Heart className="w-6 h-6 text-secondary-600" />
-                  <h4 className="text-xl font-bold text-gray-900">Notre Mission</h4>
+                  <Heart className="w-6 h-6 text-secondary-600 flex-shrink-0" />
+                  <h4 className="text-lg md:text-xl font-bold text-gray-900 leading-[1.3]">Notre Mission</h4>
                 </div>
-                <p className="text-gray-600 leading-relaxed mb-6">
+                <p className="text-base text-gray-600 leading-[1.7] mb-6">
                   Fournir à nos clients des services de nettoyage fiables et de qualité tout en adoptant un modèle d'affaires respectueux de la nature, contribuant ainsi à la société et à l'environnement.
                 </p>
                 <div className="bg-white/80 rounded-lg p-6">
-                  <p className="text-gray-700 font-semibold text-center">
+                  <p className="text-base md:text-lg text-gray-700 font-semibold text-center leading-[1.7]">
                     Ensemble, bâtissons un environnement plus propre et plus fort!
                   </p>
                 </div>

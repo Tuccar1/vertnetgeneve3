@@ -56,11 +56,11 @@ export default function Footer() {
                   <Sparkles className="w-6 h-6 text-white" />
                 </div>
                 <div>
-                  <h3 className="text-2xl font-display font-bold text-white">Genève Nettoyage</h3>
-                  <p className="text-xs text-gray-400">Excellence Professionnelle</p>
+                  <h3 className="text-xl md:text-2xl font-display font-bold text-white leading-[1.2]">Genève Nettoyage</h3>
+                  <p className="text-xs md:text-sm text-gray-400 leading-[1.4]">Excellence Professionnelle</p>
                 </div>
               </Link>
-              <p className="text-sm text-gray-400 leading-relaxed mb-6">
+              <p className="text-sm md:text-base text-gray-400 leading-[1.7] mb-6">
                 Excellence en nettoyage professionnel à Genève et en Suisse. Au cœur de Genève, pour un avenir plus propre.
               </p>
               
@@ -86,8 +86,8 @@ export default function Footer() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.1 }}
             >
-              <h4 className="text-lg font-bold text-white mb-6 flex items-center">
-                <span className="w-1 h-6 bg-gradient-to-b from-primary-500 to-accent-500 rounded-full mr-3"></span>
+              <h4 className="text-base md:text-lg font-bold text-white mb-6 flex items-center leading-[1.5]">
+                <span className="w-1 h-6 bg-gradient-to-b from-primary-500 to-accent-500 rounded-full mr-3 flex-shrink-0"></span>
                 Services
               </h4>
               <ul className="space-y-3">
@@ -96,9 +96,9 @@ export default function Footer() {
                     <Link
                       href={service.href}
                       prefetch={true}
-                      className="text-sm text-gray-400 hover:text-white transition-colors duration-200 flex items-center group"
+                      className="text-sm md:text-base text-gray-400 hover:text-white transition-colors duration-200 flex items-center group leading-[1.7]"
                     >
-                      <span className="w-1.5 h-1.5 bg-primary-500 rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                      <span className="w-1.5 h-1.5 bg-primary-500 rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0"></span>
                       <span className="group-hover:translate-x-1 transition-transform duration-200">
                         {service.name}
                       </span>
@@ -124,9 +124,10 @@ export default function Footer() {
                   <li key={index}>
                     <Link
                       href={item.href}
-                      className="text-sm text-gray-400 hover:text-white transition-colors duration-200 flex items-center group"
+                      prefetch={true}
+                      className="text-sm md:text-base text-gray-400 hover:text-white transition-colors duration-200 flex items-center group leading-[1.7]"
                     >
-                      <span className="w-1.5 h-1.5 bg-secondary-500 rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                      <span className="w-1.5 h-1.5 bg-secondary-500 rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0"></span>
                       <span className="group-hover:translate-x-1 transition-transform duration-200">
                         {item.name}
                       </span>
@@ -150,9 +151,9 @@ export default function Footer() {
               <div className="space-y-4">
                 <a
                   href="tel:+41772152255"
-                  className="flex items-center space-x-3 text-sm text-gray-400 hover:text-white transition-colors group"
+                  className="flex items-center space-x-3 text-sm md:text-base text-gray-400 hover:text-white transition-colors group leading-[1.7]"
                 >
-                  <div className="p-2 bg-accent-500/20 rounded-lg group-hover:bg-accent-500/30 transition-colors">
+                  <div className="p-2 bg-accent-500/20 rounded-lg group-hover:bg-accent-500/30 transition-colors flex-shrink-0">
                     {/* @ts-ignore */}
                     <Phone className="w-4 h-4 text-accent-400" />
                   </div>
@@ -160,16 +161,16 @@ export default function Footer() {
                 </a>
                 <a
                   href="mailto:info@genevenettoyage.ch"
-                  className="flex items-center space-x-3 text-sm text-gray-400 hover:text-white transition-colors group"
+                  className="flex items-center space-x-3 text-sm md:text-base text-gray-400 hover:text-white transition-colors group leading-[1.7]"
                 >
-                  <div className="p-2 bg-primary-500/20 rounded-lg group-hover:bg-primary-500/30 transition-colors">
+                  <div className="p-2 bg-primary-500/20 rounded-lg group-hover:bg-primary-500/30 transition-colors flex-shrink-0">
                     {/* @ts-ignore */}
                     <Mail className="w-4 h-4 text-primary-400" />
                   </div>
                   <span>info@genevenettoyage.ch</span>
                 </a>
-                <div className="flex items-start space-x-3 text-sm text-gray-400">
-                  <div className="p-2 bg-secondary-500/20 rounded-lg mt-0.5">
+                <div className="flex items-start space-x-3 text-sm md:text-base text-gray-400 leading-[1.7]">
+                  <div className="p-2 bg-secondary-500/20 rounded-lg mt-0.5 flex-shrink-0">
                     {/* @ts-ignore */}
                     <MapPin className="w-4 h-4 text-secondary-400" />
                   </div>
@@ -177,8 +178,8 @@ export default function Footer() {
                 </div>
 
                 {/* Social Media */}
-                <div className="pt-4">
-                  <p className="text-sm font-semibold text-white mb-3">Suivez-nous</p>
+                <div className="pt-6">
+                  <p className="text-sm md:text-base font-semibold text-white mb-4 leading-[1.5]">Suivez-nous</p>
                   <div className="flex space-x-3">
                     {socialLinks.map((social, index) => {
                       const IconComponent = social.icon
@@ -206,19 +207,19 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="border-t border-gray-800 py-8">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <p className="text-sm text-gray-500 text-center md:text-left">
+            <p className="text-sm md:text-base text-gray-500 text-center md:text-left leading-[1.7]">
               &copy; {new Date().getFullYear()} Genève Nettoyage. Tous droits réservés.
             </p>
-            <div className="flex flex-wrap items-center justify-center gap-4 text-sm text-gray-500">
-              <Link href="#" className="hover:text-white transition-colors">
+            <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6 text-sm md:text-base text-gray-500 leading-[1.7]">
+              <Link href="#" className="hover:text-white transition-colors leading-[1.7]">
                 Politique de Confidentialité
               </Link>
               <span className="text-gray-600">•</span>
-              <Link href="#" className="hover:text-white transition-colors">
+              <Link href="#" className="hover:text-white transition-colors leading-[1.7]">
                 Conditions d'Utilisation
               </Link>
               <span className="text-gray-600">•</span>
-              <Link href="#" className="hover:text-white transition-colors">
+              <Link href="#" className="hover:text-white transition-colors leading-[1.7]">
                 Mentions Légales
               </Link>
             </div>

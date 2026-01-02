@@ -39,7 +39,7 @@ export default function Navigation() {
       }`}
       >
       <div className="w-full overflow-x-hidden">
-        <div className="flex items-center justify-between h-14 gap-2 px-4 lg:px-6 xl:px-8 mx-auto w-full overflow-x-hidden">
+        <div className="flex items-center justify-between h-20 gap-2 px-4 lg:px-6 xl:px-8 mx-auto w-full overflow-x-hidden">
           {/* Logo - Daha Premium */}
           <Link href="/" className="flex items-center space-x-3 group flex-shrink-0">
             <motion.div
@@ -47,9 +47,9 @@ export default function Navigation() {
               whileTap={{ scale: 0.95 }}
               className="relative"
             >
-              <div className="w-10 h-10 bg-gradient-to-br from-primary-500 via-secondary-500 to-accent-500 rounded-lg flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 relative overflow-hidden">
+              <div className="w-12 h-12 bg-gradient-to-br from-primary-500 via-secondary-500 to-accent-500 rounded-lg flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 relative overflow-hidden">
                 {/* @ts-ignore */}
-                <Sparkles className="w-5 h-5 text-white relative z-10" />
+                <Sparkles className="w-6 h-6 text-white relative z-10" />
                 <motion.div
                   className="absolute inset-0 bg-gradient-to-br from-primary-400 to-accent-400 opacity-0 group-hover:opacity-100"
                   transition={{ duration: 0.3 }}
@@ -68,10 +68,10 @@ export default function Navigation() {
               />
             </motion.div>
             <div className="flex flex-col">
-              <span className="text-base md:text-lg font-display font-bold text-gray-900 leading-tight tracking-tight">
+              <span className="text-lg md:text-xl font-display font-bold text-gray-900 leading-tight tracking-tight">
                 Genève Nettoyage
               </span>
-              <span className="text-xs text-gray-500 font-medium hidden sm:block tracking-wide leading-tight">
+              <span className="text-xs md:text-sm text-gray-500 font-medium hidden sm:block tracking-wide leading-tight">
                 Excellence en Nettoyage Professionnel
               </span>
             </div>
@@ -84,7 +84,7 @@ export default function Navigation() {
                 key={item.href}
                 href={item.href}
                 prefetch={true}
-                className="relative px-2 py-1.5 text-gray-700 hover:text-primary-600 font-semibold text-xs transition-all duration-300 rounded-lg group whitespace-nowrap leading-tight"
+                className="relative px-2.5 py-2 text-gray-700 hover:text-primary-600 font-semibold text-sm transition-all duration-300 rounded-lg group whitespace-nowrap leading-tight"
               >
                 <span className="relative z-10">{item.label}</span>
                 <motion.span
@@ -113,14 +113,14 @@ export default function Navigation() {
                       {/* @ts-ignore */}
                       <Phone className="w-3 h-3 text-accent-600" />
               </div>
-              <span className="font-bold text-xs hidden xl:inline leading-tight">+41 77 215 22 55</span>
-              <span className="font-bold text-xs xl:hidden leading-tight">+41 77</span>
+              <span className="font-bold text-sm hidden xl:inline leading-tight">+41 77 215 22 55</span>
+              <span className="font-bold text-sm xl:hidden leading-tight">+41 77</span>
             </motion.a>
             
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="flex-shrink-0">
               <Link
                 href="/booking"
-                className="relative px-3 py-1.5 bg-gradient-to-r from-primary-500 via-secondary-500 to-accent-500 text-white rounded-lg font-bold text-xs shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group whitespace-nowrap flex items-center leading-tight"
+                className="relative px-3.5 py-2 bg-gradient-to-r from-primary-500 via-secondary-500 to-accent-500 text-white rounded-lg font-bold text-sm shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group whitespace-nowrap flex items-center leading-tight"
               >
                 <span className="relative z-10 flex items-center">
                         <span className="hidden xl:inline">Devis Gratuit</span>

@@ -18,10 +18,11 @@ export default function Navigation() {
   }, [])
 
   const navItems = [
-    { href: '#accueil', label: 'Accueil' },
-    { href: '#services', label: 'Services' },
-    { href: '#apropos', label: 'À Propos' },
-    { href: '#contact', label: 'Contact' },
+    { href: '/', label: 'Accueil' },
+    { href: '/services', label: 'Services' },
+    { href: '/a-propos', label: 'À Propos' },
+    { href: '/politique-de-qualite', label: 'Qualité' },
+    { href: '/contact', label: 'Contact' },
   ]
 
   return (

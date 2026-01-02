@@ -69,32 +69,30 @@ export default function Hero() {
       id="accueil"
       className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20"
       style={{ 
-        width: '100vw', 
-        maxWidth: '100vw', 
-        overflowX: 'hidden', 
-        left: '50%', 
-        right: 'auto',
-        marginLeft: '-50vw',
+        width: '100%', 
+        maxWidth: '100%', 
+        overflowX: 'hidden',
         position: 'relative',
       }}
     >
-      {/* Background Image - Professional Cleaning Service */}
+      {/* Background Image - Professional Cleaning Service - Fixed to escape scale */}
       <div 
-        className="absolute inset-0 z-0" 
+        className="absolute inset-0 z-0 hero-bg-container" 
         style={{ 
-          width: '100vw', 
-          left: '50%',
-          marginLeft: '-50vw',
-          right: 'auto',
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100vw',
+          height: '100vh',
+          zIndex: 0,
         }}
       >
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
             backgroundImage: 'url(https://images.unsplash.com/photo-1581578731548-c64695cc6952?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80)',
-            width: '100vw',
-            left: 0,
-            right: 0,
+            width: '100%',
+            height: '100%',
           }}
         >
           {/* Premium gradient overlay - Daha profesyonel tonlar */}

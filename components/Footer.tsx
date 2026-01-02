@@ -32,14 +32,14 @@ export default function Footer() {
   ]
 
   return (
-    <footer className="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-gray-300 relative" style={{ width: '100%', maxWidth: '100%', overflowX: 'hidden' }}>
+    <footer className="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-gray-300 relative w-full overflow-x-hidden">
       {/* Decorative Elements */}
-      <div className="absolute inset-0 opacity-10" style={{ overflow: 'hidden', width: '100%' }}>
+      <div className="absolute inset-0 opacity-10 overflow-hidden w-full">
         <div className="absolute top-0 left-0 w-96 h-96 bg-primary-500 rounded-full blur-3xl"></div>
         <div className="absolute bottom-0 right-0 w-96 h-96 bg-accent-500 rounded-full blur-3xl"></div>
       </div>
 
-      <div className="container mx-auto px-4 lg:px-6 relative z-10" style={{ maxWidth: '100%', width: '100%' }}>
+      <div className="container mx-auto px-4 lg:px-6 relative z-10">
         {/* Main Footer Content */}
         <div className="py-16">
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12">

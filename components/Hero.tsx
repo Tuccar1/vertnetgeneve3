@@ -67,13 +67,7 @@ export default function Hero() {
   return (
     <section
       id="accueil"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 bg-white"
-      style={{ 
-        width: '100%', 
-        maxWidth: '100%', 
-        overflowX: 'hidden',
-        position: 'relative',
-      }}
+      className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 bg-white w-full overflow-x-hidden"
     >
 
 

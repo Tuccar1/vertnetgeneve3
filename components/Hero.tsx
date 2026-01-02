@@ -75,15 +75,15 @@ export default function Hero() {
         position: 'relative',
       }}
     >
-      {/* Background Image - Professional Cleaning Service - Fixed to escape scale */}
+      {/* Background Image - Professional Cleaning Service */}
       <div 
-        className="absolute inset-0 z-0 hero-bg-container" 
+        className="absolute inset-0 z-0" 
         style={{ 
-          position: 'fixed',
+          position: 'absolute',
           top: 0,
           left: 0,
-          width: '100vw',
-          height: '100vh',
+          width: '100%',
+          height: '100%',
           zIndex: 0,
         }}
       >

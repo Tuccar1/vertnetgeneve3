@@ -53,14 +53,6 @@
       padding: 0;
     }
     
-    /* Hero section arka planını scale'dan bağımsız yap - fixed position */
-    .hero-bg-container {
-      transform: none !important;
-      width: 100vw !important;
-      left: 0 !important;
-      right: 0 !important;
-    }
-    
     /* Tüm section'ları scale içine al */
     body > div:first-child > * {
       position: relative;

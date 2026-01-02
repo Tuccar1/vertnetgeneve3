@@ -66,6 +66,21 @@ export default function RootLayout({
 }) {
   return (
     <html lang="fr" className="overflow-x-hidden" style={{ width: '100%', maxWidth: '100vw' }}>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                if (window.innerWidth >= 769) {
+                  var style = document.createElement('style');
+                  style.textContent = 'body > div:first-child { transform: scale(0.8) !important; transform-origin: top left !important; width: 125% !important; height: 125% !important; overflow-x: hidden !important; }';
+                  document.head.appendChild(style);
+                }
+              })();
+            `,
+          }}
+        />
+      </head>
       <body className="antialiased overflow-x-hidden" style={{ width: '100%', maxWidth: '100vw' }}>
         <GoogleAnalytics />
         <RouteProgressBar />

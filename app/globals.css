@@ -1,25 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800;900&display=swap');
 
-/* Critical CSS - Apply scale immediately to prevent FOUC - Must be before @tailwind */
-@media (min-width: 769px) {
-  body > div:first-child {
-    transform: scale(0.8) !important;
-    transform-origin: top left !important;
-    width: 125% !important;
-    height: 125% !important;
-    overflow-x: hidden !important;
-  }
-}
-
-@media (max-width: 768px) {
-  body > div:first-child {
-    transform: scale(1) !important;
-    width: 100% !important;
-    height: 100% !important;
-    overflow-x: hidden !important;
-  }
-}
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

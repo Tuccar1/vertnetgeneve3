@@ -76,13 +76,13 @@ export default function About() {
             transition={{ duration: 0.6 }}
             className="text-center mb-12"
           >
-            <h2 className="text-4xl md:text-5xl font-display font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl md:text-4xl font-display font-bold text-gray-900 mb-4">
               À Propos de Notre Entreprise
             </h2>
-            <h3 className="text-3xl md:text-4xl font-display font-semibold text-primary-600 mb-6">
+            <h3 className="text-2xl md:text-3xl font-display font-semibold text-primary-600 mb-6">
               L'excellence dans les Services de Nettoyage
             </h3>
-            <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-lg text-gray-700 max-w-3xl mx-auto leading-relaxed">
               Chez Genève Nettoyage, nous ne sommes pas seulement un prestataire de services de nettoyage—nous sommes votre partenaire de confiance pour maintenir un environnement propre, sain et durable. Notre mission est non seulement de répondre à vos attentes, mais de les dépasser à chaque visite.
             </p>
           </motion.div>
@@ -113,10 +113,10 @@ export default function About() {
             className="bg-gradient-to-br from-primary-50 via-secondary-50 to-accent-50 rounded-2xl p-12 shadow-xl"
           >
             <div className="text-center mb-8">
-              <h2 className="text-4xl md:text-5xl font-display font-bold text-gray-900 mb-4">
+              <h2 className="text-3xl md:text-4xl font-display font-bold text-gray-900 mb-4">
                 Notre Entreprise
               </h2>
-              <h3 className="text-2xl md:text-3xl font-display font-semibold text-primary-600 mb-6">
+              <h3 className="text-xl md:text-2xl font-display font-semibold text-primary-600 mb-6">
                 Au cœur de Genève, pour un avenir plus propre
               </h3>
             </div>

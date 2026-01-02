@@ -11,6 +11,13 @@
   
   body {
     @apply bg-silver-50 text-gray-900 font-sans antialiased;
+    zoom: 0.8; /* Sayfayı %80 boyutunda göster */
+  }
+  
+  @media (max-width: 768px) {
+    body {
+      zoom: 1; /* Mobilde normal boyut */
+    }
   }
 
   h1, h2, h3, h4, h5, h6 {

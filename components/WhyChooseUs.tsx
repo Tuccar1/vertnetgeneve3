@@ -59,13 +59,13 @@ export default function WhyChooseUs() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-display font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl md:text-4xl font-display font-bold text-gray-900 mb-4">
             Pourquoi Nous Choisir
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
             Chez nous, chaque client est une priorité. Basés à Genève, nous sommes fiers de contribuer au bien-être de notre communauté locale en offrant des services de nettoyage de qualité.
           </p>
-          <p className="text-2xl font-semibold text-primary-600 mt-6">
+          <p className="text-xl font-semibold text-primary-600 mt-6">
             Ensemble, bâtissons un environnement plus propre et plus fort!
           </p>
         </motion.div>

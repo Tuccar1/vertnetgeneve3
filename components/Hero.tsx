@@ -105,7 +105,7 @@ export default function Hero() {
 
           <motion.h1
             variants={itemVariants}
-            className="text-5xl md:text-7xl font-display font-bold text-white mb-6 leading-tight drop-shadow-lg"
+            className="text-4xl md:text-6xl font-display font-bold text-white mb-6 leading-tight drop-shadow-lg"
           >
             Votre Partenaire de{' '}
             <span className="bg-gradient-to-r from-secondary-400 to-secondary-500 bg-clip-text text-transparent">
@@ -115,7 +115,7 @@ export default function Hero() {
 
           <motion.p
             variants={itemVariants}
-            className="text-xl md:text-2xl text-white/95 mb-8 leading-relaxed drop-shadow-md"
+            className="text-lg md:text-xl text-white/95 mb-8 leading-relaxed drop-shadow-md"
           >
             Services de nettoyage professionnel de qualité supérieure pour les
             entreprises et particuliers à Genève. Disponible 24h/24 et 7j/7.

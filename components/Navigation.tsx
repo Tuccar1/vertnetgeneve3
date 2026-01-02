@@ -33,14 +33,14 @@ export default function Navigation() {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5, ease: 'easeOut' }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 overflow-x-hidden ${
         scrolled
           ? 'bg-primary-50/98 backdrop-blur-xl shadow-lg border-b border-primary-200'
           : 'bg-primary-50/80 backdrop-blur-md'
       }`}
     >
-      <div className="w-full">
-        <div className="flex items-center justify-between h-24 gap-2 px-4 lg:px-8 max-w-[1920px] mx-auto">
+      <div className="w-full overflow-x-hidden">
+        <div className="flex items-center justify-between h-24 gap-2 px-4 lg:px-6 xl:px-8 max-w-[1920px] mx-auto">
           {/* Logo - Daha Premium */}
           <Link href="/" className="flex items-center space-x-3 group flex-shrink-0">
             <motion.div
@@ -117,16 +117,16 @@ export default function Navigation() {
               <span className="font-bold text-xs xl:hidden">+41 77...</span>
             </motion.a>
             
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="flex-shrink-0">
               <Link
                 href="/booking"
-                className="relative px-4 py-2 bg-gradient-to-r from-primary-500 via-secondary-500 to-accent-500 text-white rounded-lg font-bold text-xs shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group whitespace-nowrap"
+                className="relative px-3 py-2 bg-gradient-to-r from-primary-500 via-secondary-500 to-accent-500 text-white rounded-lg font-bold text-xs shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group whitespace-nowrap flex items-center"
               >
                 <span className="relative z-10 flex items-center">
                   <span className="hidden xl:inline">Devis Gratuit</span>
                   <span className="xl:hidden">Devis</span>
                   {/* @ts-ignore */}
-                  <ArrowRight className="w-3.5 h-3.5 ml-1" />
+                  <ArrowRight className="w-3 h-3 ml-1 flex-shrink-0" />
                 </span>
                 <motion.div
                   className="absolute inset-0 bg-gradient-to-r from-primary-600 via-secondary-600 to-accent-600"

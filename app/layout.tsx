@@ -2,9 +2,8 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'Vernetgeneve - Excellence en Nettoyage Professionnel',
-  description: 'Services de nettoyage professionnel de qualité supérieure à Genève et en Suisse. Nettoyage commercial, résidentiel, médical et industriel.',
-  keywords: 'nettoyage, Genève, Suisse, nettoyage professionnel, nettoyage commercial',
+  title: 'Vernetgeneve - Test Site',
+  description: 'Simple test site for Vernetgeneve',
 }
 
 export default function RootLayout({

@@ -40,7 +40,7 @@ export default function Navigation() {
       className="fixed top-0 left-0 right-0 z-50 w-full overflow-x-hidden"
       >
       <div className="w-full overflow-x-hidden">
-        <div className="flex items-center justify-between h-24 gap-2 px-4 lg:px-6 xl:px-8 mx-auto w-full overflow-x-hidden">
+        <div className="flex items-center justify-between h-16 gap-2 px-4 lg:px-6 xl:px-8 mx-auto w-full overflow-x-hidden">
           {/* Logo - Daha Premium */}
           <Link href="/" className="flex items-center space-x-3 group flex-shrink-0">
             <motion.div
@@ -110,9 +110,9 @@ export default function Navigation() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              <div className="p-1.5 bg-gradient-to-br from-accent-50 to-accent-100 rounded-lg group-hover:from-accent-100 group-hover:to-accent-200 transition-all duration-300 shadow-sm group-hover:shadow-md">
-                {/* @ts-ignore */}
-                <Phone className="w-3.5 h-3.5 text-accent-600" />
+                    <div className="p-1 bg-gradient-to-br from-accent-50 to-accent-100 rounded-lg group-hover:from-accent-100 group-hover:to-accent-200 transition-all duration-300 shadow-sm group-hover:shadow-md">
+                      {/* @ts-ignore */}
+                      <Phone className="w-3 h-3 text-accent-600" />
               </div>
               <span className="font-bold text-sm hidden xl:inline leading-[1.5]">+41 77 215 22 55</span>
               <span className="font-bold text-sm xl:hidden leading-[1.5]">+41 77...</span>
@@ -124,10 +124,10 @@ export default function Navigation() {
                 className="relative px-4 py-2.5 bg-gradient-to-r from-primary-500 via-secondary-500 to-accent-500 text-white rounded-lg font-bold text-sm shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group whitespace-nowrap flex items-center leading-[1.5]"
               >
                 <span className="relative z-10 flex items-center">
-                  <span className="hidden xl:inline">Devis Gratuit</span>
-                  <span className="xl:hidden">Devis</span>
-                  {/* @ts-ignore */}
-                  <ArrowRight className="w-3 h-3 ml-1 flex-shrink-0" />
+                        <span className="hidden xl:inline">Devis Gratuit</span>
+                        <span className="xl:hidden">Devis</span>
+                        {/* @ts-ignore */}
+                        <ArrowRight className="w-2.5 h-2.5 ml-1 flex-shrink-0" />
                 </span>
                 <motion.div
                   className="absolute inset-0 bg-gradient-to-r from-primary-600 via-secondary-600 to-accent-600"
@@ -140,38 +140,38 @@ export default function Navigation() {
           </div>
 
           {/* Mobile Menu Button */}
-          <motion.button
-            className="lg:hidden text-gray-700 p-2.5 rounded-xl hover:bg-primary-100 transition-colors"
-            onClick={() => setIsOpen(!isOpen)}
-            aria-label="Toggle menu"
-            whileTap={{ scale: 0.9 }}
-          >
-            <AnimatePresence mode="wait">
-              {isOpen ? (
-                <motion.div
-                  key="close"
-                  initial={{ rotate: -90, opacity: 0 }}
-                  animate={{ rotate: 0, opacity: 1 }}
-                  exit={{ rotate: 90, opacity: 0 }}
-                  transition={{ duration: 0.2 }}
+                <motion.button
+                  className="lg:hidden text-gray-700 p-2 rounded-lg hover:bg-primary-100 transition-colors"
+                  onClick={() => setIsOpen(!isOpen)}
+                  aria-label="Toggle menu"
+                  whileTap={{ scale: 0.9 }}
                 >
-                  {/* @ts-ignore */}
-                  <X className="w-6 h-6" />
-                </motion.div>
-              ) : (
-                <motion.div
-                  key="menu"
-                  initial={{ rotate: 90, opacity: 0 }}
-                  animate={{ rotate: 0, opacity: 1 }}
-                  exit={{ rotate: -90, opacity: 0 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  {/* @ts-ignore */}
-                  <Menu className="w-6 h-6" />
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </motion.button>
+                  <AnimatePresence mode="wait">
+                    {isOpen ? (
+                      <motion.div
+                        key="close"
+                        initial={{ rotate: -90, opacity: 0 }}
+                        animate={{ rotate: 0, opacity: 1 }}
+                        exit={{ rotate: 90, opacity: 0 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        {/* @ts-ignore */}
+                        <X className="w-5 h-5" />
+                      </motion.div>
+                    ) : (
+                      <motion.div
+                        key="menu"
+                        initial={{ rotate: 90, opacity: 0 }}
+                        animate={{ rotate: 0, opacity: 1 }}
+                        exit={{ rotate: -90, opacity: 0 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        {/* @ts-ignore */}
+                        <Menu className="w-5 h-5" />
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </motion.button>
         </div>
 
         {/* Mobile Menu - Daha Premium */}

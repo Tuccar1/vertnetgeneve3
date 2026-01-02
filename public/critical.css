@@ -1,4 +1,4 @@
-/* Critical CSS - Load immediately */
+/* Critical CSS - Load immediately - Highest priority */
 @media (min-width: 769px) {
   body > div:first-child {
     transform: scale(0.8) !important;
@@ -6,6 +6,9 @@
     width: 125% !important;
     height: 125% !important;
     overflow-x: hidden !important;
+    position: relative !important;
+    margin: 0 !important;
+    padding: 0 !important;
   }
 }
 

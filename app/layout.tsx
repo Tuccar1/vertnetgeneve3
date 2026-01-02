@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import './globals.css'
-import Navigation from '@/components/Navigation'
 
 export const metadata: Metadata = {
   title: 'Vernetgeneve - Excellence en Nettoyage Professionnel',
@@ -23,7 +22,6 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <body className="antialiased">
-        <Navigation />
         {children}
       </body>
     </html>

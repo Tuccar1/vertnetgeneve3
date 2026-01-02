@@ -48,8 +48,6 @@ export default function Hero() {
           {/* Darker overlay for better text readability */}
           <div className="absolute inset-0 bg-gradient-to-br from-silver-900/85 via-silver-800/75 to-silver-900/85"></div>
         </div>
-        {/* Overlay Pattern */}
-        <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-5"></div>
       </div>
 
       {/* Floating Shapes - Mavi, Yeşil, Sarı */}

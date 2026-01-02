@@ -22,7 +22,6 @@ export default function Navigation() {
     { href: '/services', label: 'Services' },
     { href: '/a-propos', label: 'À Propos' },
     { href: '/blog', label: 'Blog' },
-    { href: '/portfolio', label: 'Portfolio' },
     { href: '/politique-de-qualite', label: 'Qualité' },
     { href: '/reglement-securite', label: 'Règlement' },
     { href: '/contact', label: 'Contact' },

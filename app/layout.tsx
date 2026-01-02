@@ -122,7 +122,7 @@ export default function RootLayout({
       </head>
       <body className="antialiased overflow-x-hidden" style={{ width: '100%', maxWidth: '100vw' }}>
         {/* SEO: Genève yerleşim yerleri - görünmez ama Google'da çıkacak */}
-        <div className="sr-only">
+        <div style={{ position: 'absolute', width: '1px', height: '1px', padding: 0, margin: '-1px', overflow: 'hidden', clip: 'rect(0, 0, 0, 0)', whiteSpace: 'nowrap', borderWidth: 0 }}>
           <h1>Nettoyage Genève - Services de nettoyage professionnel à Genève</h1>
           <p>Genève nettoyage, Genève temizlik, Genève çatı temizliği, Genève vitre temizliği, Genève façade nettoyage, Genève fin de bail, Genève fin de chantier, Genève conciergerie, Genève bureaux nettoyage, Genève immeubles nettoyage, Genève canapés nettoyage, Genève matelas nettoyage, Genève toiture nettoyage, Genève nettoyage professionnel, Genève nettoyage commercial, Genève nettoyage résidentiel, nettoyage entreprise Genève, société de nettoyage Genève, entreprise nettoyage Genève, service nettoyage Genève, nettoyage Genève prix, devis nettoyage Genève, nettoyage Genève 24h, nettoyage Genève pas cher, meilleur nettoyage Genève, nettoyage écologique Genève, nettoyage bio Genève</p>
         </div>

@@ -154,13 +154,14 @@ export default function Hero() {
             variants={itemVariants}
             className="flex flex-col sm:flex-row gap-4 justify-center mb-12"
           >
-            <Link href="/contact" className="btn-primary text-lg group">
+            <Link href="/booking" prefetch={true} className="btn-primary text-lg group">
               Demander un Devis
               {/* @ts-ignore */}
               <ArrowRight className="inline-block ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Link>
             <Link
               href="/services"
+              prefetch={true}
               className="px-6 py-3 border-2 border-white text-white rounded-lg font-semibold text-lg hover:bg-white hover:text-gray-900 transition-all duration-300 backdrop-blur-sm"
             >
               Nos Services

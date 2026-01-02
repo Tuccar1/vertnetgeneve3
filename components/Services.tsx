@@ -122,10 +122,11 @@ export default function Services() {
                 <p className="text-gray-600 leading-relaxed mb-6">
                   {service.description}
                 </p>
-                <Link
-                  href={service.href}
-                  className="inline-flex items-center text-primary-600 font-semibold hover:text-primary-700 transition-colors group/link"
-                >
+                       <Link
+                         href={service.href}
+                         prefetch={true}
+                         className="inline-flex items-center text-primary-600 font-semibold hover:text-primary-700 transition-colors group/link"
+                       >
                   En Savoir Plus
                   <svg
                     className="w-5 h-5 ml-2 group-hover/link:translate-x-1 transition-transform"

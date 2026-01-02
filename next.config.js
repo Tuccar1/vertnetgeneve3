@@ -14,6 +14,10 @@ const nextConfig = {
   // Performance optimizations
   compress: true,
   poweredByHeader: false,
+  // Optimize package imports
+  experimental: {
+    optimizePackageImports: ['framer-motion', 'lucide-react'],
+  },
   // Security headers
   async headers() {
     return [

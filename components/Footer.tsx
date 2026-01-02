@@ -95,6 +95,7 @@ export default function Footer() {
                   <li key={index}>
                     <Link
                       href={service.href}
+                      prefetch={true}
                       className="text-sm text-gray-400 hover:text-white transition-colors duration-200 flex items-center group"
                     >
                       <span className="w-1.5 h-1.5 bg-primary-500 rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity"></span>

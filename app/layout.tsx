@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import GoogleAnalytics from '@/components/GoogleAnalytics'
+import RouteProgressBar from '@/components/RouteProgressBar'
 
 export const metadata: Metadata = {
   title: {
@@ -63,6 +64,7 @@ export default function RootLayout({
     <html lang="fr">
       <body className="antialiased">
         <GoogleAnalytics />
+        <RouteProgressBar />
         {children}
       </body>
     </html>

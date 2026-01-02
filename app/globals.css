@@ -28,7 +28,7 @@
     position: relative;
   }
 
-  /* Ana container için scale uygula - sadece desktop */
+  /* Ana container için scale uygula - sadece desktop - CSS ile hemen uygula */
   @media (min-width: 769px) {
     html {
       overflow-x: hidden;
@@ -42,15 +42,16 @@
       max-width: 100vw;
     }
     
+    /* Next.js root div'ine hemen scale uygula */
     body > div:first-child {
-      transform: scale(0.8);
-      transform-origin: top left;
-      width: 125%;
-      height: 125%;
+      transform: scale(0.8) !important;
+      transform-origin: top left !important;
+      width: 125% !important;
+      height: 125% !important;
       overflow-x: hidden !important;
-      position: relative;
-      margin: 0;
-      padding: 0;
+      position: relative !important;
+      margin: 0 !important;
+      padding: 0 !important;
     }
     
     /* Tüm section'ları scale içine al */
@@ -75,9 +76,9 @@
   
   @media (max-width: 768px) {
     body > div:first-child {
-      transform: scale(1);
-      width: 100%;
-      height: 100%;
+      transform: scale(1) !important;
+      width: 100% !important;
+      height: 100% !important;
       overflow-x: hidden !important;
     }
   }

@@ -132,24 +132,24 @@ export default function Hero() {
           className="max-w-4xl mx-auto text-center"
         >
           <motion.div variants={itemVariants}>
-            <span className="inline-block px-5 py-2.5 bg-gradient-to-r from-primary-500/90 via-secondary-500/90 to-accent-500/90 backdrop-blur-md rounded-full text-white text-sm font-bold mb-8 shadow-xl border-2 border-white/30">
+            <span className="inline-block px-6 py-3 bg-white/95 backdrop-blur-md rounded-full text-primary-700 text-sm font-bold mb-8 shadow-2xl border border-primary-200">
               Excellence en Nettoyage Professionnel
             </span>
           </motion.div>
 
           <motion.h1
             variants={itemVariants}
-            className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-white mb-6 leading-[1.2] drop-shadow-lg tracking-tight"
+            className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-white mb-6 leading-[1.2] drop-shadow-2xl tracking-tight"
           >
             Votre Partenaire de{' '}
-            <span className="bg-gradient-to-r from-primary-400 via-secondary-400 to-accent-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-primary-300 via-secondary-300 to-accent-300 bg-clip-text text-transparent drop-shadow-lg">
               Confiance
             </span>
           </motion.h1>
 
           <motion.p
             variants={itemVariants}
-            className="text-lg md:text-xl text-white/95 mb-10 leading-[1.7] drop-shadow-md max-w-2xl mx-auto"
+            className="text-lg md:text-xl text-white/98 mb-10 leading-[1.7] drop-shadow-lg max-w-2xl mx-auto font-medium"
           >
             Services de nettoyage professionnel de qualité supérieure pour les
             entreprises et particuliers à Genève. Disponible 24h/24 et 7j/7.

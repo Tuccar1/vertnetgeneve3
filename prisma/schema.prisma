@@ -1,0 +1,118 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  name          String?
+  password      String?
+  role          Role      @default(USER)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  bookings      Booking[]
+  quotes        Quote[]
+}
+
+model Service {
+  id          String    @id @default(cuid())
+  title       String
+  titleFr     String
+  description String
+  descriptionFr String
+  icon        String?
+  image       String?
+  price       Float?
+  priceUnit   String?
+  category    Category
+  isActive    Boolean   @default(true)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  bookings    Booking[]
+  quotes      QuoteItem[]
+}
+
+model Booking {
+  id          String    @id @default(cuid())
+  userId      String?
+  user        User?     @relation(fields: [userId], references: [id])
+  serviceId   String
+  service     Service   @relation(fields: [serviceId], references: [id])
+  date        DateTime
+  time        String
+  address     String
+  city        String
+  postalCode  String
+  phone       String
+  email       String
+  notes       String?
+  status      BookingStatus @default(PENDING)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Quote {
+  id          String    @id @default(cuid())
+  userId      String?
+  user        User?     @relation(fields: [userId], references: [id])
+  name        String
+  email       String
+  phone       String
+  address     String
+  city        String
+  postalCode  String
+  totalPrice  Float
+  status      QuoteStatus @default(PENDING)
+  items       QuoteItem[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model QuoteItem {
+  id          String    @id @default(cuid())
+  quoteId    String
+  quote      Quote     @relation(fields: [quoteId], references: [id], onDelete: Cascade)
+  serviceId  String
+  service    Service   @relation(fields: [serviceId], references: [id])
+  quantity   Int       @default(1)
+  price      Float
+  createdAt   DateTime  @default(now())
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum Category {
+  COMMERCIAL
+  RESIDENTIAL
+  MEDICAL
+  INDUSTRIAL
+  WINDOWS
+  POST_CONSTRUCTION
+}
+
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+enum QuoteStatus {
+  PENDING
+  SENT
+  ACCEPTED
+  REJECTED
+}
+

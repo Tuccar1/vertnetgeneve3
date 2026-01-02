@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Sofa, Home, Building2, Briefcase, Roofing, Window, Building, Wrench, Concierge } from 'lucide-react'
+import { Sofa, Home, Building2, Briefcase, Roofing, Window, Building, Wrench, Key } from 'lucide-react'
 import Link from 'next/link'
 
 interface Service {
@@ -35,7 +35,7 @@ const services: Service[] = [
     color: 'from-accent-500 to-accent-600',
   },
   {
-    icon: Concierge,
+    icon: Key,
     title: 'Conciergerie',
     description: 'Bénéficiez de nos services de conciergerie, conçus pour simplifier votre quotidien et maintenir vos espaces toujours propres et agréables.',
     href: '#conciergerie',

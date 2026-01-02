@@ -76,44 +76,6 @@ export default function Hero() {
       }}
     >
 
-      {/* Floating Shapes - Mavi, Yeşil, Sarı */}
-      <div className="absolute inset-0 overflow-hidden z-10">
-        <motion.div
-          className="absolute top-20 left-10 w-72 h-72 bg-accent-300 rounded-full mix-blend-multiply filter blur-xl opacity-15"
-          animate={{
-            y: [0, -20, 0],
-            x: [0, 10, 0],
-          }}
-          transition={{
-            duration: 6,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          }}
-        />
-        <motion.div
-          className="absolute top-40 right-10 w-72 h-72 bg-primary-300 rounded-full mix-blend-multiply filter blur-xl opacity-15"
-          animate={{
-            y: [0, 20, 0],
-            x: [0, -10, 0],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          }}
-        />
-        <motion.div
-          className="absolute bottom-20 left-1/2 w-72 h-72 bg-secondary-300 rounded-full mix-blend-multiply filter blur-xl opacity-15"
-          animate={{
-            y: [0, -15, 0],
-          }}
-          transition={{
-            duration: 7,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          }}
-        />
-      </div>
 
       {/* Content */}
       <div className="container mx-auto px-4 relative z-20" style={{ maxWidth: '100%', width: '100%' }}>
@@ -159,7 +121,7 @@ export default function Hero() {
             <Link
               href="/services"
               prefetch={true}
-              className="px-6 py-3 border-2 border-primary-600 text-primary-700 rounded-lg font-semibold text-lg hover:bg-primary-600 hover:text-white transition-all duration-300"
+              className="px-6 py-3 border-2 border-gray-900 text-gray-900 rounded-lg font-semibold text-lg hover:bg-gray-900 hover:text-white transition-all duration-300"
             >
               Nos Services
             </Link>

@@ -65,6 +65,7 @@ export default function Hero() {
     <section
       id="accueil"
       className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20"
+      style={{ width: '100%', maxWidth: '100%', overflowX: 'hidden' }}
     >
       {/* Background Image - Window Cleaner on High-Rise Building */}
       <div className="absolute inset-0 z-0">

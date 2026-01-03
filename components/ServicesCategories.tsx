@@ -51,23 +51,23 @@ const categories = [
 
 export default function ServicesCategories() {
   return (
-    <section className="py-20 bg-gradient-to-br from-primary-50 via-secondary-50 to-accent-50 min-h-screen pt-28">
+    <section className="py-15 bg-gradient-to-br from-primary-50 via-secondary-50 to-accent-50 min-h-screen pt-28">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-12"
         >
-          <h1 className="text-4xl md:text-5xl font-display font-bold text-gray-900 mb-4">
+          <h1 className="text-3xl md:text-4xl font-display font-bold text-gray-900 mb-3">
             Nos Services
           </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
             Des solutions de nettoyage professionnel adaptées à tous vos besoins
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-8 mb-16">
+        <div className="grid md:grid-cols-3 gap-6 mb-12">
           {categories.map((category, index) => {
             const IconComponent = category.icon
             return (
@@ -84,32 +84,32 @@ export default function ServicesCategories() {
                 {/* Card */}
                 <div className={`relative bg-gradient-to-br ${category.bgColor} backdrop-blur-xl rounded-2xl overflow-hidden border-4 ${category.borderColor} shadow-2xl h-full`}>
                   {/* Category Image */}
-                  <div className="relative h-48 overflow-hidden">
+                  <div className="relative h-36 overflow-hidden">
                     <img
                       src={category.image}
                       alt={category.title}
                       className="w-full h-full object-cover"
                     />
                     <div className={`absolute inset-0 bg-gradient-to-t ${category.color} opacity-60`}></div>
-                    <div className={`absolute top-4 left-4 w-12 h-12 rounded-lg bg-white/90 backdrop-blur-sm flex items-center justify-center shadow-lg`}>
+                    <div className={`absolute top-3 left-3 w-9 h-9 rounded-lg bg-white/90 backdrop-blur-sm flex items-center justify-center shadow-lg`}>
                       {/* @ts-ignore */}
-                      <IconComponent className="w-6 h-6 text-gray-900" />
+                      <IconComponent className="w-4 h-4 text-gray-900" />
                     </div>
                   </div>
                   
-                  <div className="p-8">
-                    <h2 className="text-2xl font-bold text-gray-900 mb-3">{category.title}</h2>
-                    <p className="text-gray-600 mb-6">{category.description}</p>
+                  <div className="p-6">
+                    <h2 className="text-xl font-bold text-gray-900 mb-2">{category.title}</h2>
+                    <p className="text-gray-600 mb-4 text-sm">{category.description}</p>
                     
-                    <ul className="space-y-3">
+                    <ul className="space-y-2">
                       {category.services.map((service, serviceIndex) => (
                         <li key={serviceIndex}>
                           <Link
                             href={`/services/${service.slug}`}
-                            className="flex items-center gap-3 p-3 rounded-lg hover:bg-white/50 transition-all group/item"
+                            className="flex items-center gap-2 p-2 rounded-lg hover:bg-white/50 transition-all group/item"
                           >
                             {/* Service Thumbnail */}
-                            <div className="flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden">
+                            <div className="flex-shrink-0 w-12 h-12 rounded-lg overflow-hidden">
                               <img
                                 src={service.image}
                                 alt={service.name}
@@ -117,11 +117,11 @@ export default function ServicesCategories() {
                               />
                             </div>
                             <div className="flex-1 min-w-0">
-                              <span className="font-semibold text-gray-900 block">{service.name}</span>
-                              <p className="text-sm text-gray-600">{service.description}</p>
+                              <span className="font-semibold text-gray-900 block text-sm">{service.name}</span>
+                              <p className="text-xs text-gray-600">{service.description}</p>
                             </div>
                             {/* @ts-ignore */}
-                            <ArrowRight className="w-5 h-5 text-gray-400 group-hover/item:text-primary-600 group-hover/item:translate-x-1 transition-all flex-shrink-0" />
+                            <ArrowRight className="w-4 h-4 text-gray-400 group-hover/item:text-primary-600 group-hover/item:translate-x-1 transition-all flex-shrink-0" />
                           </Link>
                         </li>
                       ))}

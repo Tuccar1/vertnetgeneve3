@@ -50,46 +50,46 @@ export default function Contact() {
   ]
 
   return (
-    <section id="contact" className="py-20 bg-[#f8f9fa] text-gray-900 w-full overflow-x-hidden">
+    <section id="contact" className="py-16 bg-[#f8f9fa] text-gray-900 w-full overflow-x-hidden">
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 leading-[1.25] text-gray-900">
+          <div className="text-center mb-8">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 leading-[1.25] text-gray-900">
               Contactez-Nous
             </h2>
-            <p className="text-base md:text-lg text-gray-600 leading-[1.7]">
+            <p className="text-sm md:text-base text-gray-600 leading-[1.7]">
               Obtenez un devis gratuit et personnalisé
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8 md:gap-12">
             <div>
-              <h3 className="text-xl md:text-2xl font-bold mb-8 leading-[1.3] text-gray-900">Informations de Contact</h3>
-              <div className="space-y-4">
+              <h3 className="text-lg md:text-xl font-bold mb-6 leading-[1.3] text-gray-900">Informations de Contact</h3>
+              <div className="space-y-3">
                 {contactItems.map((item, index) => {
                   const IconComponent = item.icon
                   const content = (
-                    <div className="flex items-start bg-white border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
-                      <div className={`${item.color} mr-4 flex-shrink-0`}>
+                    <div className="flex items-start bg-white border border-gray-200 rounded-lg p-3 hover:shadow-md transition-shadow">
+                      <div className="text-primary-600 mr-3 flex-shrink-0">
                         {/* @ts-ignore */}
-                        <IconComponent className="w-5 h-5" />
+                        <IconComponent className="w-4 h-4" />
                       </div>
                       <div className="flex-1">
-                        <h4 className="font-bold mb-1 text-base leading-[1.5] text-gray-900">{item.title}</h4>
+                        <h4 className="font-bold mb-1 text-sm leading-[1.5] text-gray-900">{item.title}</h4>
                         {item.link ? (
                           <a
                             href={item.link}
                             target={item.link.startsWith('http') ? '_blank' : undefined}
                             rel={item.link.startsWith('http') ? 'noopener noreferrer' : undefined}
-                            className="text-gray-600 hover:text-primary-600 transition text-base leading-[1.7]"
+                            className="text-gray-600 hover:text-primary-600 transition text-sm leading-[1.7]"
                           >
                             {item.content}
                           </a>
                         ) : (
-                          <p className="text-gray-600 text-base leading-[1.7]">{item.content}</p>
+                          <p className="text-gray-600 text-sm leading-[1.7]">{item.content}</p>
                         )}
                         {item.subContent && (
-                          <p className="text-gray-500 text-sm mt-1 leading-[1.5]">{item.subContent}</p>
+                          <p className="text-gray-500 text-xs mt-1 leading-[1.5]">{item.subContent}</p>
                         )}
                       </div>
                     </div>
@@ -99,40 +99,40 @@ export default function Contact() {
               </div>
             </div>
 
-            <div className="bg-white border border-gray-200 rounded-xl p-6 md:p-8">
-              <h3 className="text-xl md:text-2xl font-bold mb-8 leading-[1.3] text-gray-900">Demander un Devis</h3>
+            <div className="bg-white border border-gray-200 rounded-xl p-5 md:p-6">
+              <h3 className="text-lg md:text-xl font-bold mb-6 leading-[1.3] text-gray-900">Demander un Devis</h3>
               <form className="space-y-5">
                 <div>
                   <input
                     type="text"
                     placeholder="Nom complet"
-                    className="w-full px-4 py-3.5 rounded-lg bg-white border border-gray-200 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-base leading-[1.5]"
+                    className="w-full px-3 py-2.5 rounded-lg bg-white border border-gray-200 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm leading-[1.5]"
                   />
                 </div>
                 <div>
                   <input
                     type="email"
                     placeholder="Email"
-                    className="w-full px-4 py-3.5 rounded-lg bg-white border border-gray-200 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-base leading-[1.5]"
+                    className="w-full px-3 py-2.5 rounded-lg bg-white border border-gray-200 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm leading-[1.5]"
                   />
                 </div>
                 <div>
                   <input
                     type="tel"
                     placeholder="Téléphone"
-                    className="w-full px-4 py-3.5 rounded-lg bg-white border border-gray-200 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-base leading-[1.5]"
+                    className="w-full px-3 py-2.5 rounded-lg bg-white border border-gray-200 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm leading-[1.5]"
                   />
                 </div>
                 <div>
                   <textarea
                     placeholder="Message"
                     rows={4}
-                    className="w-full px-4 py-3.5 rounded-lg bg-white border border-gray-200 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 resize-none text-base leading-[1.7]"
+                    className="w-full px-3 py-2.5 rounded-lg bg-white border border-gray-200 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 resize-none text-sm leading-[1.7]"
                   />
                 </div>
                 <button
                   type="submit"
-                  className="w-full bg-primary-600 text-white px-8 py-3.5 rounded-lg font-semibold hover:bg-primary-700 transition shadow-lg hover:shadow-xl text-base leading-[1.5]"
+                  className="w-full bg-primary-600 text-white px-6 py-2.5 rounded-lg font-semibold hover:bg-primary-700 transition shadow-lg hover:shadow-xl text-sm leading-[1.5]"
                 >
                   Envoyer la Demande
                 </button>

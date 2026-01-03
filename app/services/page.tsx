@@ -9,9 +9,11 @@ export const metadata = {
 
 export default function ServicesPage() {
   return (
-    <div className="services-page-wrapper">
+    <div className="services-page-wrapper w-full overflow-x-hidden min-h-screen flex flex-col relative">
       <Navigation />
-      <ServicesCategories />
+      <main className="flex-1 flex flex-col">
+        <ServicesCategories />
+      </main>
       <Footer />
     </div>
   )

@@ -5,7 +5,7 @@ import { MapPin, Phone, Mail, Globe, MessageCircle, Clock } from 'lucide-react'
 
 export default function ContactPage() {
   return (
-    <div className="min-h-screen pt-0">
+    <div className="min-h-screen pt-28">
       {/* Hero Section */}
       <section className="relative py-20 bg-gradient-to-br from-primary-600 via-secondary-600 to-accent-600 text-white overflow-hidden">
         <div className="absolute inset-0 opacity-20">

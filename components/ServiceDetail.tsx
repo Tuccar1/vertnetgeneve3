@@ -11,7 +11,7 @@ interface ServiceDetailProps {
 
 export default function ServiceDetail({ service }: ServiceDetailProps) {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen pt-28">
       {/* Hero Section */}
       <section className={`relative py-20 bg-gradient-to-br ${service.bgColor} overflow-hidden`}>
         <div className="absolute inset-0 opacity-10">

@@ -95,7 +95,7 @@ export default function PortfolioGallery() {
   }
 
   return (
-    <div className="min-h-screen pt-0">
+    <div className="min-h-screen pt-28">
       {/* Hero Section */}
       <section className="relative py-20 bg-gradient-to-br from-primary-50 via-secondary-50 to-accent-50 overflow-hidden">
         <div className="absolute inset-0 opacity-10">

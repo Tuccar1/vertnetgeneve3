@@ -114,18 +114,42 @@ export default function Hero() {
             variants={itemVariants}
             className="flex flex-col sm:flex-row gap-5 md:gap-7 justify-center mb-20"
           >
-            <Link href="/booking" prefetch={true} className="btn-primary text-xl px-8 py-4 group">
-              Demander un Devis
-              {/* @ts-ignore */}
-              <ArrowRight className="inline-block ml-2 w-6 h-6 group-hover:translate-x-1 transition-transform" />
-            </Link>
-            <Link
-              href="/services"
-              prefetch={true}
-              className="px-8 py-4 border-2 border-gray-900 text-gray-900 rounded-lg font-semibold text-xl hover:bg-gray-900 hover:text-white transition-all duration-300"
+            <motion.div
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.98 }}
             >
-              Nos Services
-            </Link>
+              <Link href="/booking" prefetch={true} className="relative inline-flex items-center justify-center px-8 py-4 bg-primary-600 text-white rounded-lg font-semibold text-xl shadow-lg hover:shadow-xl transition-all duration-300 group border-2 border-primary-700 overflow-hidden">
+                <span className="relative z-10 flex items-center">
+                  Demander un Devis
+                  {/* @ts-ignore */}
+                  <ArrowRight className="inline-block ml-2 w-6 h-6 group-hover:translate-x-1 transition-transform" />
+                </span>
+                <motion.div
+                  className="absolute inset-0 bg-primary-700"
+                  initial={{ x: '-100%' }}
+                  whileHover={{ x: 0 }}
+                  transition={{ duration: 0.3 }}
+                />
+              </Link>
+            </motion.div>
+            <motion.div
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              <Link
+                href="/services"
+                prefetch={true}
+                className="relative inline-flex items-center justify-center px-8 py-4 bg-primary-600 text-white rounded-lg font-semibold text-xl shadow-lg hover:shadow-xl transition-all duration-300 group border-2 border-primary-700 overflow-hidden"
+              >
+                <span className="relative z-10">Nos Services</span>
+                <motion.div
+                  className="absolute inset-0 bg-primary-700"
+                  initial={{ x: '-100%' }}
+                  whileHover={{ x: 0 }}
+                  transition={{ duration: 0.3 }}
+                />
+              </Link>
+            </motion.div>
           </motion.div>
 
           {/* Features - Parlak Küçük Alanlar */}
@@ -146,13 +170,29 @@ export default function Hero() {
                 whileTap={{ scale: 0.95 }}
                 className="relative group"
               >
-                {/* Yumuşak Küçük Alan - Aynı Renk */}
-                <div className="relative bg-gray-100 rounded-lg p-4 md:p-5 shadow-md hover:shadow-lg transform transition-all duration-300 border border-gray-200">
+                {/* Kaliteli Çerçeveli Animasyonlu Kart - Aynı Renk */}
+                <div className="relative bg-primary-600 rounded-lg p-4 md:p-5 shadow-lg hover:shadow-xl transform transition-all duration-300 border-2 border-primary-700 overflow-hidden">
+                  {/* Animasyonlu arka plan efekti */}
+                  <motion.div
+                    className="absolute inset-0 bg-primary-700"
+                    initial={{ x: '-100%' }}
+                    whileHover={{ x: 0 }}
+                    transition={{ duration: 0.3 }}
+                  />
+                  
+                  {/* Üst çerçeve çizgisi - animasyonlu */}
+                  <motion.div
+                    className="absolute top-0 left-0 right-0 h-1 bg-white/30"
+                    initial={{ scaleX: 0 }}
+                    animate={{ scaleX: 1 }}
+                    transition={{ duration: 0.8, delay: index * 0.15 }}
+                  />
+                  
                   {/* İçerik */}
                   <div className="relative z-10 text-center">
-                    {/* Text - Yumuşak ve küçük */}
+                    {/* Text - Beyaz ve kaliteli */}
                     <motion.div
-                      className="font-bold text-lg md:text-xl text-gray-700 leading-tight"
+                      className="font-bold text-lg md:text-xl text-white leading-tight"
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: index * 0.15 + 0.3 }}
@@ -163,8 +203,13 @@ export default function Hero() {
                     </motion.div>
                   </div>
                   
-                  {/* Hover efekti - Hafif arka plan değişimi */}
-                  <div className="absolute inset-0 bg-gray-200 opacity-0 group-hover:opacity-100 rounded-lg transition-opacity duration-300 -z-10"></div>
+                  {/* Hover efekti - Parlaklık */}
+                  <motion.div
+                    className="absolute inset-0 bg-white/10"
+                    initial={{ opacity: 0 }}
+                    whileHover={{ opacity: 1 }}
+                    transition={{ duration: 0.3 }}
+                  />
                 </div>
               </motion.div>
             ))}

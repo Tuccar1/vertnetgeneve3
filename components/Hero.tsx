@@ -76,7 +76,7 @@ export default function Hero() {
           alt="Nettoyage professionnel à Genève - Service de nettoyage avec gants bleus et spray"
           className="w-full h-full object-cover opacity-50"
         />
-        {/* Gradient Overlay for better text readability - Daha hafif */}
+        {/* Gradient Overlay for better text readability - Daha hafif overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-white/40 via-white/30 to-white/40"></div>
       </div>
 

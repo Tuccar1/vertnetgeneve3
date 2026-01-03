@@ -65,12 +65,20 @@
       padding: 0 !important;
     }
     
-    /* SEO hidden content'i scale'dan muaf tut */
-    .seo-hidden-content {
+    /* SEO hidden content'i scale'dan muaf tut - en yüksek öncelik */
+    body > .seo-hidden-content {
       transform: none !important;
       transform-origin: unset !important;
       width: 1px !important;
       height: 1px !important;
+      position: fixed !important;
+      top: -9999px !important;
+      left: -9999px !important;
+    }
+    
+    /* Body'nin ilk child'ından önce gelen SEO div'i etkileme */
+    body > .seo-hidden-content ~ div {
+      /* Normal scale uygulanacak */
     }
     
     /* Tüm section'ları scale içine al */

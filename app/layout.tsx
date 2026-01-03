@@ -125,6 +125,7 @@ export default function RootLayout({
         {/* SEO: Genève yerleşim yerleri - görünmez ama Google'da çıkacak */}
         <div 
           className="seo-hidden-content"
+          suppressHydrationWarning
           style={{ 
             position: 'fixed',
             top: '-9999px',
@@ -138,8 +139,8 @@ export default function RootLayout({
             zIndex: -9999,
             margin: 0,
             padding: 0,
-            transform: 'none !important',
-            transformOrigin: 'unset !important'
+            transform: 'none',
+            transformOrigin: 'unset'
           }}
         >
           <h1>Nettoyage Genève - Services de nettoyage professionnel à Genève</h1>

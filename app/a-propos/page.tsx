@@ -9,11 +9,11 @@ export const metadata = {
 
 export default function About() {
   return (
-    <>
+    <div className="w-full overflow-x-hidden min-h-screen flex flex-col relative z-10">
       <Navigation />
       <AboutPage />
       <Footer />
-    </>
+    </div>
   )
 }
 

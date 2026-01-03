@@ -9,11 +9,11 @@ export const metadata = {
 
 export default function ReglementSecuritePage() {
   return (
-    <>
+    <div className="w-full overflow-x-hidden min-h-screen flex flex-col relative z-10">
       <Navigation />
       <ReglementSecurite />
       <Footer />
-    </>
+    </div>
   )
 }
 

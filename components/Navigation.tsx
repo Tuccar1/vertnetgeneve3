@@ -60,13 +60,49 @@ export default function Navigation() {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5, ease: 'easeOut' }}
-      className={`fixed top-0 left-0 right-0 z-50 w-full overflow-x-hidden transition-all duration-500 ${
+      className={`fixed top-0 left-0 right-0 z-50 w-full overflow-x-hidden transition-all duration-500 relative ${
         scrolled
           ? 'bg-primary-50/98 backdrop-blur-xl shadow-lg border-b border-primary-200'
           : 'bg-primary-50/80 backdrop-blur-md'
       }`}
       >
-      <div className="w-full overflow-x-hidden">
+      {/* Yanıp Sönen Glow Efekti - Hero Fotoğrafıyla Uyumlu (Temizlik Teması) */}
+      <motion.div
+        className="absolute inset-0 bg-gradient-to-r from-primary-400/25 via-primary-300/20 to-secondary-400/25 pointer-events-none"
+        animate={{
+          opacity: [0.2, 0.5, 0.2],
+        }}
+        transition={{
+          duration: 3,
+          repeat: Infinity,
+          ease: 'easeInOut',
+        }}
+      />
+      <motion.div
+        className="absolute inset-0 bg-gradient-to-l from-cyan-300/20 via-blue-300/15 to-primary-400/20 pointer-events-none"
+        animate={{
+          opacity: [0.15, 0.4, 0.15],
+        }}
+        transition={{
+          duration: 2.5,
+          repeat: Infinity,
+          ease: 'easeInOut',
+          delay: 0.5,
+        }}
+      />
+      <motion.div
+        className="absolute inset-0 bg-gradient-to-br from-primary-500/10 via-transparent to-accent-400/15 pointer-events-none"
+        animate={{
+          opacity: [0.1, 0.3, 0.1],
+        }}
+        transition={{
+          duration: 4,
+          repeat: Infinity,
+          ease: 'easeInOut',
+          delay: 1,
+        }}
+      />
+      <div className="w-full overflow-x-hidden relative z-10">
         <div className="flex items-center justify-between h-20 sm:h-24 gap-2 px-3 sm:px-4 lg:px-6 xl:px-8 mx-auto w-full overflow-x-hidden">
           {/* Logo - Daha Premium */}
           <Link href="/" className="flex items-center space-x-3 group flex-shrink-0">

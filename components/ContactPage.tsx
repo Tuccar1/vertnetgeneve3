@@ -34,7 +34,7 @@ export default function ContactPage() {
       <section className="py-12 bg-white">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
-            <div className="grid md:grid-cols-2 gap-12">
+            <div className="grid md:grid-cols-2 gap-12 mb-12">
               {/* Contact Information */}
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
@@ -156,6 +156,31 @@ export default function ContactPage() {
                 </form>
               </motion.div>
             </div>
+
+            {/* Google Maps */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-lg"
+            >
+              <h2 className="text-lg md:text-xl font-bold text-gray-900 mb-4 p-5 md:p-6 pb-0">
+                Notre Localisation
+              </h2>
+              <div className="w-full h-64 sm:h-80 md:h-96">
+                <iframe
+                  src="https://www.google.com/maps?q=Genève,+Switzerland&output=embed&zoom=13&center=46.2044,6.1432"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  className="w-full h-full"
+                  title="Localisation Vertnetgeneve - Genève, Suisse"
+                ></iframe>
+              </div>
+            </motion.div>
           </div>
         </div>
       </section>

@@ -34,11 +34,11 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
   }
 
   return (
-    <>
+    <div className="w-full overflow-x-hidden min-h-screen flex flex-col relative z-10">
       <Navigation />
       <BlogPostDetail post={post} />
       <Footer />
-    </>
+    </div>
   )
 }
 

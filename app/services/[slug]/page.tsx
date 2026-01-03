@@ -33,11 +33,11 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
   }
 
   return (
-    <>
+    <div className="w-full overflow-x-hidden min-h-screen flex flex-col relative z-10">
       <Navigation />
       <ServiceDetail service={service} />
       <Footer />
-    </>
+    </div>
   )
 }
 

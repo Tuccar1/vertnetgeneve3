@@ -4,18 +4,19 @@
     transform: scale(0.8) !important;
     transform-origin: top left !important;
     width: 125% !important;
-    height: 125% !important;
+    height: fit-content !important;
     overflow-x: hidden !important;
     position: relative !important;
     margin: 0 !important;
     padding: 0 !important;
   }
   
-  /* Services sayfası için %75 scale - JavaScript ile override edilecek */
-  body > div:not(.seo-hidden-content):first-of-type[data-page="services"] {
+  /* Services ve A Propos sayfaları için %75 scale - JavaScript ile override edilecek */
+  body > div:not(.seo-hidden-content):first-of-type[data-page="services"],
+  body > div:not(.seo-hidden-content):first-of-type[data-page="a-propos"] {
     transform: scale(0.75) !important;
     width: 133.33% !important;
-    height: 133.33% !important;
+    height: fit-content !important;
   }
 }
 
@@ -23,7 +24,7 @@
   body > div:not(.seo-hidden-content):first-of-type {
     transform: scale(1) !important;
     width: 100% !important;
-    height: 100% !important;
+    height: fit-content !important;
     overflow-x: hidden !important;
   }
 }

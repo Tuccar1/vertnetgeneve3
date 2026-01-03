@@ -9,7 +9,7 @@ export const metadata = {
 
 export default function QualityPolicyPage() {
   return (
-    <div className="quality-policy-page-wrapper overflow-x-hidden w-full">
+    <div className="quality-policy-page-wrapper overflow-x-hidden w-full min-h-screen flex flex-col relative z-10">
       <Navigation />
       <QualityPolicy />
       <Footer />

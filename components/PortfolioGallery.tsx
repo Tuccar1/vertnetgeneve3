@@ -35,7 +35,7 @@ const portfolioItems: PortfolioItem[] = [
     id: 3,
     title: 'Nettoyage de Vitres',
     category: 'Spécialisé',
-    image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800',
+    image: 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=800',
     description: 'Nettoyage de vitres jusqu\'à 40 mètres de hauteur',
   },
   {
@@ -56,8 +56,15 @@ const portfolioItems: PortfolioItem[] = [
     id: 6,
     title: 'Fin de Chantier',
     category: 'Résidentiel',
-    image: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800',
+    image: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800',
     description: 'Nettoyage après travaux de rénovation',
+  },
+  {
+    id: 7,
+    title: 'Nettoyage de Toiture',
+    category: 'Spécialisé',
+    image: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800',
+    description: 'Nettoyage professionnel de toiture jusqu\'à 60 mètres',
   },
 ]
 

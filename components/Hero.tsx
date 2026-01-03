@@ -3,8 +3,42 @@
 import { motion } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
 import Link from 'next/link'
+import Image from 'next/image'
 
 export default function Hero() {
+  // Sadece bu fotoğraf - Eldivenli El Cam Temizliği
+  const heroImage = { url: '/cleaning-4.webp', name: 'Eldivenli El Cam Temizliği' }
+  
+  // 20 TAMAMEN YENİ kaliteli Nettoyage (Temizlik İşletmesi) fotoğrafı - Farklı kaynaklar ve farklı ID'ler
+  const cleaningImages = [
+    // Yerel Yüklenen Fotoğraflar (İlk 4) - Public klasöründeki dosyalar
+    { url: '/cleaning-1.avif', name: '1. Temizlik Malzemeleri ile Kız' },
+    { url: '/cleaning-2.jpg', name: '2. Temizlik Görseli' },
+    { url: '/cleaning-3.jpg', name: '3. Profesyonel Temizlik' },
+    { url: '/cleaning-4.webp', name: '4. Eldivenli El Cam Temizliği' },
+    
+    // Unsplash - Window Cleaning & Professional Services (FARKLI ID'ler)
+    { url: 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80', name: '5. Cam Temizlikçi - Bina Dışı' },
+    { url: 'https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80', name: '6. Yüksek Bina Cam Temizliği' },
+    { url: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80', name: '7. Cam Temizlik Ekipmanı' },
+    { url: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80', name: '8. Profesyonel Cam Temizlikçi' },
+    { url: 'https://images.unsplash.com/photo-1563453392212-326f5e854473?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80', name: '9. Temizlik Malzemeleri' },
+    { url: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80', name: '10. Bina Dışı Temizlik' },
+    { url: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80', name: '11. Yüksek Bina Cam Temizliği 2' },
+    
+    // Pexels - Professional Cleaning Service (FARKLI ID'ler)
+    { url: 'https://images.pexels.com/photos/3807277/pexels-photo-3807277.jpeg?auto=compress&cs=tinysrgb&w=2000&h=2000&fit=crop', name: '12. Profesyonel Temizlik Ekibi' },
+    { url: 'https://images.pexels.com/photos/3807278/pexels-photo-3807278.jpeg?auto=compress&cs=tinysrgb&w=2000&h=2000&fit=crop', name: '13. Ofis Temizliği Hizmeti' },
+    { url: 'https://images.pexels.com/photos/3807279/pexels-photo-3807279.jpeg?auto=compress&cs=tinysrgb&w=2000&h=2000&fit=crop', name: '14. Ticari Temizlik' },
+    { url: 'https://images.pexels.com/photos/3807280/pexels-photo-3807280.jpeg?auto=compress&cs=tinysrgb&w=2000&h=2000&fit=crop', name: '15. Temizlik Personeli Çalışıyor' },
+    { url: 'https://images.pexels.com/photos/3807281/pexels-photo-3807281.jpeg?auto=compress&cs=tinysrgb&w=2000&h=2000&fit=crop', name: '16. Büro Temizliği Ekibi' },
+    
+    // Pixabay - Cleaning Services (FARKLI ID'ler)
+    { url: 'https://cdn.pixabay.com/photo/2016/11/18/17/20/cleaning-1836413_1280.jpg', name: '17. Ev Temizliği Hizmeti' },
+    { url: 'https://cdn.pixabay.com/photo/2017/08/27/10/16/interior-2685521_1280.jpg', name: '18. İç Mekan Temizlik' },
+    { url: 'https://cdn.pixabay.com/photo/2015/07/17/22/43/student-849825_1280.jpg', name: '19. Konut Temizliği' },
+    { url: 'https://cdn.pixabay.com/photo/2014/12/10/20/56/medical-563427_1280.jpg', name: '20. Dezenfeksiyon Hizmeti' },
+  ]
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -30,17 +64,37 @@ export default function Hero() {
   return (
     <section
       id="accueil"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden pt-28 bg-white w-full overflow-x-hidden"
+      className="relative min-h-[132vh] flex items-center justify-center overflow-hidden pt-28 w-full overflow-x-hidden"
     >
-      {/* Background Image - Cleaning Service Professional */}
-      <div className="absolute inset-0 z-0">
-        <img
-          src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
-          alt="Nettoyage professionnel à Genève - Service de nettoyage avec gants bleus et spray"
-          className="w-full h-full object-cover opacity-15"
-        />
-        {/* Gradient Overlay for better text readability */}
-        <div className="absolute inset-0 bg-gradient-to-b from-white/70 via-white/50 to-white/70"></div>
+      {/* Background Image - Seçilen görsel */}
+      <div className="absolute inset-0 z-0 overflow-hidden">
+        {/* Gradient overlay - sadece alt kısımda, sol tarafta yok */}
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white/30 z-10"></div>
+        
+        {/* Profesyonel temizlik görseli - Hero section boyutunda, daha görünür */}
+        <div className="absolute inset-0 w-full h-full z-0">
+          <Image
+            src={heroImage.url}
+            alt={heroImage.name}
+            fill
+            className="object-cover object-center"
+            style={{
+              objectPosition: 'center',
+              width: '100%',
+              height: '100%',
+              opacity: 0.65,
+              filter: 'brightness(1.1) contrast(1.15) saturate(1.2)',
+            }}
+            priority
+            quality={95}
+            unoptimized
+          />
+        </div>
+        
+        {/* Ek dekoratif element */}
+        <div className="absolute bottom-20 right-10 md:right-20 lg:right-32 w-32 h-32 md:w-40 md:h-40 opacity-20 z-5">
+          <div className="w-full h-full bg-gradient-to-br from-primary-300/30 to-primary-500/20 rounded-full blur-2xl"></div>
+        </div>
       </div>
 
       {/* Content */}
@@ -62,7 +116,7 @@ export default function Hero() {
             className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-display font-bold text-gray-900 mb-6 sm:mb-8 leading-[1.2] tracking-tight"
           >
             Votre Partenaire de{' '}
-            <span className="bg-gradient-to-r from-primary-600 via-secondary-600 to-accent-600 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-gray-700 via-gray-600 to-gray-500 bg-clip-text text-transparent">
               Confiance
             </span>
           </motion.h1>

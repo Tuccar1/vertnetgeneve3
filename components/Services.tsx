@@ -68,7 +68,7 @@ const services: Service[] = [
     description: 'Un service de nettoyage pour votre toiture, offrant une apparence éclatante et un entretien optimal.',
     href: '/services/toiture',
     color: 'from-primary-600 to-accent-600',
-    image: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80', // Roof cleaning
+    image: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80', // Roof cleaning - professional roof maintenance
   },
   {
     icon: Square,

@@ -12,11 +12,11 @@ export default function BlogPage() {
   const posts = getBlogPosts()
 
   return (
-    <>
+    <div className="w-full overflow-x-hidden min-h-screen flex flex-col relative z-10">
       <Navigation />
       <BlogList posts={posts} />
       <Footer />
-    </>
+    </div>
   )
 }
 

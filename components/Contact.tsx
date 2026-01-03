@@ -99,7 +99,8 @@ export default function Contact() {
               </div>
             </div>
 
-            <div className="bg-white border border-gray-200 rounded-xl p-4 sm:p-5 md:p-6">
+            <div className="space-y-6">
+              <div className="bg-white border border-gray-200 rounded-xl p-4 sm:p-5 md:p-6">
               <h3 className="text-base sm:text-lg md:text-xl font-bold mb-4 sm:mb-6 leading-[1.3] text-gray-900">Demander un Devis</h3>
               <form className="space-y-3 sm:space-y-4 md:space-y-5">
                 <div>
@@ -137,6 +138,25 @@ export default function Contact() {
                   Envoyer la Demande
                 </button>
               </form>
+              </div>
+
+              {/* Google Maps */}
+              <div className="bg-white border border-gray-200 rounded-xl overflow-hidden">
+                <h3 className="text-base sm:text-lg md:text-xl font-bold mb-4 p-4 sm:p-5 md:p-6 pb-0 text-gray-900">Notre Localisation</h3>
+                <div className="w-full h-64 sm:h-80 md:h-96">
+                  <iframe
+                    src="https://www.google.com/maps?q=Genève,+Switzerland&output=embed&zoom=13&center=46.2044,6.1432"
+                    width="100%"
+                    height="100%"
+                    style={{ border: 0 }}
+                    allowFullScreen
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    className="w-full h-full"
+                    title="Localisation Vertnetgeneve - Genève, Suisse"
+                  ></iframe>
+                </div>
+              </div>
             </div>
           </div>
         </div>

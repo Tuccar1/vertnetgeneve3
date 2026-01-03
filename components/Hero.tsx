@@ -26,43 +26,6 @@ export default function Hero() {
     },
   }
 
-  const cardVariants = {
-    hidden: { y: 30, opacity: 0, scale: 0.9 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      scale: 1,
-      transition: {
-        duration: 0.6,
-        type: 'spring',
-        stiffness: 100,
-      },
-    },
-  }
-
-  const features = [
-    { 
-      text: 'Garantie Qualité', 
-      gradient: 'from-gray-600 to-gray-700',
-      borderColor: 'border-gray-500',
-      bgGradient: 'from-white/95 to-gray-50/95',
-      textColor: 'text-gray-700',
-    },
-    { 
-      text: 'Disponible 24/7', 
-      gradient: 'from-gray-600 to-gray-700',
-      borderColor: 'border-gray-500',
-      bgGradient: 'from-white/95 to-gray-50/95',
-      textColor: 'text-gray-700',
-    },
-    { 
-      text: 'Équipe Certifiée', 
-      gradient: 'from-gray-600 to-gray-700',
-      borderColor: 'border-gray-500',
-      bgGradient: 'from-white/95 to-gray-50/95',
-      textColor: 'text-gray-700',
-    },
-  ]
 
   return (
     <section
@@ -74,10 +37,10 @@ export default function Hero() {
         <img
           src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
           alt="Nettoyage professionnel à Genève - Service de nettoyage avec gants bleus et spray"
-          className="w-full h-full object-cover opacity-50"
+          className="w-full h-full object-cover opacity-15"
         />
-        {/* Gradient Overlay for better text readability - Daha hafif overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-white/40 via-white/30 to-white/40"></div>
+        {/* Gradient Overlay for better text readability */}
+        <div className="absolute inset-0 bg-gradient-to-b from-white/70 via-white/50 to-white/70"></div>
       </div>
 
       {/* Content */}
@@ -154,69 +117,6 @@ export default function Hero() {
                 />
               </Link>
             </motion.div>
-          </motion.div>
-
-          {/* Features - Parlak Küçük Alanlar */}
-          <motion.div
-            variants={itemVariants}
-            className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8 mt-12 sm:mt-16 md:mt-20 px-4"
-          >
-            {features.map((feature, index) => (
-              <motion.div
-                key={index}
-                variants={cardVariants}
-                initial="hidden"
-                animate="visible"
-                whileHover={{ 
-                  scale: 1.08,
-                  y: -3,
-                }}
-                whileTap={{ scale: 0.95 }}
-                className="relative group"
-              >
-                {/* Kaliteli Çerçeveli Animasyonlu Kart - Gri Tonlar */}
-                <div className="relative bg-gradient-to-br from-gray-600 via-gray-700 to-gray-800 rounded-lg p-3 sm:p-4 md:p-5 shadow-lg hover:shadow-xl transform transition-all duration-300 border-2 border-gray-500/50 overflow-hidden">
-                  {/* Animasyonlu arka plan efekti */}
-                  <motion.div
-                    className="absolute inset-0 bg-gradient-to-br from-gray-700 via-gray-800 to-gray-900"
-                    initial={{ x: '-100%' }}
-                    whileHover={{ x: 0 }}
-                    transition={{ duration: 0.3 }}
-                  />
-                  
-                  {/* Üst çerçeve çizgisi - animasyonlu - Gri gradient */}
-                  <motion.div
-                    className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-white/40 via-white/60 to-white/40"
-                    initial={{ scaleX: 0 }}
-                    animate={{ scaleX: 1 }}
-                    transition={{ duration: 0.8, delay: index * 0.15 }}
-                  />
-                  
-                  {/* İçerik */}
-                  <div className="relative z-10 text-center">
-                    {/* Text - Beyaz ve kaliteli */}
-                    <motion.div
-                      className="font-bold text-sm sm:text-base md:text-lg lg:text-xl text-white leading-tight"
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: index * 0.15 + 0.3 }}
-                      role="heading"
-                      aria-level={2}
-                    >
-                      {feature.text}
-                    </motion.div>
-                  </div>
-                  
-                  {/* Hover efekti - Parlaklık */}
-                  <motion.div
-                    className="absolute inset-0 bg-white/10"
-                    initial={{ opacity: 0 }}
-                    whileHover={{ opacity: 1 }}
-                    transition={{ duration: 0.3 }}
-                  />
-                </div>
-              </motion.div>
-            ))}
           </motion.div>
         </motion.div>
       </div>

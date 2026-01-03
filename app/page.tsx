@@ -6,9 +6,9 @@ import Footer from '@/components/Footer'
 
 export default function Home() {
   return (
-    <div className="w-full overflow-x-hidden" suppressHydrationWarning>
+    <div className="w-full overflow-x-hidden min-h-screen flex flex-col" suppressHydrationWarning>
       <Navigation />
-      <main>
+      <main className="flex-1">
         <Hero />
         <About />
         <WhyChooseUs />

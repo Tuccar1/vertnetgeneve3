@@ -128,10 +128,10 @@ export default function Hero() {
             </Link>
           </motion.div>
 
-          {/* Features - Premium Profesyonel Kartlar */}
+          {/* Features - Parlak Küçük Alanlar */}
           <motion.div
             variants={itemVariants}
-            className="grid grid-cols-1 md:grid-cols-3 gap-7 md:gap-10 mt-24"
+            className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mt-20"
           >
             {features.map((feature, index) => (
               <motion.div
@@ -140,27 +140,22 @@ export default function Hero() {
                 initial="hidden"
                 animate="visible"
                 whileHover={{ 
-                  scale: 1.05,
-                  y: -5,
+                  scale: 1.08,
+                  y: -3,
                 }}
-                whileTap={{ scale: 0.98 }}
+                whileTap={{ scale: 0.95 }}
                 className="relative group"
               >
-                {/* Ana Kart - Minimalist ve Profesyonel */}
-                <div className={`relative bg-white/98 backdrop-blur-xl rounded-xl p-10 md:p-12 border-2 ${feature.borderColor} shadow-xl hover:shadow-2xl transform transition-all duration-300`}>
-                  {/* Üst Çizgi */}
-                  <motion.div
-                    className={`absolute top-0 left-0 right-0 h-2 bg-gradient-to-r ${feature.gradient} rounded-t-xl`}
-                    initial={{ scaleX: 0 }}
-                    animate={{ scaleX: 1 }}
-                    transition={{ duration: 0.8, delay: index * 0.15 }}
-                  />
+                {/* Parlak Küçük Alan */}
+                <div className={`relative bg-gradient-to-br ${feature.gradient} rounded-lg p-4 md:p-5 shadow-lg hover:shadow-xl transform transition-all duration-300 backdrop-blur-sm`}>
+                  {/* Glow efekti */}
+                  <div className={`absolute inset-0 bg-gradient-to-br ${feature.gradient} opacity-60 blur-xl rounded-lg group-hover:opacity-80 transition-opacity duration-300 -z-10`}></div>
                   
                   {/* İçerik */}
                   <div className="relative z-10 text-center">
-                    {/* Text - Daha büyük ve bold */}
+                    {/* Text - Parlak ve küçük */}
                     <motion.div
-                      className={`font-bold text-2xl md:text-3xl ${feature.textColor} mt-2 leading-tight`}
+                      className="font-bold text-lg md:text-xl text-white leading-tight"
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: index * 0.15 + 0.3 }}
@@ -171,8 +166,8 @@ export default function Hero() {
                     </motion.div>
                   </div>
                   
-                  {/* Hover efekti - Subtle glow */}
-                  <div className={`absolute inset-0 bg-gradient-to-br ${feature.gradient} opacity-0 group-hover:opacity-5 rounded-xl transition-opacity duration-300`}></div>
+                  {/* Hover efekti - Daha parlak glow */}
+                  <div className={`absolute inset-0 bg-gradient-to-br ${feature.gradient} opacity-0 group-hover:opacity-30 rounded-lg transition-opacity duration-300 blur-md`}></div>
                 </div>
               </motion.div>
             ))}

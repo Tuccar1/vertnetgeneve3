@@ -84,7 +84,7 @@ export default function ServicesCategories() {
                 {/* Card */}
                 <div className={`relative bg-gradient-to-br ${category.bgColor} backdrop-blur-xl rounded-2xl overflow-hidden border-4 ${category.borderColor} shadow-2xl h-full`}>
                   {/* Category Image */}
-                  <div className="relative h-36 overflow-hidden">
+                  <div className="relative h-40 overflow-hidden">
                     <img
                       src={category.image}
                       alt={category.title}
@@ -97,16 +97,16 @@ export default function ServicesCategories() {
                     </div>
                   </div>
                   
-                  <div className="p-6">
-                    <h2 className="text-xl font-bold text-gray-900 mb-2">{category.title}</h2>
-                    <p className="text-gray-600 mb-4 text-sm">{category.description}</p>
+                  <div className="p-7">
+                    <h2 className="text-xl font-bold text-gray-900 mb-2.5">{category.title}</h2>
+                    <p className="text-gray-600 mb-5 text-sm">{category.description}</p>
                     
-                    <ul className="space-y-2">
+                    <ul className="space-y-2.5">
                       {category.services.map((service, serviceIndex) => (
                         <li key={serviceIndex}>
                           <Link
                             href={`/services/${service.slug}`}
-                            className="flex items-center gap-2 p-2 rounded-lg hover:bg-white/50 transition-all group/item"
+                            className="flex items-center gap-2.5 p-2.5 rounded-lg hover:bg-white/50 transition-all group/item"
                           >
                             {/* Service Thumbnail */}
                             <div className="flex-shrink-0 w-12 h-12 rounded-lg overflow-hidden">

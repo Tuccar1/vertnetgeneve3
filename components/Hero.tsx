@@ -121,14 +121,14 @@ export default function Hero() {
               whileTap={{ scale: 0.98 }}
               className="w-full sm:w-auto"
             >
-              <Link href="/booking" prefetch={true} className="relative inline-flex items-center justify-center w-full sm:w-auto px-6 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-primary-600 via-secondary-600 to-accent-600 text-white rounded-lg font-semibold text-base sm:text-lg md:text-xl shadow-lg hover:shadow-xl transition-all duration-300 group border-2 border-primary-500/50 overflow-hidden">
+              <Link href="/booking" prefetch={true} className="relative inline-flex items-center justify-center w-full sm:w-auto px-6 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-gray-600 via-gray-700 to-gray-800 text-white rounded-lg font-semibold text-base sm:text-lg md:text-xl shadow-lg hover:shadow-xl transition-all duration-300 group border-2 border-gray-500/50 overflow-hidden">
                 <span className="relative z-10 flex items-center">
                   Demander un Devis
                   {/* @ts-ignore */}
                   <ArrowRight className="inline-block ml-2 w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 group-hover:translate-x-1 transition-transform" />
                 </span>
                 <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-primary-700 via-secondary-700 to-accent-700"
+                  className="absolute inset-0 bg-gradient-to-r from-gray-700 via-gray-800 to-gray-900"
                   initial={{ x: '-100%' }}
                   whileHover={{ x: 0 }}
                   transition={{ duration: 0.3 }}
@@ -143,11 +143,11 @@ export default function Hero() {
               <Link
                 href="/services"
                 prefetch={true}
-                className="relative inline-flex items-center justify-center w-full sm:w-auto px-6 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-primary-600 via-secondary-600 to-accent-600 text-white rounded-lg font-semibold text-base sm:text-lg md:text-xl shadow-lg hover:shadow-xl transition-all duration-300 group border-2 border-primary-500/50 overflow-hidden"
+                className="relative inline-flex items-center justify-center w-full sm:w-auto px-6 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-gray-600 via-gray-700 to-gray-800 text-white rounded-lg font-semibold text-base sm:text-lg md:text-xl shadow-lg hover:shadow-xl transition-all duration-300 group border-2 border-gray-500/50 overflow-hidden"
               >
                 <span className="relative z-10">Nos Services</span>
                 <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-primary-700 via-secondary-700 to-accent-700"
+                  className="absolute inset-0 bg-gradient-to-r from-gray-700 via-gray-800 to-gray-900"
                   initial={{ x: '-100%' }}
                   whileHover={{ x: 0 }}
                   transition={{ duration: 0.3 }}
@@ -174,17 +174,17 @@ export default function Hero() {
                 whileTap={{ scale: 0.95 }}
                 className="relative group"
               >
-                {/* Kaliteli Çerçeveli Animasyonlu Kart - Site Renk Paleti ile Uyumlu */}
-                <div className="relative bg-gradient-to-br from-primary-600 via-secondary-600 to-accent-600 rounded-lg p-3 sm:p-4 md:p-5 shadow-lg hover:shadow-xl transform transition-all duration-300 border-2 border-primary-500/50 overflow-hidden">
+                {/* Kaliteli Çerçeveli Animasyonlu Kart - Gri Tonlar */}
+                <div className="relative bg-gradient-to-br from-gray-600 via-gray-700 to-gray-800 rounded-lg p-3 sm:p-4 md:p-5 shadow-lg hover:shadow-xl transform transition-all duration-300 border-2 border-gray-500/50 overflow-hidden">
                   {/* Animasyonlu arka plan efekti */}
                   <motion.div
-                    className="absolute inset-0 bg-gradient-to-br from-primary-700 via-secondary-700 to-accent-700"
+                    className="absolute inset-0 bg-gradient-to-br from-gray-700 via-gray-800 to-gray-900"
                     initial={{ x: '-100%' }}
                     whileHover={{ x: 0 }}
                     transition={{ duration: 0.3 }}
                   />
                   
-                  {/* Üst çerçeve çizgisi - animasyonlu - Premium gradient */}
+                  {/* Üst çerçeve çizgisi - animasyonlu - Gri gradient */}
                   <motion.div
                     className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-white/40 via-white/60 to-white/40"
                     initial={{ scaleX: 0 }}

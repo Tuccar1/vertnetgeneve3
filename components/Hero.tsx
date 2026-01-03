@@ -43,24 +43,24 @@ export default function Hero() {
   const features = [
     { 
       text: 'Garantie Qualité', 
-      gradient: 'from-secondary-600 to-secondary-700',
-      borderColor: 'border-secondary-500',
-      bgGradient: 'from-white/95 to-secondary-50/95',
-      textColor: 'text-secondary-700',
+      gradient: 'from-gray-600 to-gray-700',
+      borderColor: 'border-gray-500',
+      bgGradient: 'from-white/95 to-gray-50/95',
+      textColor: 'text-gray-700',
     },
     { 
       text: 'Disponible 24/7', 
-      gradient: 'from-primary-600 to-primary-700',
-      borderColor: 'border-primary-500',
-      bgGradient: 'from-white/95 to-primary-50/95',
-      textColor: 'text-primary-700',
+      gradient: 'from-gray-600 to-gray-700',
+      borderColor: 'border-gray-500',
+      bgGradient: 'from-white/95 to-gray-50/95',
+      textColor: 'text-gray-700',
     },
     { 
       text: 'Équipe Certifiée', 
-      gradient: 'from-accent-600 to-accent-700',
-      borderColor: 'border-accent-500',
-      bgGradient: 'from-white/95 to-accent-50/95',
-      textColor: 'text-accent-700',
+      gradient: 'from-gray-600 to-gray-700',
+      borderColor: 'border-gray-500',
+      bgGradient: 'from-white/95 to-gray-50/95',
+      textColor: 'text-gray-700',
     },
   ]
 
@@ -72,7 +72,7 @@ export default function Hero() {
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <img
-          src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
+          src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
           alt="Nettoyage professionnel à Genève"
           className="w-full h-full object-cover opacity-10"
         />
@@ -146,16 +146,13 @@ export default function Hero() {
                 whileTap={{ scale: 0.95 }}
                 className="relative group"
               >
-                {/* Parlak Küçük Alan */}
-                <div className={`relative bg-gradient-to-br ${feature.gradient} rounded-lg p-4 md:p-5 shadow-lg hover:shadow-xl transform transition-all duration-300 backdrop-blur-sm`}>
-                  {/* Glow efekti */}
-                  <div className={`absolute inset-0 bg-gradient-to-br ${feature.gradient} opacity-60 blur-xl rounded-lg group-hover:opacity-80 transition-opacity duration-300 -z-10`}></div>
-                  
+                {/* Yumuşak Küçük Alan - Aynı Renk */}
+                <div className="relative bg-gray-100 rounded-lg p-4 md:p-5 shadow-md hover:shadow-lg transform transition-all duration-300 border border-gray-200">
                   {/* İçerik */}
                   <div className="relative z-10 text-center">
-                    {/* Text - Parlak ve küçük */}
+                    {/* Text - Yumuşak ve küçük */}
                     <motion.div
-                      className="font-bold text-lg md:text-xl text-white leading-tight"
+                      className="font-bold text-lg md:text-xl text-gray-700 leading-tight"
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: index * 0.15 + 0.3 }}
@@ -166,8 +163,8 @@ export default function Hero() {
                     </motion.div>
                   </div>
                   
-                  {/* Hover efekti - Daha parlak glow */}
-                  <div className={`absolute inset-0 bg-gradient-to-br ${feature.gradient} opacity-0 group-hover:opacity-30 rounded-lg transition-opacity duration-300 blur-md`}></div>
+                  {/* Hover efekti - Hafif arka plan değişimi */}
+                  <div className="absolute inset-0 bg-gray-200 opacity-0 group-hover:opacity-100 rounded-lg transition-opacity duration-300 -z-10"></div>
                 </div>
               </motion.div>
             ))}

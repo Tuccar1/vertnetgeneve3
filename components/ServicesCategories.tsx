@@ -51,7 +51,7 @@ const categories = [
 
 export default function ServicesCategories() {
   return (
-    <section className="py-15 bg-gradient-to-br from-primary-50 via-secondary-50 to-accent-50 min-h-screen pt-28">
+    <section className="py-14 bg-gradient-to-br from-primary-50 via-secondary-50 to-accent-50 min-h-screen pt-28">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

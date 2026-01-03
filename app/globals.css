@@ -53,8 +53,8 @@
       max-width: 100vw;
     }
     
-    /* Next.js root div'ine hemen scale uygula */
-    body > div:first-child {
+    /* Next.js root div'ine hemen scale uygula - SEO div'ini atla */
+    body > div:not(.seo-hidden-content):first-of-type {
       transform: scale(0.8) !important;
       transform-origin: top left !important;
       width: 125% !important;

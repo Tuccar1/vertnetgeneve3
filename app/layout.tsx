@@ -75,13 +75,27 @@ export default function RootLayout({
             __html: `
               (function() {
                 function applyScale() {
-                  var rootDiv = document.body ? document.body.querySelector('div:first-child') : null;
+                  // SEO div'ini atla, sadece Next.js root div'ini bul
+                  var allDivs = document.body ? document.body.querySelectorAll('div') : [];
+                  var rootDiv = null;
+                  for (var i = 0; i < allDivs.length; i++) {
+                    var div = allDivs[i];
+                    // SEO div'i değilse ve parent'ı body ise
+                    if (!div.classList.contains('seo-hidden-content') && div.parentElement === document.body) {
+                      rootDiv = div;
+                      break;
+                    }
+                  }
                   if (!rootDiv && document.body) {
                     var observer = new MutationObserver(function(mutations) {
-                      var div = document.body.querySelector('div:first-child');
-                      if (div) {
-                        observer.disconnect();
-                        applyScaleToDiv(div);
+                      var allDivs = document.body.querySelectorAll('div');
+                      for (var i = 0; i < allDivs.length; i++) {
+                        var div = allDivs[i];
+                        if (!div.classList.contains('seo-hidden-content') && div.parentElement === document.body) {
+                          observer.disconnect();
+                          applyScaleToDiv(div);
+                          return;
+                        }
                       }
                     });
                     observer.observe(document.body, { childList: true, subtree: true });

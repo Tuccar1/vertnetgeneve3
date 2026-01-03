@@ -39,7 +39,7 @@ export default function Navigation() {
       }`}
       >
       <div className="w-full overflow-x-hidden">
-        <div className="flex items-center justify-between h-24 gap-2 px-4 lg:px-6 xl:px-8 mx-auto w-full overflow-x-hidden">
+        <div className="flex items-center justify-between h-20 sm:h-24 gap-2 px-3 sm:px-4 lg:px-6 xl:px-8 mx-auto w-full overflow-x-hidden">
           {/* Logo - Daha Premium */}
           <Link href="/" className="flex items-center space-x-3 group flex-shrink-0">
             <motion.div
@@ -47,9 +47,9 @@ export default function Navigation() {
               whileTap={{ scale: 0.95 }}
               className="relative"
             >
-              <div className="w-14 h-14 bg-gradient-to-br from-primary-500 via-secondary-500 to-accent-500 rounded-lg flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 relative overflow-hidden">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 bg-gradient-to-br from-primary-500 via-secondary-500 to-accent-500 rounded-lg flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 relative overflow-hidden">
                 {/* @ts-ignore */}
-                <Sparkles className="w-7 h-7 text-white relative z-10" />
+                <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 text-white relative z-10" />
                 <motion.div
                   className="absolute inset-0 bg-gradient-to-br from-primary-400 to-accent-400 opacity-0 group-hover:opacity-100"
                   transition={{ duration: 0.3 }}
@@ -68,10 +68,10 @@ export default function Navigation() {
               />
             </motion.div>
             <div className="flex flex-col">
-              <span className="text-xl md:text-2xl font-display font-bold text-gray-900 leading-tight tracking-tight">
+              <span className="text-base sm:text-lg md:text-xl lg:text-2xl font-display font-bold text-gray-900 leading-tight tracking-tight">
                 Vertnetgeneve
               </span>
-              <span className="text-sm md:text-base text-gray-500 font-medium hidden sm:block tracking-wide leading-tight">
+              <span className="text-xs sm:text-sm md:text-base text-gray-500 font-medium hidden sm:block tracking-wide leading-tight">
                 Excellence en Nettoyage Professionnel
               </span>
             </div>
@@ -84,7 +84,7 @@ export default function Navigation() {
                 key={item.href}
                 href={item.href}
                 prefetch={true}
-                className="relative px-3 py-2.5 text-gray-700 hover:text-primary-600 font-semibold text-base transition-all duration-300 rounded-lg group whitespace-nowrap leading-tight"
+                className="relative px-2.5 sm:px-3 py-2 sm:py-2.5 text-gray-700 hover:text-primary-600 font-semibold text-sm sm:text-base transition-all duration-300 rounded-lg group whitespace-nowrap leading-tight"
               >
                 <span className="relative z-10">{item.label}</span>
                 <motion.span
@@ -113,20 +113,20 @@ export default function Navigation() {
                       {/* @ts-ignore */}
                       <Phone className="w-3 h-3 text-accent-600" />
               </div>
-              <span className="font-bold text-base hidden xl:inline leading-tight">+41 77 215 22 55</span>
-              <span className="font-bold text-base xl:hidden leading-tight">+41 77</span>
+              <span className="font-bold text-xs sm:text-sm md:text-base hidden xl:inline leading-tight">+41 77 215 22 55</span>
+              <span className="font-bold text-xs sm:text-sm md:text-base xl:hidden leading-tight">+41 77</span>
             </motion.a>
             
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="flex-shrink-0">
               <Link
                 href="/booking"
-                className="relative px-4 py-2.5 bg-gradient-to-r from-primary-500 via-secondary-500 to-accent-500 text-white rounded-lg font-bold text-base shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group whitespace-nowrap flex items-center leading-tight"
+                className="relative px-3 py-2 sm:px-4 sm:py-2.5 bg-gradient-to-r from-primary-500 via-secondary-500 to-accent-500 text-white rounded-lg font-bold text-xs sm:text-sm md:text-base shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group whitespace-nowrap flex items-center leading-tight"
               >
                 <span className="relative z-10 flex items-center">
                         <span className="hidden xl:inline">Devis Gratuit</span>
                         <span className="xl:hidden">Devis</span>
                         {/* @ts-ignore */}
-                        <ArrowRight className="w-2.5 h-2.5 ml-1 flex-shrink-0" />
+                        <ArrowRight className="w-3 h-3 sm:w-3.5 sm:h-3.5 md:w-4 md:h-4 ml-1 flex-shrink-0" />
                 </span>
                 <motion.div
                   className="absolute inset-0 bg-gradient-to-r from-primary-600 via-secondary-600 to-accent-600"

@@ -41,8 +41,8 @@ export default function Footer() {
 
       <div className="container mx-auto px-4 lg:px-6 relative z-10">
         {/* Main Footer Content */}
-        <div className="py-16">
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12">
+        <div className="py-12 sm:py-16">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 md:gap-12">
             {/* Company Info */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -205,12 +205,12 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-gray-800 py-8">
-          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <p className="text-sm md:text-base text-gray-500 text-center md:text-left leading-[1.7]">
+        <div className="border-t border-gray-800 py-6 sm:py-8">
+          <div className="flex flex-col md:flex-row justify-between items-center space-y-3 sm:space-y-4 md:space-y-0">
+            <p className="text-xs sm:text-sm md:text-base text-gray-500 text-center md:text-left leading-[1.7]">
               &copy; {new Date().getFullYear()} Vertnetgeneve. Tous droits réservés.
             </p>
-            <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6 text-sm md:text-base text-gray-300 leading-[1.7]">
+            <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 md:gap-6 text-xs sm:text-sm md:text-base text-gray-300 leading-[1.7]">
               <Link href="#" className="hover:text-white transition-colors leading-[1.7] font-medium">
                 Politique de Confidentialité
               </Link>

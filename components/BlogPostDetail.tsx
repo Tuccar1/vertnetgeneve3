@@ -15,7 +15,7 @@ export default function BlogPostDetail({ post }: BlogPostDetailProps) {
   return (
     <div className="min-h-screen pt-28">
       {/* Hero Section */}
-      <section className="relative py-20 bg-gradient-to-br from-primary-50 via-secondary-50 to-accent-50 overflow-hidden">
+      <section className="relative py-12 sm:py-16 md:py-20 bg-gradient-to-br from-primary-50 via-secondary-50 to-accent-50 overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-0 left-0 w-96 h-96 bg-gradient-to-br from-primary-400 to-secondary-400 rounded-full blur-3xl"></div>
           <div className="absolute bottom-0 right-0 w-96 h-96 bg-gradient-to-br from-accent-400 to-primary-400 rounded-full blur-3xl"></div>
@@ -43,14 +43,14 @@ export default function BlogPostDetail({ post }: BlogPostDetailProps) {
               </span>
             </div>
             
-            <h1 className="text-4xl md:text-5xl font-display font-bold text-gray-900 mb-6">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-bold text-gray-900 mb-6 leading-tight">
               {post.title}
             </h1>
             
-            <div className="flex items-center space-x-6 text-gray-600 mb-6">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-6 text-sm sm:text-base text-gray-600 mb-6">
               <div className="flex items-center space-x-2">
                 {/* @ts-ignore */}
-                <Calendar className="w-5 h-5" />
+                <Calendar className="w-4 h-4 sm:w-5 sm:h-5" />
                 <span>
                   {post.date ? format(new Date(post.date), 'd MMMM yyyy', { locale: fr }) : 'Date inconnue'}
                 </span>
@@ -58,7 +58,7 @@ export default function BlogPostDetail({ post }: BlogPostDetailProps) {
               {post.readingTime && (
                 <div className="flex items-center space-x-2">
                   {/* @ts-ignore */}
-                  <Clock className="w-5 h-5" />
+                  <Clock className="w-4 h-4 sm:w-5 sm:h-5" />
                   <span>{post.readingTime} min de lecture</span>
                 </div>
               )}
@@ -68,7 +68,7 @@ export default function BlogPostDetail({ post }: BlogPostDetailProps) {
             </div>
             
             {post.image && (
-              <div className="relative h-96 rounded-2xl overflow-hidden mb-8">
+              <div className="relative h-48 sm:h-64 md:h-80 lg:h-96 rounded-xl md:rounded-2xl overflow-hidden mb-6 md:mb-8">
                 <img
                   src={post.image}
                   alt={post.title}
@@ -81,11 +81,11 @@ export default function BlogPostDetail({ post }: BlogPostDetailProps) {
       </section>
 
       {/* Content */}
-      <section className="py-16 bg-white">
-        <div className="container mx-auto px-4">
+      <section className="py-12 sm:py-16 bg-white">
+        <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto">
             <article
-              className="prose prose-lg max-w-none"
+              className="prose prose-sm sm:prose-base md:prose-lg max-w-none prose-headings:text-gray-900 prose-p:text-gray-700 prose-a:text-primary-600 prose-strong:text-gray-900"
               dangerouslySetInnerHTML={{ __html: post.content }}
             />
             

@@ -80,8 +80,8 @@ const services: Service[] = [
 
 export default function Services() {
   return (
-    <section id="services" className="py-20 bg-white/80 backdrop-blur-sm w-full">
-      <div className="container mx-auto px-4">
+    <section id="services" className="py-12 sm:py-16 md:py-20 bg-white/80 backdrop-blur-sm w-full">
+      <div className="container mx-auto px-4 sm:px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -89,15 +89,15 @@ export default function Services() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-gray-900 mb-6 leading-[1.25]">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-bold text-gray-900 mb-4 sm:mb-6 leading-[1.25]">
             Nos Services
           </h2>
-          <p className="text-base md:text-lg text-gray-600 max-w-3xl mx-auto leading-[1.7]">
+          <p className="text-sm sm:text-base md:text-lg text-gray-600 max-w-3xl mx-auto leading-[1.7] px-4">
             Des solutions de nettoyage complètes adaptées à tous vos besoins professionnels et résidentiels
           </p>
         </motion.div>
 
-               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
                  {services.map((service, index) => {
                    const IconComponent = service.icon
                    const serviceImages = [
@@ -121,7 +121,7 @@ export default function Services() {
                        whileHover={{ y: -5 }}
                        className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 group max-w-sm mx-auto"
                      >
-                       <div className="relative h-32 overflow-hidden">
+                       <div className="relative h-24 sm:h-28 md:h-32 overflow-hidden">
                          <img
                            src={serviceImages[index]}
                            alt={service.title}

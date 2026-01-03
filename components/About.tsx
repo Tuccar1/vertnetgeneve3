@@ -65,8 +65,8 @@ export default function About() {
   ]
 
   return (
-    <section id="apropos" className="py-20 bg-primary-50/50 w-full overflow-x-hidden">
-      <div className="container mx-auto px-4">
+    <section id="apropos" className="py-12 sm:py-16 md:py-20 bg-primary-50/50 w-full overflow-x-hidden">
+      <div className="container mx-auto px-4 sm:px-6">
         {/* Section 1: Excellence dans les Services */}
         <div className="max-w-6xl mx-auto mb-20">
           <motion.div
@@ -76,18 +76,18 @@ export default function About() {
             transition={{ duration: 0.6 }}
             className="text-center mb-12"
           >
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-gray-900 mb-6 leading-[1.25]">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-bold text-gray-900 mb-4 sm:mb-6 leading-[1.25]">
               À Propos de Notre Entreprise
             </h2>
-            <h3 className="text-2xl md:text-3xl font-display font-semibold text-primary-600 mb-6 leading-[1.3]">
+            <h3 className="text-xl sm:text-2xl md:text-3xl font-display font-semibold text-primary-600 mb-4 sm:mb-6 leading-[1.3]">
               L'excellence dans les Services de Nettoyage
             </h3>
-            <p className="text-base md:text-lg text-gray-700 max-w-3xl mx-auto leading-[1.7]">
+            <p className="text-sm sm:text-base md:text-lg text-gray-700 max-w-3xl mx-auto leading-[1.7] px-4">
               Chez Vertnetgeneve, nous ne sommes pas seulement un prestataire de services de nettoyage—nous sommes votre partenaire de confiance pour maintenir un environnement propre, sain et durable. Notre mission est non seulement de répondre à vos attentes, mais de les dépasser à chaque visite.
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 gap-6 md:gap-8 mb-16">
+                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 md:gap-8 mb-12 sm:mb-16">
             {features.map((feature, index) => (
               <motion.div
                 key={index}
@@ -95,9 +95,9 @@ export default function About() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="bg-white rounded-xl p-6 md:p-8 shadow-lg hover:shadow-xl transition-shadow"
-              >
-                <FeatureCard {...feature} />
+                       className="bg-white rounded-xl p-4 sm:p-6 md:p-8 shadow-lg hover:shadow-xl transition-shadow"
+                     >
+                       <FeatureCard {...feature} />
               </motion.div>
             ))}
           </div>
@@ -110,8 +110,8 @@ export default function About() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="bg-gradient-to-br from-primary-50 via-secondary-50 to-accent-50 rounded-2xl p-12 shadow-xl"
-          >
+                   className="bg-gradient-to-br from-primary-50 via-secondary-50 to-accent-50 rounded-xl md:rounded-2xl p-6 sm:p-8 md:p-12 shadow-xl"
+                 >
             <div className="text-center mb-10">
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-gray-900 mb-6 leading-[1.25]">
                 Notre Entreprise

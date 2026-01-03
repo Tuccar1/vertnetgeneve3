@@ -50,22 +50,22 @@ export default function Contact() {
   ]
 
   return (
-    <section id="contact" className="py-16 bg-[#f8f9fa] text-gray-900 w-full overflow-x-hidden">
-      <div className="container mx-auto px-4">
+    <section id="contact" className="py-12 sm:py-16 bg-[#f8f9fa] text-gray-900 w-full overflow-x-hidden">
+      <div className="container mx-auto px-4 sm:px-6">
         <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-8">
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 leading-[1.25] text-gray-900">
+          <div className="text-center mb-6 sm:mb-8">
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-3 sm:mb-4 leading-[1.25] text-gray-900">
               Contactez-Nous
             </h2>
-            <p className="text-sm md:text-base text-gray-600 leading-[1.7]">
+            <p className="text-xs sm:text-sm md:text-base text-gray-600 leading-[1.7]">
               Obtenez un devis gratuit et personnalisé
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8 md:gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 md:gap-12">
             <div>
-              <h3 className="text-lg md:text-xl font-bold mb-6 leading-[1.3] text-gray-900">Informations de Contact</h3>
-              <div className="space-y-3">
+              <h3 className="text-base sm:text-lg md:text-xl font-bold mb-4 sm:mb-6 leading-[1.3] text-gray-900">Informations de Contact</h3>
+              <div className="space-y-2 sm:space-y-3">
                 {contactItems.map((item, index) => {
                   const IconComponent = item.icon
                   const content = (

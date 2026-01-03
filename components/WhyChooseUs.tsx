@@ -50,8 +50,8 @@ export default function WhyChooseUs() {
   ]
 
   return (
-    <section id="pourquoi-nous" className="py-20 bg-gradient-to-br from-primary-50/80 to-white/80 backdrop-blur-sm w-full overflow-x-hidden">
-      <div className="container mx-auto px-4">
+    <section id="pourquoi-nous" className="py-12 sm:py-16 md:py-20 bg-gradient-to-br from-primary-50/80 to-white/80 backdrop-blur-sm w-full overflow-x-hidden">
+      <div className="container mx-auto px-4 sm:px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -59,18 +59,18 @@ export default function WhyChooseUs() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-gray-900 mb-6 leading-[1.25]">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-bold text-gray-900 mb-4 sm:mb-6 leading-[1.25]">
             Pourquoi Nous Choisir
           </h2>
-          <p className="text-base md:text-lg text-gray-600 max-w-3xl mx-auto leading-[1.7] mb-6">
+          <p className="text-sm sm:text-base md:text-lg text-gray-600 max-w-3xl mx-auto leading-[1.7] mb-4 sm:mb-6 px-4">
             Chez nous, chaque client est une priorité. Basés à Genève, nous sommes fiers de contribuer au bien-être de notre communauté locale en offrant des services de nettoyage de qualité.
           </p>
-          <p className="text-lg md:text-xl font-semibold text-primary-600 mt-6 leading-[1.5]">
+          <p className="text-base sm:text-lg md:text-xl font-semibold text-primary-600 mt-4 sm:mt-6 leading-[1.5] px-4">
             Ensemble, bâtissons un environnement plus propre et plus fort!
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
           {reasons.map((reason, index) => {
             const IconComponent = reason.icon
             const reasonImages = [
@@ -99,14 +99,14 @@ export default function WhyChooseUs() {
                   />
                 </div>
                 <div className="p-5 md:p-6">
-                  <div className={`w-12 h-12 rounded-xl ${reason.bgColor} flex items-center justify-center mb-4 -mt-6 relative z-10 mx-auto`}>
+                  <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl ${reason.bgColor} flex items-center justify-center mb-3 sm:mb-4 -mt-5 sm:-mt-6 relative z-10 mx-auto`}>
                     {/* @ts-ignore */}
-                    <IconComponent className={`w-6 h-6 ${reason.color}`} />
+                    <IconComponent className={`w-5 h-5 sm:w-6 sm:h-6 ${reason.color}`} />
                   </div>
-                <h3 className="text-base md:text-lg font-bold text-gray-900 mb-3 leading-[1.3] text-center">
+                <h3 className="text-sm sm:text-base md:text-lg font-bold text-gray-900 mb-2 sm:mb-3 leading-[1.3] text-center">
                   {reason.title}
                 </h3>
-                <p className="text-sm text-gray-600 leading-[1.7] text-center">
+                <p className="text-xs sm:text-sm text-gray-600 leading-[1.7] text-center">
                   {reason.description}
                 </p>
               </div>

@@ -90,7 +90,7 @@ export function getBlogPost(slug: string): BlogPost | null {
       date: data.date || new Date().toISOString(),
       excerpt: data.excerpt || '',
       content: contentHtml,
-      author: data.author || 'Genève Nettoyage',
+      author: data.author || 'Vertnetgeneve',
       category: data.category || 'Général',
       tags: data.tags || [],
       image: data.image,

@@ -210,16 +210,16 @@ export default function Footer() {
             <p className="text-sm md:text-base text-gray-500 text-center md:text-left leading-[1.7]">
               &copy; {new Date().getFullYear()} Genève Nettoyage. Tous droits réservés.
             </p>
-            <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6 text-sm md:text-base text-gray-500 leading-[1.7]">
-              <Link href="#" className="hover:text-white transition-colors leading-[1.7]">
+            <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6 text-sm md:text-base text-gray-300 leading-[1.7]">
+              <Link href="#" className="hover:text-white transition-colors leading-[1.7] font-medium">
                 Politique de Confidentialité
               </Link>
-              <span className="text-gray-600">•</span>
-              <Link href="#" className="hover:text-white transition-colors leading-[1.7]">
+              <span className="text-gray-500">•</span>
+              <Link href="#" className="hover:text-white transition-colors leading-[1.7] font-medium">
                 Conditions d'Utilisation
               </Link>
-              <span className="text-gray-600">•</span>
-              <Link href="#" className="hover:text-white transition-colors leading-[1.7]">
+              <span className="text-gray-500">•</span>
+              <Link href="#" className="hover:text-white transition-colors leading-[1.7] font-medium">
                 Mentions Légales
               </Link>
             </div>

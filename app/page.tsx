@@ -10,11 +10,13 @@ export default function Home() {
   return (
     <div className="w-full overflow-x-hidden" suppressHydrationWarning>
       <Navigation />
-      <Hero />
-      <Services />
-      <About />
-      <WhyChooseUs />
-      <Contact />
+      <main>
+        <Hero />
+        <Services />
+        <About />
+        <WhyChooseUs />
+        <Contact />
+      </main>
       <Footer />
     </div>
   )

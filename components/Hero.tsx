@@ -159,14 +159,16 @@ export default function Hero() {
                   {/* İçerik */}
                   <div className="relative z-10 text-center">
                     {/* Text - Daha büyük ve bold */}
-                    <motion.h3
+                    <motion.div
                       className={`font-bold text-xl md:text-2xl ${feature.textColor} mt-2 leading-tight`}
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: index * 0.15 + 0.3 }}
+                      role="heading"
+                      aria-level={2}
                     >
                       {feature.text}
-                    </motion.h3>
+                    </motion.div>
                   </div>
                   
                   {/* Hover efekti - Subtle glow */}

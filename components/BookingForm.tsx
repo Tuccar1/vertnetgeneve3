@@ -230,7 +230,6 @@ export default function BookingForm() {
           </div>
         </div>
       </section>
-      </div>
     </div>
   )
 }

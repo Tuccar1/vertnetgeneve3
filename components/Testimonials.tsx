@@ -277,7 +277,7 @@ export default function Testimonials() {
           </AnimatePresence>
 
           {/* Navigation dots */}
-          <div className="flex items-center justify-center gap-2 mt-8">
+          <div className="flex items-center justify-center gap-3 mt-8">
             {testimonials.map((_, index) => (
               <button
                 key={index}
@@ -286,13 +286,15 @@ export default function Testimonials() {
                   setIsAutoPlaying(false)
                   setTimeout(() => setIsAutoPlaying(true), 10000)
                 }}
-                className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                className={`min-w-[44px] min-h-[44px] rounded-full transition-all duration-300 flex items-center justify-center p-2 ${
                   index === currentIndex
-                    ? 'w-8 bg-primary-500'
-                    : 'bg-gray-300 hover:bg-gray-400'
+                    ? 'w-12 h-3 bg-primary-500'
+                    : 'w-3 h-3 bg-gray-400 hover:bg-gray-500'
                 }`}
                 aria-label={`Go to testimonial ${index + 1}`}
-              />
+              >
+                <span className="sr-only">Go to testimonial {index + 1}</span>
+              </button>
             ))}
           </div>
         </div>

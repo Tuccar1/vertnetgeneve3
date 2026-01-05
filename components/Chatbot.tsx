@@ -13,16 +13,12 @@ interface Message {
 }
 
 export default function Chatbot() {
-  // Chatbot dimensions - larger to avoid scrolling
-  const IPHONE_WIDTH = 360
-  const IPHONE_HEIGHT = 650
-  const BOTTOM_OFFSET = 20
-  const RIGHT_OFFSET = 20
+  const CHATBOT_WIDTH = 360
+  const CHATBOT_HEIGHT = 600
 
-  const [isOpen, setIsOpen] = useState(true)
+  const [isOpen, setIsOpen] = useState(false)
   const [isMinimized, setIsMinimized] = useState(false)
-  const [isResizing, setIsResizing] = useState(false)
-  const [size, setSize] = useState({ width: IPHONE_WIDTH, height: IPHONE_HEIGHT })
+  const [size, setSize] = useState({ width: CHATBOT_WIDTH, height: CHATBOT_HEIGHT })
   const [showWelcomeForm, setShowWelcomeForm] = useState(true)
   const [userInfo, setUserInfo] = useState({ name: '', phone: '' })
   const [messages, setMessages] = useState<Message[]>([])
@@ -30,77 +26,46 @@ export default function Chatbot() {
   const [isLoading, setIsLoading] = useState(false)
   const [isTyping, setIsTyping] = useState(false)
   
-  // Initialize size on client side - position handled by CSS (right/bottom)
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      setSize({ width: IPHONE_WIDTH, height: IPHONE_HEIGHT })
-    }
-  }, [])
-  
-  // Drag functionality removed - chatbot stays fixed at bottom right
-  
   const chatContainerRef = useRef<HTMLDivElement>(null)
-  const dragHandleRef = useRef<HTMLDivElement>(null)
-  const resizeHandleRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLTextAreaElement>(null)
 
-  // Auto-scroll to bottom when new messages arrive
+  // Mobil cihazlarda chatbot'u kapalı başlat
   useEffect(() => {
-    if (chatContainerRef.current) {
-      const scrollToBottom = () => {
-        chatContainerRef.current!.scrollTo({
-          top: chatContainerRef.current!.scrollHeight,
-          behavior: 'smooth',
-        })
+    if (typeof window !== 'undefined') {
+      const isMobile = window.innerWidth < 768 // md breakpoint
+      if (isMobile) {
+        setIsOpen(false)
+        setIsMinimized(false)
       }
-      scrollToBottom()
     }
-  }, [messages, isTyping])
+  }, [])
 
-  // Disable dragging - chatbot stays fixed at bottom right
-  // Removed drag functionality to keep chatbot always at bottom right
-
-  // Handle resizing - keep in bounds
+  // Responsive Hesaplamaları
   useEffect(() => {
-    if (!isResizing) return
-
-    const handleMouseMove = (e: MouseEvent) => {
-      // Calculate from bottom right corner since chatbot is fixed at bottom right
-      const maxWidth = window.innerWidth - RIGHT_OFFSET * 2
-      const maxHeight = window.innerHeight - BOTTOM_OFFSET * 2
-      // Calculate distance from right and bottom edges
-      const distanceFromRight = window.innerWidth - e.clientX - RIGHT_OFFSET
-      const distanceFromBottom = window.innerHeight - e.clientY - BOTTOM_OFFSET
-      const newWidth = Math.max(300, Math.min(600, distanceFromRight))
-      const newHeight = Math.max(400, Math.min(900, distanceFromBottom))
-      setSize({ 
-        width: Math.min(newWidth, maxWidth), 
-        height: Math.min(newHeight, maxHeight) 
+    const updateSize = () => {
+      const vw = window.innerWidth
+      const vh = window.innerHeight
+      
+      setSize({
+        width: vw < 640 ? vw - 32 : CHATBOT_WIDTH,
+        height: vh < 700 ? vh - 100 : CHATBOT_HEIGHT
       })
     }
 
-    const handleMouseUp = () => {
-      setIsResizing(false)
-    }
-
-    window.addEventListener('mousemove', handleMouseMove)
-    window.addEventListener('mouseup', handleMouseUp)
-
+    updateSize()
+    window.addEventListener('resize', updateSize)
+    
     return () => {
-      window.removeEventListener('mousemove', handleMouseMove)
-      window.removeEventListener('mouseup', handleMouseUp)
+      window.removeEventListener('resize', updateSize)
     }
-  }, [isResizing])
+  }, [])
 
-  // Drag disabled - chatbot stays fixed at bottom right
-  const handleDragStart = () => {
-    // No-op: dragging disabled to keep chatbot always at bottom right
-  }
-
-  const handleResizeStart = (e: React.MouseEvent) => {
-    e.stopPropagation()
-    setIsResizing(true)
-  }
+  // Auto-scroll
+  useEffect(() => {
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight
+    }
+  }, [messages, isTyping, isMinimized])
 
   const handleSendMessage = async () => {
     if (!inputValue.trim() || isLoading) return
@@ -114,582 +79,500 @@ export default function Chatbot() {
     }
 
     setMessages((prev) => [...prev, userMessage])
-    const messageText = inputValue
+    const currentInput = inputValue
     setInputValue('')
     setIsLoading(true)
     
-    // Reset textarea height
-    if (inputRef.current) {
-      inputRef.current.style.height = '44px'
-    }
+    if (inputRef.current) inputRef.current.style.height = '48px'
 
-    // Update message status to sent
+    // Mesaj gönderildi olarak işaretle
     setTimeout(() => {
-      setMessages((prev) => 
-        prev.map((msg) => 
-          msg.id === userMessage.id ? { ...msg, status: 'sent' as const } : msg
-        )
-      )
-    }, 200)
-
-    // Simulate typing indicator
-    setTimeout(() => {
+      setMessages(prev => prev.map(m => m.id === userMessage.id ? {...m, status: 'sent'} : m))
       setIsTyping(true)
-    }, 500)
+    }, 300)
 
-    // TODO: Replace with Flowise API endpoint
-    setTimeout(() => {
-      setIsTyping(false)
+    try {
+      // Flowise API entegrasyonu
+      const response = await fetch('/api/chatbot', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          message: currentInput,
+          history: messages.slice(-5).map(m => ({
+            role: m.sender === 'user' ? 'user' : 'assistant',
+            content: m.text
+          })),
+        }),
+      })
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}))
+        const errorMessage = errorData.error || errorData.details || `API error: ${response.status} ${response.statusText}`
+        console.error('Chatbot API error details:', errorData)
+        throw new Error(errorMessage)
+      }
+
+      const data = await response.json()
+      
+      // Flowise API response formatını kontrol et
+      const botResponse = data.answer || data.text || data.response || data.message || "Désolé, je n'ai pas pu traiter votre demande. Veuillez réessayer."
+
+      if (!botResponse || botResponse.trim() === '') {
+        throw new Error('Empty response from API')
+      }
+
       const botMessage: Message = {
         id: (Date.now() + 1).toString(),
-        text: 'Merci pour votre message! L\'intégration avec Flowise sera bientôt disponible. En attendant, n\'hésitez pas à nous contacter directement via notre site web.',
+        text: botResponse,
         sender: 'bot',
         timestamp: new Date(),
         status: 'read',
       }
-      setMessages((prev) => {
-        const updated = prev.map((msg) => 
-          msg.id === userMessage.id ? { ...msg, status: 'delivered' as const } : msg
-        )
-        return [...updated, botMessage]
-      })
+      
+      setMessages(prev => [...prev, botMessage])
+      setIsTyping(false)
       setIsLoading(false)
-    }, 2000)
-  }
-
-  const handleKeyPress = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault()
-      handleSendMessage()
+    } catch (error) {
+      console.error('Chatbot API error:', error)
+      
+      // Daha detaylı hata mesajı
+      const errorMessage = error instanceof Error ? error.message : 'Une erreur est survenue'
+      
+      const botMessage: Message = {
+        id: (Date.now() + 1).toString(),
+        text: `Désolé, une erreur technique s'est produite: ${errorMessage}. Veuillez réessayer ou contactez-nous directement au +41 76 621 21 83.`,
+        sender: 'bot',
+        timestamp: new Date(),
+        status: 'read',
+      }
+      setMessages(prev => [...prev, botMessage])
+      setIsTyping(false)
+      setIsLoading(false)
     }
   }
 
   const handleWelcomeFormSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     setShowWelcomeForm(false)
-    // Add welcome message
-    const welcomeMessage: Message = {
-      id: Date.now().toString(),
-      text: userInfo.name 
-        ? `Bonjour ${userInfo.name}! 👋 Je suis votre assistant virtuel Vertnetgeneve. Comment puis-je vous aider aujourd'hui?`
-        : 'Bonjour! 👋 Je suis votre assistant virtuel Vertnetgeneve. Comment puis-je vous aider aujourd\'hui?',
+    setMessages([{
+      id: 'welcome',
+      text: `Bonjour ${userInfo.name || ''}! 👋 Comment puis-je vous aider?`,
       sender: 'bot',
       timestamp: new Date(),
-      status: 'read',
-    }
-    setMessages([welcomeMessage])
-  }
-
-  const handleSkipWelcome = () => {
-    setShowWelcomeForm(false)
-    const welcomeMessage: Message = {
-      id: Date.now().toString(),
-      text: 'Bonjour! 👋 Je suis votre assistant virtuel Vertnetgeneve. Comment puis-je vous aider aujourd\'hui?',
-      sender: 'bot',
-      timestamp: new Date(),
-      status: 'read',
-    }
-    setMessages([welcomeMessage])
-  }
-
-  if (!isOpen) {
-    return (
-      <motion.button
-        initial={{ scale: 0, rotate: -180 }}
-        animate={{ scale: 1, rotate: 0 }}
-        whileHover={{ scale: 1.1, rotate: 5 }}
-        whileTap={{ scale: 0.95 }}
-        onClick={() => setIsOpen(true)}
-        className="fixed bottom-6 right-6 z-[9999] w-16 h-16 bg-gradient-to-br from-gray-600 via-gray-500 to-gray-400 rounded-full shadow-2xl flex items-center justify-center text-white hover:shadow-gray-500/50 transition-all duration-300 group relative overflow-hidden"
-        aria-label="Ouvrir le chatbot"
-      >
-        <motion.div
-          className="absolute inset-0 bg-gradient-to-br from-gray-500 to-gray-400 opacity-0 group-hover:opacity-100"
-          transition={{ duration: 0.3 }}
-        />
-        <MessageCircle className="w-8 h-8 relative z-10" />
-        <motion.div
-          className="absolute -inset-1 bg-gradient-to-br from-gray-500 to-gray-400 rounded-full opacity-0 group-hover:opacity-30 blur-md"
-          animate={{
-            opacity: [0, 0.3, 0],
-          }}
-          transition={{
-            duration: 2,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          }}
-        />
-      </motion.button>
-    )
+      status: 'read'
+    }])
   }
 
   return (
-    <AnimatePresence>
-      <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ 
-          opacity: 1, 
-          scale: 1,
-        }}
-        exit={{ opacity: 0, scale: 0.95 }}
-        transition={{ 
-          duration: 0.2,
-          ease: 'easeOut'
-        }}
-        className="overflow-hidden flex flex-col relative"
-        style={{
-          position: 'fixed',
-          right: `${RIGHT_OFFSET}px`,
-          bottom: `${BOTTOM_OFFSET}px`,
-          width: isMinimized ? `${IPHONE_WIDTH}px` : `${size.width}px`,
-          height: isMinimized ? '60px' : `${size.height}px`,
-          zIndex: 9999,
-          borderRadius: '28px',
-          boxShadow: '0 25px 80px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(255, 255, 255, 0.2) inset, 0 2px 8px rgba(0, 0, 0, 0.08), 0 0 40px rgba(71, 85, 105, 0.1)',
-          border: '2px solid rgba(255, 255, 255, 0.3)',
-          backgroundColor: 'rgba(255, 255, 255, 0.98)',
-          backdropFilter: 'blur(30px)',
-          overflowX: 'hidden',
-          overflowY: 'hidden',
-        }}
-      >
-        {/* Premium gradient border effect */}
-        <div 
-          className="absolute inset-0 pointer-events-none z-10"
-          style={{
-            borderRadius: '28px',
-            padding: '2px',
-            background: 'linear-gradient(135deg, rgba(71, 85, 105, 0.3) 0%, rgba(100, 116, 139, 0.25) 50%, rgba(148, 163, 184, 0.2) 100%)',
-            WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
-            WebkitMaskComposite: 'xor',
-            maskComposite: 'exclude',
-          }}
-        />
-        
-        {/* Content container */}
-        <div 
-          className="flex-1 flex flex-col overflow-hidden relative"
-          style={{
-            borderRadius: '28px',
-            backgroundColor: 'rgba(250, 251, 252, 0.95)',
-            backgroundImage: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.8), rgba(250, 251, 252, 0.9))',
-            backdropFilter: 'blur(10px)',
-            height: '100%',
-            overflowX: 'hidden',
-            overflowY: 'hidden',
-            maxWidth: '100%',
-          }}
-        >
-          {/* Premium Header */}
-          <motion.div
-            ref={dragHandleRef}
-            className="px-4 py-3 flex items-center justify-between select-none relative overflow-hidden"
-            style={{ 
-              borderRadius: isMinimized ? '24px' : '24px 24px 0 0',
-              background: 'linear-gradient(135deg, #475569 0%, #64748b 50%, #94a3b8 100%)',
-              borderBottom: isMinimized ? 'none' : '1px solid rgba(0, 0, 0, 0.05)',
-              cursor: isMinimized ? 'pointer' : 'default',
-            }}
-            whileHover={{ opacity: 0.95 }}
-            onClick={isMinimized ? () => setIsMinimized(false) : undefined}
+    <div className="fixed z-[9999]" style={{ bottom: '20px', right: '16px', left: 'auto' }}>
+      <AnimatePresence>
+        {!isOpen ? (
+          <motion.button
+            key="launcher"
+            initial={{ scale: 0, rotate: -180 }}
+            animate={{ scale: 1, rotate: 0 }}
+            exit={{ scale: 0, rotate: 180 }}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => setIsOpen(true)}
+            className="relative w-16 h-16 bg-gradient-to-br from-primary-500 via-secondary-500 to-accent-500 rounded-full shadow-[0_8px_32px_rgba(59,130,246,0.4)] flex items-center justify-center text-white hover:shadow-[0_12px_40px_rgba(59,130,246,0.6)] transition-all duration-300 group overflow-hidden"
+            aria-label="Ouvrir le chatbot"
           >
-            {/* Animated background gradient */}
+            {/* Pulse animasyonu */}
             <motion.div
-              className="absolute inset-0"
-              style={{
-                background: 'linear-gradient(135deg, rgba(71, 85, 105, 0.5) 0%, rgba(100, 116, 139, 0.5) 50%, rgba(148, 163, 184, 0.5) 100%)',
-              }}
+              className="absolute inset-0 bg-gradient-to-br from-primary-400 via-secondary-400 to-accent-400 rounded-full"
               animate={{
-                opacity: [0, 0.4, 0],
+                scale: [1, 1.3, 1],
+                opacity: [0.5, 0, 0.5],
               }}
               transition={{
-                duration: 3,
+                duration: 2,
                 repeat: Infinity,
                 ease: 'easeInOut',
               }}
             />
-          
-          {/* iPhone-style notch effect */}
-          <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-6 bg-black/10 rounded-b-3xl backdrop-blur-sm"></div>
-          <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-24 h-4 bg-black/5 rounded-b-2xl"></div>
-          
-          <div className="flex items-center space-x-3 relative z-10">
-            {/* Bot Avatar */}
+            <MessageCircle className="w-8 h-8 relative z-10 group-hover:scale-110 transition-transform duration-300" />
+            {/* Online indicator */}
             <motion.div
-              whileHover={{ scale: 1.1, rotate: 5 }}
-              whileTap={{ scale: 0.95 }}
-              className="relative"
-            >
-                  <div className="w-10 h-10 bg-white/25 rounded-xl flex items-center justify-center backdrop-blur-sm border border-white/40 shadow-lg">
-                <Sparkles className="w-5 h-5 text-white" />
-              </div>
-              {/* Online status indicator */}
+              className="absolute top-1 right-1 w-3 h-3 bg-green-400 rounded-full border-2 border-white shadow-lg"
+              animate={{
+                scale: [1, 1.2, 1],
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                ease: 'easeInOut',
+              }}
+            />
+          </motion.button>
+        ) : (
+          <motion.div
+            key="chat-window"
+            initial={{ opacity: 0, y: 20, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 20, scale: 0.95 }}
+            className="bg-white rounded-[32px] shadow-[0_25px_60px_rgba(0,0,0,0.15)] border border-gray-100/50 flex flex-col overflow-hidden backdrop-blur-sm"
+            style={{ 
+                width: size.width, 
+                height: isMinimized 
+                  ? (typeof window !== 'undefined' && window.innerWidth < 640 ? '56px' : '64px')
+                  : size.height,
+                maxWidth: typeof window !== 'undefined' && window.innerWidth < 640 
+                  ? 'calc(100vw - 32px)' 
+                  : typeof window !== 'undefined' && window.innerWidth < 1024
+                  ? 'calc(100vw - 40px)'
+                  : `${CHATBOT_WIDTH}px`,
+                transition: 'height 0.3s ease'
+            }}
+          >
+            {/* Header */}
+            <div className="relative p-3 sm:p-4 bg-gradient-to-br from-primary-700 via-primary-600 via-secondary-600 to-accent-600 text-white flex items-center justify-between cursor-pointer overflow-hidden shadow-lg"
+                 onClick={() => isMinimized && setIsMinimized(false)}>
+              {/* Premium animated background gradient */}
               <motion.div
-                className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 rounded-full border-2 border-white shadow-lg"
-                style={{
-                  backgroundColor: 'rgba(100, 116, 139, 0.8)',
-                }}
+                className="absolute inset-0 bg-gradient-to-br from-primary-500 via-secondary-500 via-accent-500 to-primary-600"
                 animate={{
-                  scale: [1, 1.2, 1],
+                  backgroundPosition: ['0% 0%', '100% 100%', '0% 0%'],
                 }}
                 transition={{
-                  duration: 2,
+                  duration: 8,
                   repeat: Infinity,
                   ease: 'easeInOut',
                 }}
+                style={{
+                  backgroundSize: '200% 200%',
+                }}
               />
-            </motion.div>
-            <div>
-              <h3 className="text-white font-display font-semibold text-xs flex items-center gap-1.5 flex-wrap">
-                Assistant Virtuel
-                <motion.span 
-                  className="text-[10px] font-normal opacity-90 flex items-center gap-1"
-                  animate={{ opacity: [0.8, 1, 0.8] }}
-                  transition={{ duration: 2, repeat: Infinity }}
-                >
-                  <span className="w-1 h-1 bg-secondary-300 rounded-full"></span>
-                  24/7 Actif
-                </motion.span>
-              </h3>
-              <p className="text-white/75 text-[10px]">Vertnetgeneve</p>
-            </div>
-          </div>
-          
-          <div className="flex items-center space-x-2 relative z-10">
-            {isMinimized ? (
-              <motion.button
-                whileHover={{ scale: 1.1, backgroundColor: 'rgba(255, 255, 255, 0.2)' }}
-                whileTap={{ scale: 0.9 }}
-                onClick={(e) => {
-                  e.stopPropagation()
-                  setIsMinimized(false)
-                }}
-                className="p-1.5 rounded-lg transition-colors"
-                aria-label="Agrandir"
-              >
-                <Maximize2 className="w-4 h-4 text-white" />
-              </motion.button>
-            ) : (
-              <motion.button
-                whileHover={{ scale: 1.1, backgroundColor: 'rgba(255, 255, 255, 0.2)' }}
-                whileTap={{ scale: 0.9 }}
-                onClick={(e) => {
-                  e.stopPropagation()
-                  setIsMinimized(true)
-                }}
-                className="p-1.5 rounded-lg transition-colors"
-                aria-label="Réduire"
-              >
-                <Minimize2 className="w-4 h-4 text-white" />
-              </motion.button>
-            )}
-          </div>
-        </motion.div>
-
-        {/* Chat Content */}
-        {!isMinimized && (
-          <>
-            {/* Welcome Form */}
-            {showWelcomeForm ? (
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="flex-1 overflow-y-auto p-6 bg-gradient-to-b from-gray-50 via-white to-gray-50 chatbot-scrollbar flex flex-col justify-center"
-                style={{ 
-                  maxHeight: `calc(${size.height}px - 200px)`,
-                  minHeight: `calc(${size.height}px - 240px)`,
-                }}
-              >
-                <div className="space-y-6">
-                  <div className="text-center space-y-2">
-                    <motion.div
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      transition={{ type: "spring", delay: 0.2 }}
-                      className="w-16 h-16 bg-gradient-to-br from-gray-500 to-gray-400 rounded-full flex items-center justify-center mx-auto shadow-lg border-2 border-white"
-                    >
-                      <Sparkles className="w-8 h-8 text-white" />
-                    </motion.div>
-                    <h3 className="text-xl font-display font-semibold text-gray-900">Bienvenue!</h3>
-                    <p className="text-sm text-gray-600">Remplissez vos informations pour une meilleure expérience (optionnel)</p>
-                  </div>
-                  
-                  <form onSubmit={handleWelcomeFormSubmit} className="space-y-4">
-                    <div>
-                      <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1.5">
-                        Nom <span className="text-gray-400 text-xs">(optionnel)</span>
-                      </label>
-                      <input
-                        type="text"
-                        id="name"
-                        value={userInfo.name}
-                        onChange={(e) => setUserInfo({ ...userInfo, name: e.target.value })}
-                        placeholder="Votre nom"
-                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500/50 transition-all duration-200 bg-white placeholder:text-gray-400"
-                      />
-                    </div>
-                    
-                    <div>
-                      <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1.5">
-                        Téléphone <span className="text-gray-400 text-xs">(optionnel)</span>
-                      </label>
-                      <input
-                        type="tel"
-                        id="phone"
-                        value={userInfo.phone}
-                        onChange={(e) => setUserInfo({ ...userInfo, phone: e.target.value })}
-                        placeholder="+41 XX XXX XX XX"
-                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500/50 transition-all duration-200 bg-white placeholder:text-gray-400"
-                      />
-                    </div>
-                    
-                    <div className="flex gap-3 pt-2">
-                      <motion.button
-                        type="button"
-                        onClick={handleSkipWelcome}
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
-                        className="flex-1 px-4 py-3 border-2 border-gray-300 rounded-xl text-sm font-medium text-gray-700 hover:border-gray-400 hover:bg-gray-50 transition-all duration-200"
-                      >
-                        Passer
-                      </motion.button>
-                      <motion.button
-                        type="submit"
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
-                        className="flex-1 px-4 py-3 bg-gradient-to-r from-gray-600 to-gray-500 text-white rounded-xl text-sm font-medium shadow-lg hover:shadow-xl transition-all duration-200"
-                      >
-                        Continuer
-                      </motion.button>
-                    </div>
-                  </form>
-                </div>
-              </motion.div>
-              ) : (
-                <div
-                  ref={chatContainerRef}
-                  className="flex-1 overflow-y-auto overflow-x-hidden p-3 space-y-2.5 bg-gradient-to-b from-gray-50/50 via-white to-gray-50/50 chatbot-scrollbar"
-                  style={{ 
-                    maxHeight: `calc(${size.height}px - 180px)`,
-                    minHeight: '200px',
-                    width: '100%',
-                    maxWidth: '100%',
-                    overflowX: 'hidden',
-                  }}
-                >
-              {messages.map((message, index) => (
-                <motion.div
-                  key={message.id}
-                  initial={{ opacity: 0, y: 20, scale: 0.95 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  transition={{
-                    delay: index * 0.05,
-                    type: "spring",
-                    stiffness: 300,
-                    damping: 25,
-                  }}
-                  className={`flex items-end gap-2 ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
-                >
-                  {/* Bot Avatar */}
-                  {message.sender === 'bot' && (
-            <motion.div
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ delay: index * 0.05 + 0.1, type: "spring" }}
-              className="w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 shadow-sm border border-white/50"
-              style={{
-                background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.7) 0%, rgba(34, 197, 94, 0.7) 100%)',
-              }}
-            >
-              <Sparkles className="w-3.5 h-3.5 text-white" />
-            </motion.div>
-                  )}
-                  
-                  <div className="flex flex-col max-w-[80%] min-w-0">
-                    <motion.div
-                      className={`rounded-2xl px-3 py-2 ${
-                        message.sender === 'user'
-                          ? 'bg-gradient-to-br from-gray-600 to-gray-500 text-white shadow-sm'
-                          : 'bg-white border border-gray-200/60 text-gray-900 shadow-sm'
-                      }`}
-                      style={{
-                        ...(message.sender === 'user' && {
-                          borderBottomRightRadius: '4px',
-                        }),
-                        ...(message.sender === 'bot' && {
-                          borderBottomLeftRadius: '4px',
-                        }),
-                        maxWidth: '100%',
-                        wordWrap: 'break-word',
-                        overflowWrap: 'break-word',
-                        overflowX: 'hidden',
-                      }}
-                      whileHover={{ scale: 1.01 }}
-                      transition={{ type: "spring", stiffness: 400 }}
-                    >
-                      <p className="text-xs leading-relaxed break-words whitespace-pre-wrap overflow-wrap-anywhere" style={{ wordBreak: 'break-word', overflowWrap: 'anywhere' }}>{message.text}</p>
-                      <div className={`flex items-center justify-end gap-1 mt-1 ${message.sender === 'user' ? 'text-white/60' : 'text-gray-400'}`}>
-                        <span className="text-[10px]">
-                          {message.timestamp.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}
-                        </span>
-                        {message.sender === 'user' && (
-                          <motion.div
-                            initial={{ scale: 0 }}
-                            animate={{ scale: 1 }}
-                            transition={{ delay: 0.2, type: "spring" }}
-                          >
-                            {message.status === 'sending' && (
-                              <Loader2 className="w-3 h-3 animate-spin" />
-                            )}
-                            {message.status === 'sent' && (
-                              <Check className="w-3 h-3" />
-                            )}
-                            {message.status === 'delivered' && (
-                              <CheckCheck className="w-3 h-3" />
-                            )}
-                            {message.status === 'read' && (
-                              <CheckCheck className="w-3 h-3 text-gray-400" />
-                            )}
-                          </motion.div>
-                        )}
-                      </div>
-                    </motion.div>
-                  </div>
-                  
-                  {/* User Avatar */}
-                  {message.sender === 'user' && (
-            <motion.div
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ delay: index * 0.05 + 0.1, type: "spring" }}
-              className="w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 shadow-sm border border-white/50"
-              style={{
-                background: 'linear-gradient(135deg, rgba(148, 163, 184, 0.7) 0%, rgba(71, 85, 105, 0.7) 100%)',
-              }}
-            >
-              <Circle className="w-3.5 h-3.5 text-white fill-white" />
-            </motion.div>
-                  )}
-                </motion.div>
-              ))}
+              {/* Subtle overlay for depth */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-white/5 pointer-events-none" />
               
-              {/* Typing Indicator */}
-              {isTyping && (
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0 }}
-                  className="flex items-end gap-2 justify-start"
+              <div className="flex items-center gap-2 sm:gap-3 relative z-10 min-w-0 flex-1">
+                <motion.div 
+                  className="w-8 h-8 sm:w-10 sm:h-10 bg-white/25 backdrop-blur-md rounded-xl flex items-center justify-center shadow-xl flex-shrink-0"
+                  whileHover={{ scale: 1.1, rotate: 5 }}
+                  transition={{ type: 'spring', stiffness: 300 }}
                 >
-                  <div className="w-8 h-8 bg-gradient-to-br from-gray-500 to-gray-400 rounded-full flex items-center justify-center flex-shrink-0 shadow-md border-2 border-white">
-                    <Sparkles className="w-4 h-4 text-white" />
-                  </div>
-                  <div className="bg-white border border-gray-200/60 rounded-3xl px-4 py-3 shadow-sm" style={{ borderBottomLeftRadius: '6px' }}>
-                    <div className="flex space-x-1.5">
-                      {[0, 1, 2].map((i) => (
-                        <motion.div
-                          key={i}
-                          className="w-2 h-2 bg-gray-400 rounded-full"
+                  <Sparkles className="w-4 h-4 sm:w-5 sm:h-5" />
+                </motion.div>
+                <div className="min-w-0 flex-1">
+                  <p className="text-xs sm:text-sm font-bold flex items-center gap-1.5 sm:gap-2 leading-tight truncate">
+                    <span className="truncate">Vertnetgeneve</span>
+                    <motion.span
+                      className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-emerald-300 rounded-full flex-shrink-0 shadow-sm"
+                      animate={{
+                        scale: [1, 1.4, 1],
+                        opacity: [1, 0.6, 1],
+                      }}
+                      transition={{
+                        duration: 2,
+                        repeat: Infinity,
+                        ease: 'easeInOut',
+                      }}
+                    />
+                  </p>
+                  <p className="text-[9px] sm:text-[10px] text-white/90 font-medium leading-tight mt-0.5 truncate">Assistant AI • En ligne</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-0.5 sm:gap-1 relative z-10 flex-shrink-0">
+                <motion.button 
+                  onClick={(e) => { e.stopPropagation(); setIsMinimized(!isMinimized) }} 
+                  className="p-1.5 sm:p-2 hover:bg-white/25 rounded-lg transition-all duration-200 active:scale-95"
+                  whileHover={{ scale: 1.1, backgroundColor: 'rgba(255,255,255,0.3)' }}
+                  whileTap={{ scale: 0.9 }}
+                  aria-label={isMinimized ? "Maximiser" : "Minimiser"}
+                >
+                  {isMinimized ? <Maximize2 className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> : <Minimize2 className="w-3.5 h-3.5 sm:w-4 sm:h-4" />}
+                </motion.button>
+                <motion.button 
+                  onClick={(e) => { e.stopPropagation(); setIsOpen(false) }} 
+                  className="p-1.5 sm:p-2 hover:bg-white/25 rounded-lg transition-all duration-200 active:scale-95"
+                  whileHover={{ scale: 1.1, rotate: 90, backgroundColor: 'rgba(255,255,255,0.3)' }}
+                  whileTap={{ scale: 0.9 }}
+                  aria-label="Fermer"
+                >
+                  <X className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                </motion.button>
+              </div>
+            </div>
+
+            {/* Main Content */}
+            {!isMinimized && (
+              <>
+                {showWelcomeForm ? (
+                  <div className="flex-1 p-6 overflow-y-auto bg-gradient-to-b from-gray-50/50 to-white">
+                    <form onSubmit={handleWelcomeFormSubmit} className="space-y-4 pt-4">
+                      <motion.div 
+                        className="text-center pb-6"
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.2 }}
+                      >
+                        <motion.div 
+                          className="w-16 h-16 bg-gradient-to-br from-primary-400 via-secondary-400 to-accent-400 rounded-2xl flex items-center justify-center mx-auto mb-3 text-white shadow-lg"
                           animate={{
-                            y: [0, -8, 0],
-                            opacity: [0.5, 1, 0.5],
+                            scale: [1, 1.05, 1],
+                            rotate: [0, 5, -5, 0],
                           }}
                           transition={{
-                            duration: 0.6,
+                            duration: 3,
                             repeat: Infinity,
-                            delay: i * 0.2,
+                            ease: 'easeInOut',
+                          }}
+                        >
+                          <Sparkles className="w-8 h-8" />
+                        </motion.div>
+                        <h3 className="text-lg font-bold text-gray-900 mb-1">Bienvenue ! 👋</h3>
+                        <p className="text-xs text-gray-500">Laissez-nous vos coordonnées pour mieux vous servir.</p>
+                      </motion.div>
+                      <motion.input 
+                        className="w-full p-3.5 bg-white border-2 border-gray-200 rounded-xl text-sm outline-none focus:border-primary-400 focus:ring-2 focus:ring-primary-100 transition-all placeholder:text-gray-400"
+                        placeholder="Votre nom"
+                        value={userInfo.name}
+                        onChange={e => setUserInfo({...userInfo, name: e.target.value})}
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.3 }}
+                      />
+                      <motion.input 
+                        className="w-full p-3.5 bg-white border-2 border-gray-200 rounded-xl text-sm outline-none focus:border-primary-400 focus:ring-2 focus:ring-primary-100 transition-all placeholder:text-gray-400"
+                        placeholder="Votre téléphone"
+                        value={userInfo.phone}
+                        onChange={e => setUserInfo({...userInfo, phone: e.target.value})}
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.4 }}
+                      />
+                      <motion.button 
+                        type="submit" 
+                        className="w-full py-3.5 bg-gradient-to-r from-primary-500 via-secondary-500 to-accent-500 text-white rounded-xl font-semibold text-sm hover:shadow-lg hover:scale-[1.02] transition-all duration-300 relative overflow-hidden group"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.5 }}
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                      >
+                        <span className="relative z-10 flex items-center justify-center gap-2">
+                          Commencer la discussion
+                          <motion.span
+                            animate={{ x: [0, 5, 0] }}
+                            transition={{ duration: 1.5, repeat: Infinity }}
+                          >
+                            →
+                          </motion.span>
+                        </span>
+                        <motion.div
+                          className="absolute inset-0 bg-gradient-to-r from-primary-600 via-secondary-600 to-accent-600"
+                          initial={{ x: '-100%' }}
+                          whileHover={{ x: 0 }}
+                          transition={{ duration: 0.3 }}
+                        />
+                      </motion.button>
+                    </form>
+                  </div>
+                ) : (
+                  <>
+                    <div ref={chatContainerRef} className="flex-1 overflow-y-auto p-4 space-y-4 bg-gradient-to-b from-gray-50/30 via-white to-gray-50/30 chatbot-scrollbar">
+                      {messages.map((m, index) => (
+                        <motion.div 
+                          key={m.id} 
+                          className={`flex ${m.sender === 'user' ? 'justify-end' : 'justify-start'}`}
+                          initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                          animate={{ opacity: 1, y: 0, scale: 1 }}
+                          transition={{ delay: index * 0.1, duration: 0.3 }}
+                        >
+                          <div className={`max-w-[85%] p-3.5 rounded-2xl text-sm relative ${
+                            m.sender === 'user' 
+                              ? 'bg-gradient-to-br from-primary-500 via-secondary-500 to-accent-500 text-white rounded-tr-sm shadow-lg' 
+                              : 'bg-white border-2 border-gray-100 rounded-tl-sm shadow-md'
+                          }`}>
+                            <p className="leading-relaxed break-words">{m.text}</p>
+                            <div className={`text-[9px] mt-2 flex items-center gap-1.5 ${
+                              m.sender === 'user' ? 'text-white/70 justify-end' : 'text-gray-400 justify-start'
+                            }`}>
+                              <span>{m.timestamp.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
+                              {m.sender === 'user' && m.status === 'sent' && (
+                                <Check className="w-3 h-3 text-white/80" />
+                              )}
+                            </div>
+                            {/* Message tail */}
+                            {m.sender === 'user' ? (
+                              <div className="absolute -right-1 bottom-0 w-3 h-3 bg-gradient-to-br from-primary-500 via-secondary-500 to-accent-500 transform rotate-45 translate-x-1/2 translate-y-1/2" />
+                            ) : (
+                              <div className="absolute -left-1 bottom-0 w-3 h-3 bg-white border-l-2 border-b-2 border-gray-100 transform rotate-45 -translate-x-1/2 translate-y-1/2" />
+                            )}
+                          </div>
+                        </motion.div>
+                      ))}
+                      {isTyping && (
+                        <motion.div 
+                          className="flex items-center gap-2 ml-2"
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                        >
+                          <div className="bg-white border-2 border-gray-100 rounded-2xl rounded-tl-sm p-3 shadow-md">
+                            <div className="flex gap-1">
+                              {[0, 1, 2].map((i) => (
+                                <motion.div
+                                  key={i}
+                                  className="w-2 h-2 bg-gray-400 rounded-full"
+                                  animate={{
+                                    y: [0, -8, 0],
+                                    opacity: [0.5, 1, 0.5],
+                                  }}
+                                  transition={{
+                                    duration: 0.6,
+                                    repeat: Infinity,
+                                    delay: i * 0.2,
+                                    ease: 'easeInOut',
+                                  }}
+                                />
+                              ))}
+                            </div>
+                          </div>
+                        </motion.div>
+                      )}
+                    </div>
+
+                    <div className="p-4 sm:p-5 bg-gradient-to-b from-white via-gray-50/30 to-white border-t border-gray-100/50">
+                      <motion.div 
+                        className="relative flex items-end gap-2.5 bg-gradient-to-br from-primary-50/80 via-secondary-50/60 to-accent-50/80 rounded-3xl p-3.5 sm:p-4 focus-within:from-primary-100/90 focus-within:via-secondary-100/70 focus-within:to-accent-100/90 focus-within:shadow-xl focus-within:shadow-primary-200/30 transition-all duration-500 border-2 border-transparent focus-within:border-primary-300/50 backdrop-blur-sm"
+                        initial={false}
+                        animate={{
+                          boxShadow: inputValue.trim() 
+                            ? '0 10px 40px rgba(59, 130, 246, 0.15), 0 0 0 1px rgba(59, 130, 246, 0.1)' 
+                            : '0 4px 20px rgba(0, 0, 0, 0.05)',
+                        }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        {/* Animated background glow */}
+                        <motion.div
+                          className="absolute inset-0 bg-gradient-to-r from-primary-200/20 via-secondary-200/20 to-accent-200/20 rounded-3xl opacity-0"
+                          animate={{
+                            opacity: inputValue.trim() ? [0, 0.5, 0.3, 0.5] : 0,
+                          }}
+                          transition={{
+                            duration: 3,
+                            repeat: Infinity,
                             ease: 'easeInOut',
                           }}
                         />
-                      ))}
+                        
+                        {/* Decorative border gradient */}
+                        <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-primary-300/0 via-primary-300/30 to-accent-300/0 opacity-0 focus-within:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                        
+                        <textarea
+                          ref={inputRef}
+                          rows={1}
+                          value={inputValue}
+                          onChange={(e) => {
+                            setInputValue(e.target.value)
+                            e.target.style.height = 'auto'
+                            e.target.style.height = `${Math.min(e.target.scrollHeight, 80)}px`
+                          }}
+                          onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && (e.preventDefault(), handleSendMessage())}
+                          onFocus={(e) => {
+                            e.target.parentElement?.classList.add('ring-2', 'ring-primary-300/50')
+                          }}
+                          onBlur={(e) => {
+                            e.target.parentElement?.classList.remove('ring-2', 'ring-primary-300/50')
+                          }}
+                          placeholder="Écrivez votre message ici..."
+                          className="relative z-10 flex-1 bg-transparent border-none outline-none text-sm sm:text-base p-2.5 resize-none max-h-32 break-words overflow-x-hidden placeholder:text-gray-400/70 placeholder:italic placeholder:transition-all placeholder:duration-300 focus:placeholder:text-primary-400/50 leading-relaxed"
+                          style={{
+                            wordWrap: 'break-word',
+                            overflowWrap: 'break-word',
+                          }}
+                        />
+                        
+                        {/* Typing indicator dots */}
+                        {inputValue.trim() && (
+                          <motion.div
+                            className="absolute bottom-2 left-4 flex gap-1 opacity-50"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 0.3 }}
+                            exit={{ opacity: 0 }}
+                          >
+                            {[0, 1, 2].map((i) => (
+                              <motion.div
+                                key={i}
+                                className="w-1 h-1 bg-primary-500 rounded-full"
+                                animate={{
+                                  y: [0, -4, 0],
+                                  opacity: [0.3, 1, 0.3],
+                                }}
+                                transition={{
+                                  duration: 1,
+                                  repeat: Infinity,
+                                  delay: i * 0.2,
+                                  ease: 'easeInOut',
+                                }}
+                              />
+                            ))}
+                          </motion.div>
+                        )}
+                        
+                        <motion.button 
+                          onClick={handleSendMessage}
+                          disabled={!inputValue.trim() || isLoading}
+                          className="relative z-10 p-2.5 sm:p-3 bg-gradient-to-br from-primary-500 via-secondary-500 to-accent-500 text-white rounded-2xl disabled:opacity-30 disabled:cursor-not-allowed transition-all shadow-lg hover:shadow-xl disabled:shadow-md relative overflow-hidden group flex-shrink-0"
+                          whileHover={{ 
+                            scale: inputValue.trim() && !isLoading ? 1.08 : 1,
+                            rotate: inputValue.trim() && !isLoading ? [0, -5, 5, 0] : 0,
+                          }}
+                          whileTap={{ scale: inputValue.trim() && !isLoading ? 0.92 : 1 }}
+                          transition={{ type: 'spring', stiffness: 400, damping: 17 }}
+                        >
+                          {/* Button glow effect */}
+                          <motion.div
+                            className="absolute inset-0 bg-gradient-to-br from-primary-400 via-secondary-400 to-accent-400 rounded-2xl opacity-0"
+                            animate={{
+                              opacity: inputValue.trim() && !isLoading ? [0, 0.6, 0.4, 0.6] : 0,
+                            }}
+                            transition={{
+                              duration: 2,
+                              repeat: Infinity,
+                              ease: 'easeInOut',
+                            }}
+                          />
+                          
+                          {isLoading ? (
+                            <Loader2 className="w-4 h-4 sm:w-5 sm:h-5 animate-spin relative z-10" />
+                          ) : (
+                            <motion.div
+                              className="relative z-10"
+                              animate={{ 
+                                rotate: inputValue.trim() ? [0, 15, -15, 0] : 0,
+                                scale: inputValue.trim() ? [1, 1.1, 1] : 1,
+                              }}
+                              transition={{ 
+                                duration: 1.5, 
+                                repeat: Infinity,
+                                ease: 'easeInOut',
+                              }}
+                            >
+                              <Send className="w-4 h-4 sm:w-5 sm:h-5" />
+                            </motion.div>
+                          )}
+                          
+                          {/* Hover gradient overlay */}
+                          <motion.div
+                            className="absolute inset-0 bg-gradient-to-br from-primary-600 via-secondary-600 to-accent-600 rounded-2xl"
+                            initial={{ x: '-100%' }}
+                            whileHover={{ x: 0 }}
+                            transition={{ duration: 0.3 }}
+                          />
+                        </motion.button>
+                      </motion.div>
                     </div>
-                  </div>
-                </motion.div>
+                  </>
                 )}
-                </div>
-              )}
-
-              {/* Premium Input Area */}
-              {!showWelcomeForm && (
-                <motion.div
-                  initial={{ y: 20, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  className="border-t-2 border-gray-200/40 p-4 bg-gradient-to-t from-white via-white/95 to-white/90 backdrop-blur-md shadow-[0_-4px_12px_rgba(0,0,0,0.04)]"
-                  style={{ borderRadius: '0 0 28px 28px' }}
-                >
-                  <div className="flex items-end gap-3">
-                    <div className="flex-1 relative min-w-0">
-                      <textarea
-                        ref={inputRef}
-                        value={inputValue}
-                        onChange={(e) => {
-                          setInputValue(e.target.value)
-                          // Auto-resize textarea
-                          e.target.style.height = 'auto'
-                          e.target.style.height = `${Math.min(e.target.scrollHeight, 80)}px`
-                        }}
-                        onKeyPress={handleKeyPress}
-                        placeholder="Écrivez un message..."
-                        className="w-full resize-none border-2 border-gray-200/60 rounded-2xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-gray-400/30 focus:border-gray-400/60 transition-all duration-300 bg-white/95 backdrop-blur-sm placeholder:text-gray-400 shadow-inner"
-                        rows={1}
-                        style={{ 
-                          maxHeight: '100px', 
-                          minHeight: '48px',
-                          maxWidth: '100%',
-                          overflowX: 'hidden',
-                          wordWrap: 'break-word',
-                          overflowWrap: 'break-word',
-                          boxShadow: 'inset 0 2px 4px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04)',
-                        }}
-                      />
-                    </div>
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={handleSendMessage}
-                  disabled={!inputValue.trim() || isLoading}
-                  className="text-white p-3 rounded-2xl disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 shadow-lg hover:shadow-xl flex-shrink-0 relative overflow-hidden group"
-                  style={{
-                    background: 'linear-gradient(135deg, rgba(71, 85, 105, 0.95) 0%, rgba(100, 116, 139, 0.9) 100%)',
-                    boxShadow: '0 4px 12px rgba(71, 85, 105, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
-                  }}
-                  aria-label="Envoyer"
-                >
-                  <motion.div
-                    className="absolute inset-0 opacity-0 group-hover:opacity-100"
-                    style={{
-                      background: 'linear-gradient(135deg, rgba(71, 85, 105, 1) 0%, rgba(100, 116, 139, 0.95) 100%)',
-                      boxShadow: 'inset 0 1px 0 rgba(255, 255, 255, 0.3)',
-                    }}
-                    transition={{ duration: 0.3 }}
-                  />
-                  {isLoading ? (
-                    <Loader2 className="w-4 h-4 animate-spin relative z-10" />
-                  ) : (
-                    <Send className="w-4 h-4 relative z-10" />
-                  )}
-                </motion.button>
-              </div>
-            </motion.div>
+              </>
             )}
-          </>
+          </motion.div>
         )}
-
-          {/* Resize Handle */}
-          {!isMinimized && (
-            <motion.div
-              ref={resizeHandleRef}
-              onMouseDown={handleResizeStart}
-              className="absolute bottom-2 right-2 w-6 h-6 cursor-nwse-resize bg-gradient-to-br from-gray-500 to-gray-400 opacity-30 hover:opacity-100 transition-opacity z-20"
-              style={{
-                clipPath: 'polygon(100% 0, 0 100%, 100% 100%)',
-              }}
-              title="Redimensionner"
-              whileHover={{ opacity: 1 }}
-            />
-          )}
-        </div>
-      </motion.div>
-    </AnimatePresence>
+      </AnimatePresence>
+    </div>
   )
 }

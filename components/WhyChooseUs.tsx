@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { Clock, Shield, Leaf, Users, Award, Heart } from 'lucide-react'
+import Image from 'next/image'
 
 export default function WhyChooseUs() {
   const reasons = [
@@ -50,27 +51,48 @@ export default function WhyChooseUs() {
   ]
 
   return (
-    <section id="pourquoi-nous" className="py-12 sm:py-16 md:py-20 bg-gradient-to-br from-primary-50/80 to-white/80 backdrop-blur-sm w-full overflow-x-hidden">
-      <div className="container mx-auto px-4 sm:px-6">
+    <section id="pourquoi-nous" className="py-20 lg:py-32 bg-gradient-to-b from-white via-primary-50/80 to-white/80 backdrop-blur-sm w-full relative overflow-hidden">
+      {/* Arka plan fotoğraf */}
+      <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 opacity-55">
+          <Image
+            src="/unnamed.jpg"
+            alt="Cleaning background"
+            fill
+            className="object-cover"
+            style={{
+              objectPosition: 'left center',
+              filter: 'brightness(1.0) contrast(1.15) saturate(1.3) blur(1px)',
+            }}
+            quality={90}
+          />
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-b from-primary-50/50 via-primary-50/30 to-white/50"></div>
+      </div>
+      
+      {/* Yumuşak geçiş - Üst kısım */}
+      <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-primary-50/80 to-transparent pointer-events-none z-0"></div>
+      
+      <div className="max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="text-center mb-16 lg:mb-20"
         >
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-bold text-gray-900 mb-4 sm:mb-6 leading-[1.25]">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-bold text-gray-900 mb-6 sm:mb-8 leading-[1.25]">
             Pourquoi Nous Choisir
           </h2>
-          <p className="text-sm sm:text-base md:text-lg text-gray-600 max-w-3xl mx-auto leading-[1.7] mb-4 sm:mb-6 px-4">
+          <p className="text-sm sm:text-base md:text-lg text-gray-600 max-w-3xl mx-auto leading-[1.7] mb-6 sm:mb-8 px-4">
             Chez nous, chaque client est une priorité. Basés à Genève, nous sommes fiers de contribuer au bien-être de notre communauté locale en offrant des services de nettoyage de qualité.
           </p>
-          <p className="text-base sm:text-lg md:text-xl font-semibold text-primary-600 mt-4 sm:mt-6 leading-[1.5] px-4">
+          <p className="text-base sm:text-lg md:text-xl font-semibold text-primary-600 mt-6 sm:mt-8 leading-[1.5] px-4">
             Ensemble, bâtissons un environnement plus propre et plus fort!
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 md:gap-10">
           {reasons.map((reason, index) => {
             const IconComponent = reason.icon
             const reasonImages = [
@@ -84,11 +106,11 @@ export default function WhyChooseUs() {
             return (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                whileHover={{ scale: 1.05 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.6, delay: index * 0.1, ease: "easeOut" }}
+                whileHover={{ scale: 1.05, y: -5 }}
                 className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 max-w-sm mx-auto"
               >
                 <div className="relative h-20 sm:h-24 md:h-28 overflow-hidden">
@@ -115,6 +137,9 @@ export default function WhyChooseUs() {
           })}
         </div>
       </div>
+      
+      {/* Yumuşak geçiş - Alt kısım */}
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-white/80 via-white/50 to-white pointer-events-none z-0"></div>
     </section>
   )
 }

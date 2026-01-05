@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { X, ChevronLeft, ChevronRight } from 'lucide-react'
+import { X, ChevronLeft, ChevronRight, Star, Award, Images } from 'lucide-react'
 
 interface PortfolioItem {
   id: number
@@ -102,31 +102,68 @@ export default function PortfolioGallery() {
   }
 
   return (
-    <div className="min-h-screen pt-28">
-      {/* Hero Section */}
-      <section className="relative py-20 bg-gradient-to-br from-primary-50 via-secondary-50 to-accent-50 overflow-hidden">
+    <div className="w-full">
+      {/* Hero Section - Header'a yakın, boşluk yok */}
+      <section className="relative pt-20 sm:pt-24 pb-12 md:pb-16 bg-gradient-to-br from-primary-50 via-secondary-50 to-accent-50 overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-0 left-0 w-96 h-96 bg-gradient-to-br from-primary-400 to-secondary-400 rounded-full blur-3xl"></div>
           <div className="absolute bottom-0 right-0 w-96 h-96 bg-gradient-to-br from-accent-400 to-primary-400 rounded-full blur-3xl"></div>
         </div>
         
-        <div className="container mx-auto px-4 relative z-10">
+        <div className="max-w-6xl mx-auto px-4 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             className="max-w-4xl mx-auto text-center"
           >
-            <h1 className="text-4xl md:text-6xl font-display font-bold text-gray-900 mb-6">
+            {/* Dekoratif ikonlar */}
+            <motion.div
+              className="flex justify-center gap-4 mb-6"
+              initial={{ opacity: 0, scale: 0 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.2, duration: 0.5 }}
+            >
+              <motion.div
+                className="w-12 h-12 rounded-full bg-gradient-to-br from-primary-400 to-primary-600 flex items-center justify-center shadow-lg"
+                animate={{ rotate: [0, 360], scale: [1, 1.1, 1] }}
+                transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+              >
+                <Images className="w-6 h-6 text-white" />
+              </motion.div>
+              <motion.div
+                className="w-12 h-12 rounded-full bg-gradient-to-br from-secondary-400 to-secondary-600 flex items-center justify-center shadow-lg"
+                animate={{ rotate: [360, 0], scale: [1, 1.1, 1] }}
+                transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+              >
+                <Star className="w-6 h-6 text-white" />
+              </motion.div>
+              <motion.div
+                className="w-12 h-12 rounded-full bg-gradient-to-br from-accent-400 to-accent-600 flex items-center justify-center shadow-lg"
+                animate={{ rotate: [0, 360], scale: [1, 1.1, 1] }}
+                transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
+              >
+                <Award className="w-6 h-6 text-white" />
+              </motion.div>
+            </motion.div>
+            
+            <h1 className="text-4xl md:text-6xl font-display font-bold text-gray-900 mb-4">
               Portfolio
             </h1>
+            <motion.div
+              initial={{ opacity: 0, width: 0 }}
+              animate={{ opacity: 1, width: "100%" }}
+              transition={{ delay: 0.4, duration: 0.8 }}
+              className="h-1 bg-gradient-to-r from-primary-500 via-secondary-500 to-accent-500 rounded-full mx-auto mb-6 max-w-xs"
+            />
             <p className="text-xl md:text-2xl text-gray-700">
               Découvrez nos réalisations et témoignages clients
             </p>
           </motion.div>
         </div>
       </section>
-
+      
+      <div className="max-w-6xl mx-auto px-4">
       {/* Category Filter */}
       <section className="py-8 bg-white border-b-2 border-gray-200">
         <div className="container mx-auto px-4">
@@ -242,6 +279,7 @@ export default function PortfolioGallery() {
           </motion.div>
         )}
       </AnimatePresence>
+      </div>
     </div>
   )
 }

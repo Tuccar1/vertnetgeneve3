@@ -14,8 +14,8 @@ export default function Contact() {
     {
       icon: Phone,
       title: 'Téléphone',
-      content: '+41 77 215 22 55',
-      link: 'tel:+41772152255',
+      content: '+41 76 621 21 83',
+      link: 'tel:+41766212183',
       color: 'text-primary-600',
     },
     {
@@ -50,8 +50,8 @@ export default function Contact() {
   ]
 
   return (
-    <section id="contact" className="py-12 sm:py-16 bg-[#f8f9fa] text-gray-900 w-full overflow-x-hidden">
-      <div className="container mx-auto px-4 sm:px-6">
+    <section id="contact" className="py-12 sm:py-16 bg-[#f8f9fa] text-gray-900 w-full">
+      <div className="max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-6 sm:mb-8">
             <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-3 sm:mb-4 leading-[1.25] text-gray-900">

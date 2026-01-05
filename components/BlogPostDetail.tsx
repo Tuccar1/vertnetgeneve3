@@ -13,7 +13,8 @@ interface BlogPostDetailProps {
 
 export default function BlogPostDetail({ post }: BlogPostDetailProps) {
   return (
-    <div className="min-h-screen pt-28">
+    <div className="w-full">
+      <div className="max-w-6xl mx-auto px-4 pt-20 sm:pt-24">
       {/* Hero Section */}
       <section className="relative py-12 sm:py-16 md:py-20 bg-gradient-to-br from-primary-50 via-secondary-50 to-accent-50 overflow-hidden">
         <div className="absolute inset-0 opacity-10">
@@ -122,6 +123,7 @@ export default function BlogPostDetail({ post }: BlogPostDetailProps) {
           </div>
         </div>
       </section>
+      </div>
     </div>
   )
 }

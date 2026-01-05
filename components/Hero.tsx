@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, Facebook, Linkedin, Instagram, MessageCircle } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
 
@@ -64,14 +64,15 @@ export default function Hero() {
   return (
     <section
       id="accueil"
-      className="relative min-h-[132vh] flex items-center justify-center overflow-hidden pt-28 w-full overflow-x-hidden"
+      className="relative min-h-screen flex flex-col justify-start overflow-hidden pt-20 sm:pt-24 w-full pb-20 lg:pb-32"
     >
       {/* Background Image - Seçilen görsel */}
       <div className="absolute inset-0 z-0 overflow-hidden">
-        {/* Gradient overlay - sadece alt kısımda, sol tarafta yok */}
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white/30 z-10"></div>
+        {/* Gradient overlay - Yazıların okunabilirliği için, görsel renklerine uyumlu */}
+        <div className="absolute inset-0 bg-gradient-to-b from-blue-900/25 via-blue-800/15 to-yellow-50/35 z-10"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-white/25 z-10"></div>
         
-        {/* Profesyonel temizlik görseli - Hero section boyutunda, daha görünür */}
+        {/* Profesyonel temizlik görseli - Net ve görünür */}
         <div className="absolute inset-0 w-full h-full z-0">
           <Image
             src={heroImage.url}
@@ -82,23 +83,23 @@ export default function Hero() {
               objectPosition: 'center',
               width: '100%',
               height: '100%',
-              opacity: 0.65,
-              filter: 'brightness(1.1) contrast(1.15) saturate(1.2)',
+              opacity: 0.7,
+              filter: 'brightness(0.95) contrast(1.0) saturate(1.0)',
             }}
             priority
-            quality={95}
+            quality={100}
             unoptimized
           />
         </div>
         
-        {/* Ek dekoratif element */}
-        <div className="absolute bottom-20 right-10 md:right-20 lg:right-32 w-32 h-32 md:w-40 md:h-40 opacity-20 z-5">
-          <div className="w-full h-full bg-gradient-to-br from-primary-300/30 to-primary-500/20 rounded-full blur-2xl"></div>
+        {/* Ek dekoratif element - daha az görünür */}
+        <div className="absolute bottom-20 right-10 md:right-20 lg:right-32 w-32 h-32 md:w-40 md:h-40 opacity-10 z-5">
+          <div className="w-full h-full bg-gradient-to-br from-primary-300/20 to-primary-500/10 rounded-full blur-2xl"></div>
         </div>
       </div>
 
       {/* Content */}
-      <div className="container mx-auto px-4 relative z-20">
+      <div className="max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8 relative z-20">
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -106,24 +107,24 @@ export default function Hero() {
           className="max-w-4xl mx-auto text-center"
         >
           <motion.div variants={itemVariants}>
-            <span className="inline-block px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-4 bg-gray-100 rounded-full text-gray-700 text-xs sm:text-sm md:text-base font-bold mb-6 sm:mb-8 md:mb-10 border border-gray-200">
+            <span className="inline-block px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-4 bg-gradient-to-r from-blue-50/95 via-white/95 to-yellow-50/95 backdrop-blur-md rounded-full text-gray-800 text-xs sm:text-sm md:text-base font-bold mb-6 sm:mb-8 md:mb-10 border-2 border-white/90 shadow-xl [text-shadow:_1px_1px_2px_rgba(255,255,255,0.8)]">
               Excellence en Nettoyage Professionnel
             </span>
           </motion.div>
 
           <motion.h1
             variants={itemVariants}
-            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-display font-bold text-gray-900 mb-6 sm:mb-8 leading-[1.2] tracking-tight"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-display font-bold text-gray-900 mb-6 sm:mb-8 leading-[1.2] tracking-tight drop-shadow-[0_2px_8px_rgba(255,255,255,0.9)] [text-shadow:_2px_2px_8px_rgba(255,255,255,0.8),_-2px_-2px_8px_rgba(255,255,255,0.8)]"
           >
             Votre Partenaire de{' '}
-            <span className="bg-gradient-to-r from-gray-700 via-gray-600 to-gray-500 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-blue-700 via-blue-600 to-blue-500 bg-clip-text text-transparent drop-shadow-[0_2px_8px_rgba(255,255,255,0.9)] [text-shadow:_2px_2px_8px_rgba(255,255,255,0.8)]">
               Confiance
             </span>
           </motion.h1>
 
           <motion.p
             variants={itemVariants}
-            className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-700 mb-8 sm:mb-10 md:mb-12 leading-[1.7] max-w-3xl mx-auto font-medium px-4"
+            className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-800 mb-8 sm:mb-10 md:mb-12 leading-[1.7] max-w-3xl mx-auto font-semibold px-4 drop-shadow-[0_2px_6px_rgba(255,255,255,0.9)] [text-shadow:_1px_1px_6px_rgba(255,255,255,0.8),_-1px_-1px_6px_rgba(255,255,255,0.8)]"
           >
             Services de nettoyage professionnel de qualité supérieure pour les
             entreprises et particuliers à Genève. Disponible 24h/24 et 7j/7.
@@ -131,7 +132,7 @@ export default function Hero() {
 
           <motion.div
             variants={itemVariants}
-            className="flex flex-col sm:flex-row gap-4 sm:gap-5 md:gap-7 justify-center mb-12 sm:mb-16 md:mb-20 px-4"
+            className="flex flex-col sm:flex-row gap-4 sm:gap-5 md:gap-7 justify-center mb-8 sm:mb-12 md:mb-16 px-4"
           >
             <motion.div
               whileHover={{ scale: 1.05, y: -2 }}
@@ -141,7 +142,6 @@ export default function Hero() {
               <Link href="/booking" prefetch={true} className="relative inline-flex items-center justify-center w-full sm:w-auto px-6 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-gray-600 via-gray-700 to-gray-800 text-white rounded-lg font-semibold text-base sm:text-lg md:text-xl shadow-lg hover:shadow-xl transition-all duration-300 group border-2 border-gray-500/50 overflow-hidden">
                 <span className="relative z-10 flex items-center">
                   Demander un Devis
-                  {/* @ts-ignore */}
                   <ArrowRight className="inline-block ml-2 w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 group-hover:translate-x-1 transition-transform" />
                 </span>
                 <motion.div
@@ -172,9 +172,64 @@ export default function Hero() {
               </Link>
             </motion.div>
           </motion.div>
+
+          {/* Sosyal Medya Butonları - Hareketli */}
+          <motion.div
+            variants={itemVariants}
+            className="flex items-center justify-center gap-4 sm:gap-6 px-4"
+          >
+            <span className="text-sm sm:text-base text-gray-600 font-medium hidden sm:block">Suivez-nous:</span>
+            <div className="flex items-center gap-3 sm:gap-4">
+              {[
+                { icon: Facebook, href: '#', label: 'Facebook', color: 'from-blue-500 to-blue-600' },
+                { icon: Linkedin, href: '#', label: 'LinkedIn', color: 'from-blue-600 to-blue-700' },
+                { icon: Instagram, href: '#', label: 'Instagram', color: 'from-pink-500 via-purple-500 to-orange-500' },
+                { icon: MessageCircle, href: 'https://wa.me/41772152255', label: 'WhatsApp', color: 'from-green-500 to-green-600' },
+              ].map((social, index) => {
+                const IconComponent = social.icon
+                return (
+                  <motion.a
+                    key={index}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="relative w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-white/90 backdrop-blur-sm shadow-lg flex items-center justify-center group overflow-hidden border-2 border-white/50"
+                    whileHover={{ scale: 1.15, y: -5, rotate: 360 }}
+                    whileTap={{ scale: 0.9 }}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.5 + index * 0.1, duration: 0.5 }}
+                    aria-label={social.label}
+                  >
+                    {/* Gradient arka plan */}
+                    <motion.div
+                      className={`absolute inset-0 bg-gradient-to-br ${social.color} opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
+                    />
+                    {/* Icon */}
+                    <IconComponent className="w-5 h-5 sm:w-6 sm:h-6 text-gray-700 group-hover:text-white relative z-10 transition-colors duration-300" />
+                    {/* Glow efekti */}
+                    <motion.div
+                      className={`absolute inset-0 bg-gradient-to-br ${social.color} rounded-full blur-md opacity-0 group-hover:opacity-50`}
+                      animate={{
+                        scale: [1, 1.3, 1],
+                        opacity: [0, 0.5, 0],
+                      }}
+                      transition={{
+                        duration: 2,
+                        repeat: Infinity,
+                        ease: 'easeInOut',
+                      }}
+                    />
+                  </motion.a>
+                )
+              })}
+            </div>
+          </motion.div>
         </motion.div>
       </div>
 
+      {/* Yumuşak geçiş - Alt kısım */}
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent via-white/50 to-white pointer-events-none z-10"></div>
     </section>
   )
 }

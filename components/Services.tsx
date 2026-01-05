@@ -2,10 +2,12 @@
 
 import { motion } from 'framer-motion'
 import { Sofa, Home, Building2, Briefcase, Building, Wrench, Key, Layers, Square, ArrowRight } from 'lucide-react'
+import type { LucideIcon } from 'lucide-react'
 import Link from 'next/link'
+import Image from 'next/image'
 
 interface Service {
-  icon: any
+  icon: LucideIcon
   title: string
   description: string
   href: string
@@ -20,7 +22,7 @@ const services: Service[] = [
     description: 'Nous offrons un nettoyage professionnel de canapés et fauteuils, pour leur redonner propreté, fraîcheur et éclat tout en respectant les matériaux.',
     href: '/services/canapes-et-matelas',
     color: 'from-primary-500 to-primary-600',
-    image: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80', // Sofa/mattress cleaning
+    image: '/koltuk temizligi.jpg', // Koltuk temizliği
   },
   {
     icon: Home,
@@ -28,7 +30,7 @@ const services: Service[] = [
     description: 'Nous proposons un service de nettoyage pour fin de bail, garantissant propreté et conformité pour un départ en toute sérénité.',
     href: '/services/fin-de-bail',
     color: 'from-secondary-500 to-secondary-600',
-    image: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80', // Empty apartment cleaning
+    image: '/ev temizliği.jpg', // Ev temizliği
   },
   {
     icon: Wrench,
@@ -36,7 +38,7 @@ const services: Service[] = [
     description: 'Offrez-vous un espace impeccable grâce à notre service de nettoyage après travaux, garantissant propreté et fonctionnalité immédiate.',
     href: '/services/fin-de-chantier',
     color: 'from-accent-500 to-accent-600',
-    image: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80', // Construction cleanup
+    image: '/3.jpg', // 3'lü fotoğraf - 1. kısım
   },
   {
     icon: Key,
@@ -44,7 +46,7 @@ const services: Service[] = [
     description: 'Bénéficiez de nos services de conciergerie, conçus pour simplifier votre quotidien et maintenir vos espaces toujours propres et agréables.',
     href: '/services/conciergerie',
     color: 'from-primary-500 to-secondary-500',
-    image: 'https://images.unsplash.com/photo-1556912172-45b7abe8b7e1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80', // Concierge service
+    image: '/3.jpg', // 3'lü fotoğraf - 2. kısım
   },
   {
     icon: Building,
@@ -52,7 +54,7 @@ const services: Service[] = [
     description: 'Des services de nettoyage pour votre maison, votre appartement et votre immeuble, afin de garantir des espaces propres, confortables et bien entretenus.',
     href: '/services/immeubles',
     color: 'from-secondary-500 to-accent-500',
-    image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80', // Residential building cleaning
+    image: '/3.jpg', // 3'lü fotoğraf - 3. kısım
   },
   {
     icon: Briefcase,
@@ -90,16 +92,19 @@ const services: Service[] = [
 
 export default function Services() {
   return (
-    <section id="services" className="py-12 sm:py-16 md:py-20 bg-gradient-to-br from-gray-50 to-white w-full">
-      <div className="container mx-auto px-4 sm:px-6 max-w-7xl">
+    <section id="services" className="py-20 lg:py-32 bg-gradient-to-b from-white via-gray-50 to-white w-full relative">
+      {/* Yumuşak geçiş - Üst kısım */}
+      <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-white to-transparent pointer-events-none z-0"></div>
+      
+      <div className="max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-12 sm:mb-16"
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="text-center mb-16 lg:mb-20"
         >
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-bold text-gray-900 mb-4 sm:mb-6 leading-[1.25]">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-bold text-gray-900 mb-6 sm:mb-8 leading-[1.25]">
             Nos Services
           </h2>
           <p className="text-sm sm:text-base md:text-lg text-gray-600 max-w-3xl mx-auto leading-[1.7] px-4">
@@ -108,16 +113,16 @@ export default function Services() {
         </motion.div>
 
         {/* Modern List Layout - Daha Okunabilir */}
-        <div className="space-y-4 sm:space-y-6">
+        <div className="space-y-6 sm:space-y-8 md:space-y-10">
           {services.map((service, index) => {
             const IconComponent = service.icon
             return (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.05 }}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.6, delay: index * 0.05, ease: "easeOut" }}
               >
                 <Link
                   href={service.href}
@@ -126,11 +131,20 @@ export default function Services() {
                 >
                   <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6">
                     {/* Service Image */}
-                    <div className="flex-shrink-0 w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 rounded-xl overflow-hidden shadow-lg group-hover:shadow-xl transition-shadow duration-300">
-                      <img
+                    <div className="flex-shrink-0 w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 rounded-xl overflow-hidden shadow-lg group-hover:shadow-xl transition-shadow duration-300 relative">
+                      <Image
                         src={service.image}
                         alt={service.title}
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                        fill
+                        className="object-cover group-hover:scale-110 transition-transform duration-300"
+                        style={{
+                          objectPosition: service.image.includes('3.jpg') 
+                            ? service.title === 'Fin de Chantier' ? 'left center' 
+                            : service.title === 'Conciergerie' ? 'center center' 
+                            : service.title === 'Immeubles' ? 'right center'
+                            : 'center center' 
+                            : 'center center'
+                        }}
                       />
                     </div>
 
@@ -164,6 +178,9 @@ export default function Services() {
           })}
         </div>
       </div>
+      
+      {/* Yumuşak geçiş - Alt kısım */}
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-white via-white/50 to-white pointer-events-none z-0"></div>
     </section>
   )
 }

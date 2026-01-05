@@ -16,13 +16,16 @@ import {
   Ruler,
   Users,
   Leaf,
-  Zap
+  Zap,
+  Calculator,
+  FileText
 } from 'lucide-react'
+import type { LucideIcon } from 'lucide-react'
 
 interface ServiceType {
   id: string
   name: string
-  icon: any
+  icon: LucideIcon
   baseRate: number // CHF per m²
   minCharge: number // Minimum CHF
   description: string
@@ -32,7 +35,7 @@ interface AddOn {
   id: string
   name: string
   price: number
-  icon: any
+  icon: LucideIcon
 }
 
 export default function QuoteCalculator() {
@@ -256,21 +259,68 @@ export default function QuoteCalculator() {
   }
 
   return (
-    <div className="min-h-screen pt-28 pb-16 bg-gradient-to-br from-primary-50 via-secondary-50 to-accent-50">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-8 sm:mb-12"
-        >
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-            Calculateur de Devis
-          </h1>
-          <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto">
-            Obtenez une estimation instantanée et personnalisée pour vos services de nettoyage à Genève
-          </p>
-        </motion.div>
+    <div className="w-full bg-gradient-to-br from-primary-50 via-secondary-50 to-accent-50">
+      {/* Hero Section - Header'a yakın, boşluk yok */}
+      <section className="relative pt-20 sm:pt-24 pb-8 md:pb-12 bg-gradient-to-br from-primary-50 via-secondary-50 to-accent-50 overflow-hidden">
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-0 left-0 w-96 h-96 bg-gradient-to-br from-primary-400 to-secondary-400 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 right-0 w-96 h-96 bg-gradient-to-br from-accent-400 to-primary-400 rounded-full blur-3xl"></div>
+        </div>
+        
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-8 sm:mb-12"
+          >
+            {/* Dekoratif ikonlar */}
+            <motion.div
+              className="flex justify-center gap-4 mb-6"
+              initial={{ opacity: 0, scale: 0 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.2, duration: 0.5 }}
+            >
+              <motion.div
+                className="w-12 h-12 rounded-full bg-gradient-to-br from-primary-400 to-primary-600 flex items-center justify-center shadow-lg"
+                animate={{ rotate: [0, 360], scale: [1, 1.1, 1] }}
+                transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+              >
+                <Calculator className="w-6 h-6 text-white" />
+              </motion.div>
+              <motion.div
+                className="w-12 h-12 rounded-full bg-gradient-to-br from-secondary-400 to-secondary-600 flex items-center justify-center shadow-lg"
+                animate={{ rotate: [360, 0], scale: [1, 1.1, 1] }}
+                transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+              >
+                <FileText className="w-6 h-6 text-white" />
+              </motion.div>
+              <motion.div
+                className="w-12 h-12 rounded-full bg-gradient-to-br from-accent-400 to-accent-600 flex items-center justify-center shadow-lg"
+                animate={{ rotate: [0, 360], scale: [1, 1.1, 1] }}
+                transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
+              >
+                <Sparkles className="w-6 h-6 text-white" />
+              </motion.div>
+            </motion.div>
+            
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+              Calculateur de Devis
+            </h1>
+            <motion.div
+              initial={{ opacity: 0, width: 0 }}
+              animate={{ opacity: 1, width: "100%" }}
+              transition={{ delay: 0.4, duration: 0.8 }}
+              className="h-1 bg-gradient-to-r from-primary-500 via-secondary-500 to-accent-500 rounded-full mx-auto mb-4 max-w-xs"
+            />
+            <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto">
+              Obtenez une estimation instantanée et personnalisée pour vos services de nettoyage à Genève
+            </p>
+          </motion.div>
+        </div>
+      </section>
+      
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
 
         {/* Progress Indicator */}
         <div className="mb-8 sm:mb-12">

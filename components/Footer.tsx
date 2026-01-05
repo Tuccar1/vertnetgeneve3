@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { Phone, Mail, MapPin, Facebook, Linkedin, Instagram, Sparkles, Clock, Shield } from 'lucide-react'
+import type { LucideIcon } from 'lucide-react'
 import Link from 'next/link'
 
 export default function Footer() {
@@ -32,16 +33,16 @@ export default function Footer() {
   ]
 
   return (
-    <footer className="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-gray-300 relative w-full overflow-x-hidden overflow-y-hidden mt-auto">
+    <footer className="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-gray-300 relative w-full overflow-y-hidden">
       {/* Decorative Elements */}
       <div className="absolute inset-0 opacity-10 overflow-hidden w-full">
         <div className="absolute top-0 left-0 w-96 h-96 bg-primary-500 rounded-full blur-3xl"></div>
         <div className="absolute bottom-0 right-0 w-96 h-96 bg-accent-500 rounded-full blur-3xl"></div>
       </div>
 
-      <div className="container mx-auto px-4 lg:px-6 relative z-10">
+      <div className="max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Main Footer Content */}
-        <div className="py-12 sm:py-16">
+        <div className="pt-0 pb-12 sm:pb-16">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 md:gap-12">
             {/* Company Info */}
             <motion.div
@@ -52,7 +53,6 @@ export default function Footer() {
             >
               <Link href="/" className="flex items-center space-x-3 mb-6 group">
                 <div className="w-12 h-12 bg-gradient-to-br from-primary-500 via-secondary-500 to-accent-500 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300">
-                  {/* @ts-ignore */}
                   <Sparkles className="w-6 h-6 text-white" />
                 </div>
                 <div>
@@ -67,12 +67,10 @@ export default function Footer() {
               {/* Trust Badges */}
               <div className="space-y-3">
                 <div className="flex items-center space-x-2 text-sm">
-                  {/* @ts-ignore */}
                   <Shield className="w-4 h-4 text-secondary-400" />
                   <span className="text-gray-400">Garantie Satisfaction 100%</span>
                 </div>
                 <div className="flex items-center space-x-2 text-sm">
-                  {/* @ts-ignore */}
                   <Clock className="w-4 h-4 text-accent-400" />
                   <span className="text-gray-400">Disponible 24h/24 et 7j/7</span>
                 </div>
@@ -150,28 +148,26 @@ export default function Footer() {
               </h4>
               <div className="space-y-4">
                 <a
-                  href="tel:+41772152255"
+                  href="tel:+41766212183"
                   className="flex items-center space-x-3 text-sm md:text-base text-gray-400 hover:text-white transition-colors group leading-[1.7]"
                 >
                   <div className="p-2 bg-accent-500/20 rounded-lg group-hover:bg-accent-500/30 transition-colors flex-shrink-0">
                     {/* @ts-ignore */}
                     <Phone className="w-4 h-4 text-accent-400" />
                   </div>
-                  <span className="font-semibold">+41 77 215 22 55</span>
+                  <span className="font-semibold">+41 76 621 21 83</span>
                 </a>
                 <a
                   href="mailto:info@vertnetgeneve.ch"
                   className="flex items-center space-x-3 text-sm md:text-base text-gray-400 hover:text-white transition-colors group leading-[1.7]"
                 >
                   <div className="p-2 bg-primary-500/20 rounded-lg group-hover:bg-primary-500/30 transition-colors flex-shrink-0">
-                    {/* @ts-ignore */}
                     <Mail className="w-4 h-4 text-primary-400" />
                   </div>
                   <span>info@vertnetgeneve.ch</span>
                 </a>
                 <div className="flex items-start space-x-3 text-sm md:text-base text-gray-400 leading-[1.7]">
                   <div className="p-2 bg-secondary-500/20 rounded-lg mt-0.5 flex-shrink-0">
-                    {/* @ts-ignore */}
                     <MapPin className="w-4 h-4 text-secondary-400" />
                   </div>
                   <span>Genève, Suisse</span>
@@ -192,7 +188,6 @@ export default function Footer() {
                           whileTap={{ scale: 0.95 }}
                           aria-label={social.label}
                         >
-                          {/* @ts-ignore */}
                           <IconComponent className="w-5 h-5 text-gray-400 group-hover:text-white transition-colors" />
                         </motion.a>
                       )

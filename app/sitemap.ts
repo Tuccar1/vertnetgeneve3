@@ -1,15 +1,6 @@
 import { MetadataRoute } from 'next'
 import { servicesData } from '@/lib/services-data'
-
-// Safe blog posts getter
-function getBlogPosts() {
-  try {
-    const { getBlogPosts } = require('@/lib/blog')
-    return getBlogPosts()
-  } catch (error) {
-    return []
-  }
-}
+import { getBlogPosts, type BlogPost } from '@/lib/blog'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.vertnetgeneve.ch'
@@ -40,7 +31,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }))
 
   // Blog posts
-  const blogPosts = getBlogPosts().map((post) => ({
+  const blogPosts = getBlogPosts().map((post: BlogPost) => ({
     url: `${baseUrl}/blog/${post.slug}`,
     lastModified: post.date ? new Date(post.date) : new Date(),
     changeFrequency: 'monthly' as const,

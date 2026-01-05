@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { Menu, X, Phone, Sparkles, ArrowRight, Mail } from 'lucide-react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
 
 export default function Navigation() {
@@ -11,6 +12,8 @@ export default function Navigation() {
   const [servicesHover, setServicesHover] = useState(false)
 
   useEffect(() => {
+    if (typeof window === 'undefined') return
+    
     const handleScroll = () => {
       setScrolled(window.scrollY > 20)
     }
@@ -60,7 +63,7 @@ export default function Navigation() {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5, ease: 'easeOut' }}
-      className={`fixed top-0 left-0 right-0 z-50 w-full overflow-x-hidden transition-all duration-500 relative ${
+      className={`fixed top-0 left-0 right-0 z-50 w-full transition-all duration-500 relative ${
         scrolled
           ? 'bg-primary-50/98 backdrop-blur-xl shadow-lg border-b border-primary-200'
           : 'bg-primary-50/80 backdrop-blur-md'
@@ -102,20 +105,31 @@ export default function Navigation() {
           delay: 1,
         }}
       />
-      <div className="w-full overflow-x-hidden relative z-10">
-        <div className="flex items-center justify-between h-20 sm:h-24 gap-2 px-3 sm:px-4 lg:px-6 xl:px-8 mx-auto w-full overflow-x-hidden">
+      <div className="w-full relative z-10">
+        <div className="flex items-center justify-between h-20 sm:h-24 gap-1 sm:gap-2 px-2 sm:px-3 lg:px-4 xl:px-6 mx-auto w-full max-w-6xl">
           {/* Logo - Daha Premium */}
-          <Link href="/" className="flex items-center space-x-3 group flex-shrink-0">
+          <Link href="/" className="flex items-center group flex-shrink-0">
             <motion.div
               whileHover={{ scale: 1.1, rotate: 5 }}
               whileTap={{ scale: 0.95 }}
-              className="relative"
+              className="relative flex-shrink-0"
             >
-              <div className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 bg-gradient-to-br from-primary-500 via-secondary-500 to-accent-500 rounded-lg flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 relative overflow-hidden">
-                {/* @ts-ignore */}
-                <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 text-white relative z-10" />
+              <div className="w-40 h-10 sm:w-48 sm:h-12 md:w-56 md:h-14 lg:w-48 lg:h-12 xl:w-56 xl:h-14 bg-gradient-to-br from-primary-500 via-secondary-500 to-accent-500 rounded-lg flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 relative overflow-hidden p-0 sm:p-0.5">
+                <div className="relative w-full h-full rounded-md overflow-hidden">
+                  <Image
+                    src="/urn_aaid_sc_AP_96ff288d-cbac-4630-bf94-9b6447df2364.png"
+                    alt="Vertnetgeneve Logo"
+                    fill
+                    className="object-cover rounded-md"
+                    style={{
+                      filter: 'brightness(1.15) contrast(1.2) saturate(1.3)',
+                    }}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary-600/40 via-secondary-600/30 to-accent-600/40 rounded-md mix-blend-multiply" />
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent rounded-md" />
+                </div>
                 <motion.div
-                  className="absolute inset-0 bg-gradient-to-br from-primary-400 to-accent-400 opacity-0 group-hover:opacity-100"
+                  className="absolute inset-0 bg-gradient-to-br from-primary-400 to-accent-400 opacity-0 group-hover:opacity-20 rounded-lg"
                   transition={{ duration: 0.3 }}
                 />
               </div>
@@ -131,42 +145,65 @@ export default function Navigation() {
                 }}
               />
             </motion.div>
-            <div className="flex flex-col">
-              <span className="text-base sm:text-lg md:text-xl lg:text-2xl font-display font-bold text-gray-900 leading-tight tracking-tight">
-                Vertnetgeneve
-              </span>
-              <span className="text-xs sm:text-sm md:text-base text-gray-500 font-medium hidden sm:block tracking-wide leading-tight">
-                Excellence en Nettoyage Professionnel
-              </span>
-            </div>
           </Link>
 
           {/* Desktop Navigation - Daha Premium */}
-          <div className="hidden lg:flex items-center space-x-0.5 flex-1 justify-center max-w-2xl mx-2 min-w-0 overflow-hidden">
-            {navItems.map((item, index) => (
-              <div
-                key={item.href}
-                className="relative"
-                onMouseEnter={() => item.hasDropdown && setServicesHover(true)}
-                onMouseLeave={() => item.hasDropdown && setServicesHover(false)}
-              >
-                <Link
-                  href={item.href}
-                  prefetch={true}
-                  className="relative px-2.5 sm:px-3 py-2 sm:py-2.5 text-gray-700 hover:text-primary-600 font-semibold text-sm sm:text-base transition-all duration-300 rounded-lg group whitespace-nowrap leading-tight block"
+          <div className="hidden lg:flex items-center gap-x-0.5 xl:gap-x-1 2xl:gap-x-1.5 flex-1 justify-center max-w-2xl mx-1 lg:mx-2 min-w-0">
+            {navItems.map((item, index) => {
+              // Bazı menü elemanlarını küçük ekranlarda gizle
+              const isHiddenOnLarge = ['Qualité', 'Règlement'].includes(item.label)
+              if (isHiddenOnLarge) {
+                return (
+                  <div
+                    key={item.href}
+                    className="relative hidden 2xl:block"
+                    onMouseEnter={() => item.hasDropdown && setServicesHover(true)}
+                    onMouseLeave={() => item.hasDropdown && setServicesHover(false)}
+                  >
+                    <Link
+                      href={item.href}
+                      prefetch={true}
+                      className="relative px-1.5 py-1 lg:px-2 lg:py-1.5 text-gray-700 hover:text-primary-600 font-semibold text-[10px] lg:text-[11px] transition-all duration-300 rounded-lg group whitespace-nowrap leading-tight block"
+                    >
+                      <span className="relative z-10">{item.label}</span>
+                      <motion.span
+                        className="absolute inset-0 bg-gradient-to-r from-primary-50 to-accent-50 rounded-lg opacity-0 group-hover:opacity-100"
+                        transition={{ duration: 0.3 }}
+                      />
+                      <motion.span
+                        className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-primary-500 to-accent-500 rounded-full"
+                        initial={{ scaleX: 0 }}
+                        whileHover={{ scaleX: 1 }}
+                        transition={{ duration: 0.3 }}
+                      />
+                    </Link>
+                  </div>
+                )
+              }
+              return (
+                <div
+                  key={item.href}
+                  className="relative"
+                  onMouseEnter={() => item.hasDropdown && setServicesHover(true)}
+                  onMouseLeave={() => item.hasDropdown && setServicesHover(false)}
                 >
-                  <span className="relative z-10">{item.label}</span>
-                  <motion.span
-                    className="absolute inset-0 bg-gradient-to-r from-primary-50 to-accent-50 rounded-lg opacity-0 group-hover:opacity-100"
-                    transition={{ duration: 0.3 }}
-                  />
-                  <motion.span
-                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-primary-500 to-accent-500 rounded-full"
-                    initial={{ scaleX: 0 }}
-                    whileHover={{ scaleX: 1 }}
-                    transition={{ duration: 0.3 }}
-                  />
-                </Link>
+                  <Link
+                    href={item.href}
+                    prefetch={true}
+                    className="relative px-1.5 py-1 lg:px-2 lg:py-1.5 xl:px-2.5 xl:py-2 text-gray-700 hover:text-primary-600 font-semibold text-[10px] lg:text-[11px] xl:text-xs transition-all duration-300 rounded-lg group whitespace-nowrap leading-tight block"
+                  >
+                    <span className="relative z-10">{item.label}</span>
+                    <motion.span
+                      className="absolute inset-0 bg-gradient-to-r from-primary-50 to-accent-50 rounded-lg opacity-0 group-hover:opacity-100"
+                      transition={{ duration: 0.3 }}
+                    />
+                    <motion.span
+                      className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-primary-500 to-accent-500 rounded-full"
+                      initial={{ scaleX: 0 }}
+                      whileHover={{ scaleX: 1 }}
+                      transition={{ duration: 0.3 }}
+                    />
+                  </Link>
                 
                 {/* Services Dropdown Menu */}
                 {item.hasDropdown && (
@@ -223,35 +260,36 @@ export default function Navigation() {
                   </AnimatePresence>
                 )}
               </div>
-            ))}
+              )
+            })}
           </div>
 
           {/* Contact Info & CTA - Daha Premium */}
-          <div className="hidden lg:flex items-center space-x-2 flex-shrink-0">
+          <div className="hidden lg:flex items-center gap-x-0.5 xl:gap-x-1 flex-shrink-0 min-w-0">
             <motion.a
-              href="tel:+41772152255"
-              className="flex items-center space-x-1.5 text-gray-700 hover:text-accent-600 transition-colors group whitespace-nowrap"
+              href="tel:+41766212183"
+              className="flex items-center gap-x-0.5 text-gray-700 hover:text-accent-600 transition-colors group whitespace-nowrap flex-shrink-0"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-                    <div className="p-1 bg-gradient-to-br from-accent-50 to-accent-100 rounded-lg group-hover:from-accent-100 group-hover:to-accent-200 transition-all duration-300 shadow-sm group-hover:shadow-md">
+                    <div className="p-1 bg-gradient-to-br from-accent-50 to-accent-100 rounded-lg group-hover:from-accent-100 group-hover:to-accent-200 transition-all duration-300 shadow-sm group-hover:shadow-md flex-shrink-0">
                       {/* @ts-ignore */}
-                      <Phone className="w-3 h-3 text-accent-600" />
+                      <Phone className="w-3 h-3 lg:w-3.5 lg:h-3.5 text-accent-600" />
               </div>
-              <span className="font-bold text-xs sm:text-sm md:text-base hidden xl:inline leading-tight">+41 77 215 22 55</span>
-              <span className="font-bold text-xs sm:text-sm md:text-base xl:hidden leading-tight">+41 77</span>
+              <span className="font-bold text-[10px] lg:text-xs hidden 2xl:inline leading-tight">+41 76 621 21 83</span>
+              <span className="font-bold text-[10px] lg:text-xs 2xl:hidden leading-tight">+41 76</span>
             </motion.a>
             
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="flex-shrink-0">
               <Link
                 href="/booking"
-                className="relative px-3 py-2 sm:px-4 sm:py-2.5 bg-gradient-to-r from-primary-500 via-secondary-500 to-accent-500 text-white rounded-lg font-bold text-xs sm:text-sm md:text-base shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group whitespace-nowrap flex items-center leading-tight"
+                className="relative px-2 py-1.5 lg:px-2.5 lg:py-2 xl:px-3 xl:py-2.5 bg-gradient-to-r from-primary-500 via-secondary-500 to-accent-500 text-white rounded-lg font-bold text-[10px] lg:text-xs xl:text-sm shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group whitespace-nowrap flex items-center leading-tight"
               >
                 <span className="relative z-10 flex items-center">
-                        <span className="hidden xl:inline">Devis Gratuit</span>
-                        <span className="xl:hidden">Devis</span>
+                        <span className="hidden 2xl:inline">Devis Gratuit</span>
+                        <span className="2xl:hidden">Devis</span>
                         {/* @ts-ignore */}
-                        <ArrowRight className="w-3 h-3 sm:w-3.5 sm:h-3.5 md:w-4 md:h-4 ml-1 flex-shrink-0" />
+                        <ArrowRight className="w-2.5 h-2.5 lg:w-3 lg:h-3 xl:w-3.5 xl:h-3.5 ml-0.5 lg:ml-1 flex-shrink-0" />
                 </span>
                 <motion.div
                   className="absolute inset-0 bg-gradient-to-r from-primary-600 via-secondary-600 to-accent-600"
@@ -265,7 +303,7 @@ export default function Navigation() {
 
           {/* Mobile Menu Button */}
                 <motion.button
-                  className="lg:hidden text-gray-700 p-2 rounded-lg hover:bg-primary-100 transition-colors"
+                  className="lg:hidden text-gray-700 p-2 rounded-lg hover:bg-primary-100 transition-colors flex-shrink-0"
                   onClick={() => setIsOpen(!isOpen)}
                   aria-label="Toggle menu"
                   whileTap={{ scale: 0.9 }}
@@ -327,7 +365,7 @@ export default function Navigation() {
                 ))}
                 <div className="pt-6 mt-6 border-t border-primary-200 space-y-3 px-2">
                   <motion.a
-                    href="tel:+41772152255"
+                    href="tel:+41766212183"
                     className="flex items-center space-x-3 px-6 py-4 bg-gradient-to-br from-accent-50 to-accent-100 rounded-xl text-accent-700 font-bold shadow-md"
                     initial={{ x: -20, opacity: 0 }}
                     animate={{ x: 0, opacity: 1 }}
@@ -336,7 +374,7 @@ export default function Navigation() {
                   >
                     {/* @ts-ignore */}
                     <Phone className="w-5 h-5" />
-                    <span>+41 77 215 22 55</span>
+                    <span>+41 76 621 21 83</span>
                   </motion.a>
                   <motion.div
                     initial={{ x: -20, opacity: 0 }}

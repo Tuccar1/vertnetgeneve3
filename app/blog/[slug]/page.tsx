@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Navigation from '@/components/Navigation'
 import Footer from '@/components/Footer'
@@ -11,18 +12,31 @@ export async function generateStaticParams() {
   }))
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }) {
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const post = getBlogPost(params.slug)
   
   if (!post) {
     return {
       title: 'Article Non Trouvé - Vertnetgeneve',
+      description: 'L\'article demandé n\'a pas été trouvé.',
     }
   }
 
   return {
-    title: `${post.title} - Vertnetgeneve Blog`,
-    description: post.excerpt,
+    title: `${post.title} - Blog Vertnetgeneve`,
+    description: post.excerpt || `Découvrez notre article sur ${post.title} dans le blog Vertnetgeneve.`,
+    keywords: post.tags.join(', ') + ', blog nettoyage, conseils nettoyage professionnel, nettoyage Genève',
+    openGraph: {
+      title: `${post.title} - Vertnetgeneve Blog`,
+      description: post.excerpt || `Découvrez notre article sur ${post.title}.`,
+      url: `https://www.vertnetgeneve.ch/blog/${params.slug}`,
+      type: 'article',
+      publishedTime: post.date,
+      tags: post.tags,
+    },
+    alternates: {
+      canonical: `https://www.vertnetgeneve.ch/blog/${params.slug}`,
+    },
   }
 }
 
@@ -34,11 +48,11 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
   }
 
   return (
-    <div className="w-full overflow-x-hidden min-h-screen flex flex-col relative z-10">
+    <>
       <Navigation />
       <BlogPostDetail post={post} />
       <Footer />
-    </div>
+    </>
   )
 }
 

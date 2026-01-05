@@ -11,9 +11,10 @@ interface ServiceDetailProps {
 
 export default function ServiceDetail({ service }: ServiceDetailProps) {
   return (
-    <div className="min-h-screen pt-28">
-      {/* Hero Section */}
-      <section className={`relative py-20 bg-gradient-to-br ${service.bgColor} overflow-hidden`}>
+    <div className="w-full">
+      <div className="max-w-6xl mx-auto px-4">
+      {/* Hero Section - Header ile birleşik */}
+      <section className={`relative pt-20 sm:pt-24 pb-12 md:pb-16 bg-gradient-to-br ${service.bgColor} overflow-hidden`}>
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-0 left-0 w-96 h-96 bg-gradient-to-br from-primary-400 to-secondary-400 rounded-full blur-3xl"></div>
           <div className="absolute bottom-0 right-0 w-96 h-96 bg-gradient-to-br from-accent-400 to-primary-400 rounded-full blur-3xl"></div>
@@ -207,6 +208,7 @@ export default function ServiceDetail({ service }: ServiceDetailProps) {
           </motion.div>
         </div>
       </section>
+      </div>
     </div>
   )
 }

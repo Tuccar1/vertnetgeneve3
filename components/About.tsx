@@ -2,6 +2,8 @@
 
 import { motion } from 'framer-motion'
 import { Clock, Shield, Leaf, Recycle, Heart, Target } from 'lucide-react'
+import type { LucideIcon } from 'lucide-react'
+import Image from 'next/image'
 
 const FeatureCard = ({ 
   Icon, 
@@ -10,7 +12,7 @@ const FeatureCard = ({
   color, 
   bgColor 
 }: { 
-  Icon: any
+  Icon: LucideIcon
   title: string
   description: string
   color: string
@@ -18,7 +20,6 @@ const FeatureCard = ({
 }) => (
       <div className="flex items-start space-x-4">
     <div className={`p-3 rounded-lg ${bgColor} flex-shrink-0`}>
-      {/* @ts-ignore */}
       <Icon className={`w-6 h-6 ${color}`} />
     </div>
     <div className="flex-1">
@@ -65,8 +66,28 @@ export default function About() {
   ]
 
   return (
-    <section id="apropos" className="py-12 sm:py-16 md:py-20 bg-primary-50/50 w-full overflow-x-hidden">
-      <div className="container mx-auto px-4 sm:px-6">
+    <section id="apropos" className="py-20 lg:py-32 bg-gradient-to-b from-white via-primary-50/50 to-primary-50/50 w-full relative overflow-hidden">
+      {/* Arka plan fotoğraf */}
+      <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 opacity-55">
+          <Image
+            src="/istockphoto-488989384-612x612.jpg"
+            alt="Cleaning background"
+            fill
+            className="object-cover object-center"
+            style={{
+              filter: 'brightness(1.0) contrast(1.15) saturate(1.3) blur(1px)',
+            }}
+            quality={90}
+          />
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-b from-white/50 via-primary-50/30 to-primary-50/50"></div>
+      </div>
+      
+      {/* Yumuşak geçiş - Üst kısım */}
+      <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-white/80 to-transparent pointer-events-none z-0"></div>
+      
+      <div className="max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section 1: Excellence dans les Services */}
         <div className="max-w-6xl mx-auto mb-20">
           <motion.div
@@ -74,12 +95,12 @@ export default function About() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="text-center mb-12"
+            className="text-center mb-16 lg:mb-20"
           >
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-bold text-gray-900 mb-4 sm:mb-6 leading-[1.25]">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-bold text-gray-900 mb-6 sm:mb-8 leading-[1.25]">
               À Propos de Notre Entreprise
             </h2>
-            <h3 className="text-xl sm:text-2xl md:text-3xl font-display font-semibold text-primary-600 mb-4 sm:mb-6 leading-[1.3]">
+            <h3 className="text-xl sm:text-2xl md:text-3xl font-display font-semibold text-primary-600 mb-6 sm:mb-8 leading-[1.3]">
               L'excellence dans les Services de Nettoyage
             </h3>
             <p className="text-sm sm:text-base md:text-lg text-gray-700 max-w-3xl mx-auto leading-[1.7] px-4">
@@ -87,7 +108,7 @@ export default function About() {
             </p>
           </motion.div>
 
-                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 md:gap-8 mb-12 sm:mb-16">
+                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 md:gap-10 mb-16 sm:mb-20">
             {features.map((feature, index) => (
               <motion.div
                 key={index}
@@ -127,7 +148,6 @@ export default function About() {
                   Notre entreprise, basée à Genève, se consacre à offrir des services de nettoyage respectueux à la fois de ses clients et de l'environnement. Fondée dans le but de créer un environnement plus propre, notre mission va au-delà du nettoyage : nous prenons part à la construction d'un avenir durable.
                 </p>
                 <div className="flex items-center space-x-3 mb-4">
-                  {/* @ts-ignore */}
                   <Target className="w-6 h-6 text-primary-600 flex-shrink-0" />
                   <h4 className="text-lg md:text-xl font-bold text-gray-900 leading-[1.3]">Notre Vision</h4>
                 </div>
@@ -138,7 +158,6 @@ export default function About() {
 
               <div>
                 <div className="flex items-center space-x-3 mb-4">
-                  {/* @ts-ignore */}
                   <Heart className="w-6 h-6 text-secondary-600 flex-shrink-0" />
                   <h4 className="text-lg md:text-xl font-bold text-gray-900 leading-[1.3]">Notre Mission</h4>
                 </div>
@@ -155,6 +174,9 @@ export default function About() {
           </motion.div>
         </div>
       </div>
+      
+      {/* Yumuşak geçiş - Alt kısım */}
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-primary-50/50 via-white/50 to-white pointer-events-none z-0"></div>
     </section>
   )
 }

@@ -1,5 +1,6 @@
 'use client'
 
+import React from 'react'
 import { motion } from 'framer-motion'
 import { Sofa, Home, Building2, Briefcase, Building, Wrench, Key, Layers, Square, ArrowRight } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'

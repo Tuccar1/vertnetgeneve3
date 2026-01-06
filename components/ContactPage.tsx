@@ -1,10 +1,21 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { MapPin, Phone, Mail, Globe, MessageCircle, Clock, Send, Sparkles } from 'lucide-react'
+import { MapPin, Phone, Mail, Globe, MessageCircle, Clock, Send, Sparkles, Loader2 } from 'lucide-react'
 import Image from 'next/image'
 
 export default function ContactPage() {
+  const [mapLoaded, setMapLoaded] = useState(false)
+  const [mapError, setMapError] = useState(false)
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setMapLoaded(true)
+    }, 500)
+
+    return () => clearTimeout(timer)
+  }, [])
   return (
     <div className="w-full relative">
       {/* Sabit arka plan fotoğraf - Tüm sayfada sabit kalacak */}
@@ -231,18 +242,53 @@ export default function ContactPage() {
               <h2 className="text-lg md:text-xl font-bold text-gray-900 mb-4 p-5 md:p-6 pb-0">
                 Notre Localisation
               </h2>
-              <div className="w-full h-64 sm:h-80 md:h-96">
-                <iframe
-                  src="https://www.google.com/maps?q=Genève,+Switzerland&output=embed&zoom=13&center=46.2044,6.1432"
-                  width="100%"
-                  height="100%"
-                  style={{ border: 0 }}
-                  allowFullScreen
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                  className="w-full h-full"
-                  title="Localisation Vertnetgeneve - Genève, Suisse"
-                ></iframe>
+              <div className="w-full h-64 sm:h-80 md:h-96 relative bg-gray-100">
+                {!mapLoaded && (
+                  <div className="absolute inset-0 flex items-center justify-center bg-gray-100">
+                    <div className="flex flex-col items-center gap-3">
+                      <Loader2 className="w-8 h-8 text-primary-500 animate-spin" />
+                      <p className="text-sm text-gray-600">Chargement de la carte...</p>
+                    </div>
+                  </div>
+                )}
+                {mapError ? (
+                  <div className="absolute inset-0 flex items-center justify-center bg-gray-100">
+                    <div className="text-center p-6">
+                      <MapPin className="w-12 h-12 text-gray-400 mx-auto mb-3" />
+                      <p className="text-sm text-gray-600 mb-2">Impossible de charger la carte</p>
+                      <a
+                        href="https://www.google.com/maps?q=Genève,+Switzerland"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-primary-600 hover:text-primary-700 text-sm font-semibold underline"
+                      >
+                        Ouvrir dans Google Maps
+                      </a>
+                    </div>
+                  </div>
+                ) : (
+                  mapLoaded && (
+                    <iframe
+                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d11050.5!2d6.1432!3d46.2044!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x478c293ecd89a7e5%3A0x3b1e5b8c5b8c5b8c!2sGenève%2C%20Suisse!5e0!3m2!1sfr!2sch!4v1234567890123!5m2!1sfr!2sch"
+                      width="100%"
+                      height="100%"
+                      style={{ border: 0 }}
+                      allowFullScreen
+                      loading="lazy"
+                      referrerPolicy="no-referrer-when-downgrade"
+                      className="w-full h-full"
+                      title="Localisation Vertnetgeneve - Genève, Suisse"
+                      onLoad={() => {
+                        setMapLoaded(true)
+                        setMapError(false)
+                      }}
+                      onError={() => {
+                        setMapError(true)
+                        setMapLoaded(false)
+                      }}
+                    />
+                  )
+                )}
               </div>
             </motion.div>
           </div>

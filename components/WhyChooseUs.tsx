@@ -53,7 +53,6 @@ export default function WhyChooseUs() {
 
   return (
     <section id="pourquoi-nous" className="py-20 lg:py-32 bg-gradient-to-b from-white via-primary-50/80 to-white/80 backdrop-blur-sm w-full relative overflow-hidden">
-      {/* Arka plan fotoğraf */}
       <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 opacity-55">
           <Image
@@ -73,7 +72,6 @@ export default function WhyChooseUs() {
         <div className="absolute inset-0 bg-gradient-to-b from-primary-50/50 via-primary-50/30 to-white/50"></div>
       </div>
       
-      {/* Yumuşak geçiş - Üst kısım */}
       <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-primary-50/80 to-transparent pointer-events-none z-0"></div>
       
       <div className="max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8 relative z-10">
@@ -99,12 +97,12 @@ export default function WhyChooseUs() {
           {reasons.map((reason, index) => {
             const IconComponent = reason.icon as React.ComponentType<{ className?: string }>
             const reasonImages = [
-              'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', // 24/7 - Cleaning service available
-              'https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', // Satisfaction - Happy customer
-              'https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', // Environnement - Eco cleaning
-              'https://images.unsplash.com/photo-1581578731548-c64695cc6952?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', // Experts - Professional cleaner
-              'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', // Technologie - Modern equipment
-              'https://images.unsplash.com/photo-1556911220-bff31c812dba?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', // Qualité - Quality cleaning
+              'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+              'https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+              'https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+              'https://images.unsplash.com/photo-1581578731548-c64695cc6952?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+              'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+              'https://images.unsplash.com/photo-1556911220-bff31c812dba?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
             ]
             return (
               <motion.div
@@ -143,7 +141,6 @@ export default function WhyChooseUs() {
         </div>
       </div>
       
-      {/* Yumuşak geçiş - Alt kısım */}
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-white/80 via-white/50 to-white pointer-events-none z-0"></div>
     </section>
   )

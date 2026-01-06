@@ -12,7 +12,6 @@ interface Testimonial {
   rating: number
   date: string
   comment: string
-  avatar: string
   service: string
 }
 
@@ -24,7 +23,6 @@ const testimonials: Testimonial[] = [
     rating: 5,
     date: 'Il y a 2 semaines',
     comment: 'Service exceptionnel! L\'équipe de Vertnetgeneve a fait un travail remarquable pour le nettoyage de fin de bail. Tout était impeccable, professionnel et dans les temps. Je recommande vivement!',
-    avatar: 'https://i.pravatar.cc/150?img=47',
     service: 'Fin de Bail'
   },
   {
@@ -34,7 +32,6 @@ const testimonials: Testimonial[] = [
     rating: 5,
     date: 'Il y a 1 mois',
     comment: 'Excellent service de nettoyage de bureaux. Ponctuel, efficace et très professionnel. Nos bureaux n\'ont jamais été aussi propres. L\'équipe est respectueuse et utilise des produits écologiques.',
-    avatar: 'https://i.pravatar.cc/150?img=12',
     service: 'Bureaux'
   },
   {
@@ -44,7 +41,6 @@ const testimonials: Testimonial[] = [
     rating: 5,
     date: 'Il y a 3 semaines',
     comment: 'J\'ai utilisé leurs services pour le nettoyage de canapés. Résultat parfait! Les taches ont complètement disparu et les canapés sentent bon. Service rapide et prix raisonnable. Merci!',
-    avatar: 'https://i.pravatar.cc/150?img=45',
     service: 'Canapés'
   },
   {
@@ -54,7 +50,6 @@ const testimonials: Testimonial[] = [
     rating: 5,
     date: 'Il y a 2 mois',
     comment: 'Service de conciergerie impeccable. Disponible 24/7, toujours réactif et professionnel. Ils s\'occupent de tout avec soin. Un vrai soulagement pour notre copropriété.',
-    avatar: 'https://i.pravatar.cc/150?img=33',
     service: 'Conciergerie'
   },
   {
@@ -64,7 +59,6 @@ const testimonials: Testimonial[] = [
     rating: 5,
     date: 'Il y a 1 semaine',
     comment: 'Nettoyage de vitres parfait! Les fenêtres sont éclatantes. L\'équipe est montée en toute sécurité et a fait un travail soigné. Je les ai déjà recontactés pour un autre service.',
-    avatar: 'https://i.pravatar.cc/150?img=20',
     service: 'Vitres'
   },
   {
@@ -74,7 +68,6 @@ const testimonials: Testimonial[] = [
     rating: 5,
     date: 'Il y a 3 semaines',
     comment: 'Service de nettoyage après travaux remarquable. Ils ont tout nettoyé en profondeur, même les endroits difficiles d\'accès. Très satisfait du résultat et du professionnalisme.',
-    avatar: 'https://i.pravatar.cc/150?img=51',
     service: 'Fin de Chantier'
   },
   {
@@ -84,7 +77,6 @@ const testimonials: Testimonial[] = [
     rating: 5,
     date: 'Il y a 1 mois',
     comment: 'Nettoyage d\'immeuble régulier. Service fiable, équipe sympathique et travail de qualité. Les résidents sont tous satisfaits. Je recommande sans hésitation.',
-    avatar: 'https://i.pravatar.cc/150?img=32',
     service: 'Immeubles'
   },
   {
@@ -94,7 +86,6 @@ const testimonials: Testimonial[] = [
     rating: 5,
     date: 'Il y a 2 semaines',
     comment: 'Nettoyage de toiture professionnel. L\'équipe a travaillé avec précaution et efficacité. Notre toiture est maintenant propre et bien entretenue. Excellent rapport qualité-prix.',
-    avatar: 'https://i.pravatar.cc/150?img=15',
     service: 'Toiture'
   },
 ]
@@ -223,12 +214,12 @@ export default function Testimonials() {
                   {/* Üst kısım - Kullanıcı bilgileri */}
                   <div className="flex items-start gap-4 mb-4 relative z-10">
                     <div className="relative flex-shrink-0">
-                      <img
-                        src={testimonial.avatar}
-                        alt={testimonial.name}
-                        className="w-12 h-12 rounded-full border-2 border-primary-200 shadow-md"
-                      />
-                      <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-green-500 rounded-full border-2 border-white flex items-center justify-center">
+                      <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary-500 via-secondary-500 to-accent-500 flex items-center justify-center border-2 border-primary-200 shadow-md">
+                        <span className="text-white font-bold text-lg">
+                          {testimonial.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase()}
+                        </span>
+                      </div>
+                      <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-green-500 rounded-full border-2 border-white flex items-center justify-center shadow-sm">
                         <div className="w-2 h-2 bg-white rounded-full"></div>
                       </div>
                     </div>

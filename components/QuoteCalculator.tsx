@@ -248,13 +248,10 @@ export default function QuoteCalculator() {
 
     setQuoteId(quoteData.quoteId)
 
-    // Simulate API call
     try {
-      // Here you would send to your API endpoint
-      console.log('Quote submitted:', quoteData)
       setSubmitted(true)
     } catch (error) {
-      console.error('Error submitting quote:', error)
+      // Error handling
     }
   }
 

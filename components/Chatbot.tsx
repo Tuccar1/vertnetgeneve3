@@ -29,14 +29,11 @@ export default function Chatbot() {
   const chatContainerRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLTextAreaElement>(null)
 
-  // Mobil cihazlarda chatbot'u kapalı başlat
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      const isMobile = window.innerWidth < 768 // md breakpoint
-      if (isMobile) {
-        setIsOpen(false)
-        setIsMinimized(false)
-      }
+      const isMobile = window.innerWidth < 768
+      setIsOpen(!isMobile)
+      setIsMinimized(false)
     }
   }, [])
 
@@ -110,13 +107,10 @@ export default function Chatbot() {
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}))
         const errorMessage = errorData.error || errorData.details || `API error: ${response.status} ${response.statusText}`
-        console.error('Chatbot API error details:', errorData)
         throw new Error(errorMessage)
       }
 
       const data = await response.json()
-      
-      // Flowise API response formatını kontrol et
       const botResponse = data.answer || data.text || data.response || data.message || "Désolé, je n'ai pas pu traiter votre demande. Veuillez réessayer."
 
       if (!botResponse || botResponse.trim() === '') {
@@ -135,9 +129,6 @@ export default function Chatbot() {
       setIsTyping(false)
       setIsLoading(false)
     } catch (error) {
-      console.error('Chatbot API error:', error)
-      
-      // Daha detaylı hata mesajı
       const errorMessage = error instanceof Error ? error.message : 'Une erreur est survenue'
       
       const botMessage: Message = {
@@ -169,44 +160,55 @@ export default function Chatbot() {
     <div className="fixed z-[9999]" style={{ bottom: '20px', right: '16px', left: 'auto' }}>
       <AnimatePresence>
         {!isOpen ? (
-          <motion.button
+          <motion.div
             key="launcher"
             initial={{ scale: 0, rotate: -180 }}
             animate={{ scale: 1, rotate: 0 }}
             exit={{ scale: 0, rotate: 180 }}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => setIsOpen(true)}
-            className="relative w-16 h-16 bg-gradient-to-br from-primary-500 via-secondary-500 to-accent-500 rounded-full shadow-[0_8px_32px_rgba(59,130,246,0.4)] flex items-center justify-center text-white hover:shadow-[0_12px_40px_rgba(59,130,246,0.6)] transition-all duration-300 group overflow-hidden"
-            aria-label="Ouvrir le chatbot"
+            className="flex items-center gap-3"
           >
-            {/* Pulse animasyonu */}
+            <motion.button
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => setIsOpen(true)}
+              className="relative w-16 h-16 bg-gradient-to-br from-primary-500 via-secondary-500 to-accent-500 rounded-full shadow-[0_8px_32px_rgba(59,130,246,0.4)] flex items-center justify-center text-white hover:shadow-[0_12px_40px_rgba(59,130,246,0.6)] transition-all duration-300 group overflow-hidden"
+              aria-label="Ouvrir le chatbot"
+            >
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-br from-primary-400 via-secondary-400 to-accent-400 rounded-full"
+                animate={{
+                  scale: [1, 1.3, 1],
+                  opacity: [0.5, 0, 0.5],
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: 'easeInOut',
+                }}
+              />
+              <MessageCircle className="w-8 h-8 relative z-10 group-hover:scale-110 transition-transform duration-300" />
+              <motion.div
+                className="absolute top-1 right-1 w-3 h-3 bg-green-400 rounded-full border-2 border-white shadow-lg"
+                animate={{
+                  scale: [1, 1.2, 1],
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: 'easeInOut',
+                }}
+              />
+            </motion.button>
             <motion.div
-              className="absolute inset-0 bg-gradient-to-br from-primary-400 via-secondary-400 to-accent-400 rounded-full"
-              animate={{
-                scale: [1, 1.3, 1],
-                opacity: [0.5, 0, 0.5],
-              }}
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-                ease: 'easeInOut',
-              }}
-            />
-            <MessageCircle className="w-8 h-8 relative z-10 group-hover:scale-110 transition-transform duration-300" />
-            {/* Online indicator */}
-            <motion.div
-              className="absolute top-1 right-1 w-3 h-3 bg-green-400 rounded-full border-2 border-white shadow-lg"
-              animate={{
-                scale: [1, 1.2, 1],
-              }}
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-                ease: 'easeInOut',
-              }}
-            />
-          </motion.button>
+              initial={{ opacity: 0, x: -10 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.2 }}
+              className="hidden md:flex items-center gap-2 bg-white/90 backdrop-blur-sm px-3 py-2 rounded-full shadow-lg"
+            >
+              <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+              <span className="text-sm font-semibold text-gray-700 whitespace-nowrap">7/24 Actif</span>
+            </motion.div>
+          </motion.div>
         ) : (
           <motion.div
             key="chat-window"

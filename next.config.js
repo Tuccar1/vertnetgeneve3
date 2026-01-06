@@ -25,16 +25,12 @@ const nextConfig = {
     ],
     unoptimized: false,
   },
-  // Performance optimizations
   compress: true,
   poweredByHeader: false,
-  // Optimize package imports
   experimental: {
     optimizePackageImports: ['framer-motion', 'lucide-react'],
   },
-  // Critical CSS optimization
   optimizeFonts: true,
-  // Security headers
   async headers() {
     return [
       {

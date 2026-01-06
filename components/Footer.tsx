@@ -7,15 +7,15 @@ import Link from 'next/link'
 
 export default function Footer() {
   const services = [
-    { name: 'Canapés et fauteuils', href: '#services' },
-    { name: 'Fin de Bail', href: '#services' },
-    { name: 'Fin de Chantier', href: '#services' },
-    { name: 'Conciergerie', href: '#services' },
-    { name: 'Immeubles', href: '#services' },
-    { name: 'Bureaux', href: '#services' },
-    { name: 'Toiture', href: '#services' },
-    { name: 'Vitres', href: '#services' },
-    { name: 'Façade', href: '#services' },
+    { name: 'Canapés et fauteuils', href: '/services/canapes-et-matelas' },
+    { name: 'Fin de Bail', href: '/services/fin-de-bail' },
+    { name: 'Fin de Chantier', href: '/services/fin-de-chantier' },
+    { name: 'Conciergerie', href: '/services/conciergerie' },
+    { name: 'Immeubles', href: '/services/immeubles' },
+    { name: 'Bureaux', href: '/services/bureaux' },
+    { name: 'Toiture', href: '/services/toiture' },
+    { name: 'Vitres', href: '/services/vitres' },
+    { name: 'Façade', href: '/services/facade' },
   ]
 
   const company = [
@@ -42,8 +42,8 @@ export default function Footer() {
 
       <div className="max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Main Footer Content */}
-        <div className="pt-0 pb-12 sm:pb-16">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 md:gap-12">
+        <div className="pt-0 pb-2 sm:pb-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
             {/* Company Info */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -51,7 +51,7 @@ export default function Footer() {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              <Link href="/" className="flex items-center space-x-3 mb-6 group">
+              <Link href="/" className="flex items-center space-x-3 mb-1.5 group">
                 <div className="w-12 h-12 bg-gradient-to-br from-primary-500 via-secondary-500 to-accent-500 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300">
                   <Sparkles className="w-6 h-6 text-white" />
                 </div>
@@ -60,12 +60,12 @@ export default function Footer() {
                   <p className="text-xs md:text-sm text-gray-300 leading-[1.4]">Excellence Professionnelle</p>
                 </div>
               </Link>
-              <p className="text-sm md:text-base text-gray-300 leading-[1.7] mb-6">
+              <p className="text-sm md:text-base text-gray-300 leading-[1.6] mb-1.5">
                 Excellence en nettoyage professionnel à Genève et en Suisse. Au cœur de Genève, pour un avenir plus propre.
               </p>
               
               {/* Trust Badges */}
-              <div className="space-y-3">
+              <div className="space-y-1">
                 <div className="flex items-center space-x-2 text-sm">
                   <Shield className="w-4 h-4 text-secondary-400" />
                   <span className="text-gray-300">Garantie Satisfaction 100%</span>
@@ -84,11 +84,11 @@ export default function Footer() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.1 }}
             >
-              <h4 className="text-base md:text-lg font-bold text-white mb-6 flex items-center leading-[1.5]">
+              <h4 className="text-base md:text-lg font-bold text-white mb-1.5 flex items-center leading-[1.5]">
                 <span className="w-1 h-6 bg-gradient-to-b from-primary-500 to-accent-500 rounded-full mr-3 flex-shrink-0"></span>
                 Services
               </h4>
-              <ul className="space-y-3">
+              <ul className="space-y-1">
                 {services.map((service, index) => (
                   <li key={index}>
                     <Link
@@ -113,11 +113,11 @@ export default function Footer() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              <h4 className="text-lg font-bold text-white mb-6 flex items-center">
+              <h4 className="text-lg font-bold text-white mb-1.5 flex items-center">
                 <span className="w-1 h-6 bg-gradient-to-b from-secondary-500 to-accent-500 rounded-full mr-3"></span>
                 Entreprise
               </h4>
-              <ul className="space-y-3">
+              <ul className="space-y-1">
                 {company.map((item, index) => (
                   <li key={index}>
                     <Link
@@ -142,40 +142,39 @@ export default function Footer() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.3 }}
             >
-              <h4 className="text-lg font-bold text-white mb-6 flex items-center">
+              <h4 className="text-lg font-bold text-white mb-1.5 flex items-center">
                 <span className="w-1 h-6 bg-gradient-to-b from-accent-500 to-primary-500 rounded-full mr-3"></span>
                 Contact
               </h4>
-              <div className="space-y-4">
+              <div className="space-y-1.5">
                 <a
                   href="tel:+41766212183"
-                  className="flex items-center space-x-3 text-sm md:text-base text-gray-300 hover:text-white transition-colors group leading-[1.7]"
+                  className="flex items-center space-x-3 text-sm md:text-base text-gray-300 hover:text-white transition-colors group leading-[1.6]"
                 >
-                  <div className="p-2 bg-accent-500/20 rounded-lg group-hover:bg-accent-500/30 transition-colors flex-shrink-0">
-                    {/* @ts-ignore */}
+                  <div className="p-1.5 bg-accent-500/20 rounded-lg group-hover:bg-accent-500/30 transition-colors flex-shrink-0">
                     <Phone className="w-4 h-4 text-accent-400" />
                   </div>
                   <span className="font-semibold">+41 76 621 21 83</span>
                 </a>
                 <a
                   href="mailto:info@vertnetgeneve.ch"
-                  className="flex items-center space-x-3 text-sm md:text-base text-gray-300 hover:text-white transition-colors group leading-[1.7]"
+                  className="flex items-center space-x-3 text-sm md:text-base text-gray-300 hover:text-white transition-colors group leading-[1.6]"
                 >
-                  <div className="p-2 bg-primary-500/20 rounded-lg group-hover:bg-primary-500/30 transition-colors flex-shrink-0">
+                  <div className="p-1.5 bg-primary-500/20 rounded-lg group-hover:bg-primary-500/30 transition-colors flex-shrink-0">
                     <Mail className="w-4 h-4 text-primary-400" />
                   </div>
                   <span>info@vertnetgeneve.ch</span>
                 </a>
-                <div className="flex items-start space-x-3 text-sm md:text-base text-gray-300 leading-[1.7]">
-                  <div className="p-2 bg-secondary-500/20 rounded-lg mt-0.5 flex-shrink-0">
+                <div className="flex items-start space-x-3 text-sm md:text-base text-gray-300 leading-[1.6]">
+                  <div className="p-1.5 bg-secondary-500/20 rounded-lg mt-0.5 flex-shrink-0">
                     <MapPin className="w-4 h-4 text-secondary-400" />
                   </div>
                   <span>Genève, Suisse</span>
                 </div>
 
                 {/* Social Media */}
-                <div className="pt-6">
-                  <p className="text-sm md:text-base font-semibold text-white mb-4 leading-[1.5]">Suivez-nous</p>
+                <div className="pt-1.5">
+                  <p className="text-sm md:text-base font-semibold text-white mb-1.5 leading-[1.5]">Suivez-nous</p>
                   <div className="flex space-x-3">
                     {socialLinks.map((social, index) => {
                       const IconComponent = social.icon
@@ -200,8 +199,8 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-gray-800 py-6 sm:py-8">
-          <div className="flex flex-col md:flex-row justify-between items-center space-y-3 sm:space-y-4 md:space-y-0">
+        <div className="border-t border-gray-800 py-2 sm:py-2.5">
+          <div className="flex flex-col md:flex-row justify-between items-center space-y-1.5 sm:space-y-2 md:space-y-0">
             <p className="text-xs sm:text-sm md:text-base text-gray-500 text-center md:text-left leading-[1.7]">
               &copy; {new Date().getFullYear()} Vertnetgeneve. Tous droits réservés.
             </p>

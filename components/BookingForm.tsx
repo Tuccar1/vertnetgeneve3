@@ -20,9 +20,7 @@ export default function BookingForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // Here you would send the data to your backend/API
     setSubmitted(true)
-    // Reset form after 3 seconds
     setTimeout(() => {
       setSubmitted(false)
       setFormData({

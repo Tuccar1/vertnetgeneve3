@@ -11,15 +11,11 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Flowise API entegrasyonu - Doğru format (API key gerekmiyor, public endpoint)
-    const CHATFLOW_ID = '3fadc7bf-109d-4649-af1f-c66773105a26'
-    const FLOWISE_API_URL = `https://flowise.chatdeskiyo.com/api/v1/prediction/${CHATFLOW_ID}`
-
-    console.log('Sending request to Flowise API:', FLOWISE_API_URL)
-    console.log('Message:', message.substring(0, 50))
+    const CHATFLOW_ID = process.env.FLOWISE_CHATFLOW_ID || '3fadc7bf-109d-4649-af1f-c66773105a26'
+    const FLOWISE_BASE_URL = process.env.FLOWISE_API_URL || 'https://flowise.chatdeskiyo.com'
+    const FLOWISE_API_URL = `${FLOWISE_BASE_URL}/api/v1/prediction/${CHATFLOW_ID}`
 
     try {
-      // Flowise API formatı - sadece question gönderiliyor, API key gerekmiyor
       const response = await fetch(FLOWISE_API_URL, {
         method: 'POST',
         headers: {
@@ -30,19 +26,12 @@ export async function POST(request: NextRequest) {
         }),
       })
 
-      console.log('Flowise API response status:', response.status)
-
       if (!response.ok) {
         const errorText = await response.text()
-        console.error('Flowise API error:', response.status, errorText.substring(0, 200))
-        throw new Error(`Flowise API error: ${response.status} - ${errorText.substring(0, 200)}`)
+        throw new Error(`Flowise API error: ${response.status}`)
       }
 
-      // Response'u parse et
       const data = await response.json()
-      console.log('Flowise API response:', JSON.stringify(data).substring(0, 300))
-
-      // Response formatını kontrol et - Flowise genellikle direkt text döndürür veya answer field'ı kullanır
       const botResponse = data?.answer || 
                         data?.text || 
                         data?.response || 
@@ -51,15 +40,11 @@ export async function POST(request: NextRequest) {
                         JSON.stringify(data)
 
       if (!botResponse || (typeof botResponse === 'string' && botResponse.trim() === '')) {
-        console.error('Empty response from Flowise API. Full data:', JSON.stringify(data))
         throw new Error('Empty or invalid response from Flowise API')
       }
 
       return NextResponse.json({ answer: String(botResponse) })
     } catch (error: any) {
-      console.error('Chatbot API route error:', error)
-      console.error('Error stack:', error.stack)
-      
       return NextResponse.json(
         { 
           error: 'Internal server error',
@@ -69,8 +54,6 @@ export async function POST(request: NextRequest) {
       )
     }
   } catch (error: any) {
-    console.error('Chatbot API route error:', error)
-    console.error('Error stack:', error.stack)
     
     return NextResponse.json(
       { 

@@ -48,7 +48,6 @@ export function getBlogPosts(): BlogPost[] {
             readingTime: Math.ceil(content.split(' ').length / 200),
           } as BlogPost
         } catch (error) {
-          console.error(`Error reading blog post ${fileName}:`, error)
           return null
         }
       })
@@ -62,7 +61,6 @@ export function getBlogPosts(): BlogPost[] {
       }
     })
   } catch (error) {
-    console.error('Error getting blog posts:', error)
     return []
   }
 }
@@ -97,7 +95,6 @@ export function getBlogPost(slug: string): BlogPost | null {
       readingTime: Math.ceil(content.split(' ').length / 200),
     }
   } catch (error) {
-    console.error(`Error getting blog post ${slug}:`, error)
     return null
   }
 }

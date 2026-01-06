@@ -1,8 +1,19 @@
 'use client'
 
-import { MapPin, Phone, Mail, Globe, MessageCircle, Clock } from 'lucide-react'
+import { useState, useEffect } from 'react'
+import { MapPin, Phone, Mail, Globe, MessageCircle, Clock, Loader2 } from 'lucide-react'
 
 export default function Contact() {
+  const [mapLoaded, setMapLoaded] = useState(false)
+  const [mapError, setMapError] = useState(false)
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setMapLoaded(true)
+    }, 500)
+
+    return () => clearTimeout(timer)
+  }, [])
   const contactItems = [
     {
       icon: MapPin,
@@ -143,18 +154,53 @@ export default function Contact() {
               {/* Google Maps */}
               <div className="bg-white border border-gray-200 rounded-xl overflow-hidden">
                 <h3 className="text-base sm:text-lg md:text-xl font-bold mb-4 p-4 sm:p-5 md:p-6 pb-0 text-gray-900">Notre Localisation</h3>
-                <div className="w-full h-64 sm:h-80 md:h-96">
-                  <iframe
-                    src="https://www.google.com/maps?q=Genève,+Switzerland&output=embed&zoom=13&center=46.2044,6.1432"
-                    width="100%"
-                    height="100%"
-                    style={{ border: 0 }}
-                    allowFullScreen
-                    loading="lazy"
-                    referrerPolicy="no-referrer-when-downgrade"
-                    className="w-full h-full"
-                    title="Localisation Vertnetgeneve - Genève, Suisse"
-                  ></iframe>
+                <div className="w-full h-64 sm:h-80 md:h-96 relative bg-gray-100">
+                  {!mapLoaded && (
+                    <div className="absolute inset-0 flex items-center justify-center bg-gray-100">
+                      <div className="flex flex-col items-center gap-3">
+                        <Loader2 className="w-8 h-8 text-primary-500 animate-spin" />
+                        <p className="text-sm text-gray-600">Chargement de la carte...</p>
+                      </div>
+                    </div>
+                  )}
+                  {mapError ? (
+                    <div className="absolute inset-0 flex items-center justify-center bg-gray-100">
+                      <div className="text-center p-6">
+                        <MapPin className="w-12 h-12 text-gray-400 mx-auto mb-3" />
+                        <p className="text-sm text-gray-600 mb-2">Impossible de charger la carte</p>
+                        <a
+                          href="https://www.google.com/maps?q=Genève,+Switzerland"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-primary-600 hover:text-primary-700 text-sm font-semibold underline"
+                        >
+                          Ouvrir dans Google Maps
+                        </a>
+                      </div>
+                    </div>
+                  ) : (
+                    mapLoaded && (
+                      <iframe
+                        src="https://www.google.com/maps/embed/v1/place?q=Genève,+Switzerland&zoom=13"
+                        width="100%"
+                        height="100%"
+                        style={{ border: 0 }}
+                        allowFullScreen
+                        loading="lazy"
+                        referrerPolicy="no-referrer-when-downgrade"
+                        className="w-full h-full"
+                        title="Localisation Vertnetgeneve - Genève, Suisse"
+                        onLoad={() => {
+                          setMapLoaded(true)
+                          setMapError(false)
+                        }}
+                        onError={() => {
+                          setMapError(true)
+                          setMapLoaded(false)
+                        }}
+                      />
+                    )
+                  )}
                 </div>
               </div>
             </div>

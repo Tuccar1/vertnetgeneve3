@@ -25,7 +25,7 @@ export default function Contact() {
     {
       icon: Phone,
       title: 'Téléphone',
-      content: '+41 76 621 21 83',
+      content: '+41 76 621 21 83 / +41 76 531 69 03',
       link: 'tel:+41766212183',
       color: 'text-primary-600',
     },

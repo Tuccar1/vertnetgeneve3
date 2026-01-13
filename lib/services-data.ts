@@ -15,6 +15,7 @@ export interface ServiceDetail {
   gradient: string
   borderColor: string
   bgColor: string
+  backgroundImage: string
 }
 
 export const servicesData: Record<string, ServiceDetail> = {
@@ -60,6 +61,7 @@ export const servicesData: Record<string, ServiceDetail> = {
     gradient: 'from-primary-500 to-primary-600',
     borderColor: 'border-primary-400',
     bgColor: 'from-primary-50 to-primary-100',
+    backgroundImage: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=3840&q=100',
   },
   'fin-de-bail': {
     slug: 'fin-de-bail',
@@ -104,6 +106,7 @@ export const servicesData: Record<string, ServiceDetail> = {
     gradient: 'from-secondary-500 to-secondary-600',
     borderColor: 'border-secondary-400',
     bgColor: 'from-secondary-50 to-secondary-100',
+    backgroundImage: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-4.0.3&auto=format&fit=crop&w=3840&q=100',
   },
   'fin-de-chantier': {
     slug: 'fin-de-chantier',
@@ -149,6 +152,7 @@ export const servicesData: Record<string, ServiceDetail> = {
     gradient: 'from-accent-500 to-accent-600',
     borderColor: 'border-accent-400',
     bgColor: 'from-accent-50 to-accent-100',
+    backgroundImage: '/hizmet5a.jpg',
   },
   'immeubles': {
     slug: 'immeubles',
@@ -191,6 +195,7 @@ export const servicesData: Record<string, ServiceDetail> = {
     gradient: 'from-primary-500 to-secondary-500',
     borderColor: 'border-primary-400',
     bgColor: 'from-primary-50 to-secondary-50',
+    backgroundImage: 'https://images.unsplash.com/photo-1460317442991-0ec209397118?ixlib=rb-4.0.3&auto=format&fit=crop&w=3840&q=100',
   },
   'bureaux': {
     slug: 'bureaux',
@@ -235,6 +240,7 @@ export const servicesData: Record<string, ServiceDetail> = {
     gradient: 'from-secondary-500 to-accent-500',
     borderColor: 'border-secondary-400',
     bgColor: 'from-secondary-50 to-accent-50',
+    backgroundImage: 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?ixlib=rb-4.0.3&auto=format&fit=crop&w=3840&q=100',
   },
   'conciergerie': {
     slug: 'conciergerie',
@@ -276,6 +282,7 @@ export const servicesData: Record<string, ServiceDetail> = {
     gradient: 'from-accent-500 to-primary-500',
     borderColor: 'border-accent-400',
     bgColor: 'from-accent-50 to-primary-50',
+    backgroundImage: 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?ixlib=rb-4.0.3&auto=format&fit=crop&w=3840&q=100',
   },
   'toiture': {
     slug: 'toiture',
@@ -320,6 +327,7 @@ export const servicesData: Record<string, ServiceDetail> = {
     gradient: 'from-primary-600 to-accent-600',
     borderColor: 'border-primary-500',
     bgColor: 'from-primary-50 to-accent-50',
+    backgroundImage: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=3840&q=100',
   },
   'vitres': {
     slug: 'vitres',
@@ -363,6 +371,7 @@ export const servicesData: Record<string, ServiceDetail> = {
     gradient: 'from-accent-500 to-secondary-600',
     borderColor: 'border-accent-400',
     bgColor: 'from-accent-50 to-secondary-50',
+    backgroundImage: 'https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&auto=format&fit=crop&w=3840&q=100',
   },
   'facade': {
     slug: 'facade',
@@ -407,6 +416,7 @@ export const servicesData: Record<string, ServiceDetail> = {
     gradient: 'from-secondary-600 to-primary-600',
     borderColor: 'border-secondary-500',
     bgColor: 'from-secondary-50 to-primary-50',
+    backgroundImage: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=3840&q=100',
   },
 }
 

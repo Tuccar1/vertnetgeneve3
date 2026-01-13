@@ -32,14 +32,14 @@ export default function ContactPage() {
           priority={true}
           sizes="100vw"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-white/25 via-white/20 to-white/25"></div>
+        <div className="absolute inset-0 bg-white/20"></div>
       </div>
       
       {/* Hero Section - Header'a yakın, boşluk yok */}
-      <section className="relative pt-20 sm:pt-24 pb-8 md:pb-12 bg-gradient-to-r from-primary-600/70 via-secondary-600/70 to-accent-600/70 backdrop-blur-[1px] text-white overflow-hidden z-10">
-        <div className="absolute inset-0 opacity-20">
-          <div className="absolute top-0 left-0 w-96 h-96 bg-white rounded-full blur-3xl"></div>
-          <div className="absolute bottom-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl"></div>
+      <section className="relative pt-20 sm:pt-24 pb-8 md:pb-12 bg-gradient-to-br from-slate-900/80 via-slate-800/80 to-slate-900/80 backdrop-blur-sm text-white overflow-hidden z-10">
+        <div className="absolute inset-0 opacity-30">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 left-0 w-96 h-96 bg-teal-500 rounded-full blur-3xl"></div>
         </div>
         
         <div className="max-w-6xl mx-auto px-4 relative z-10">
@@ -100,7 +100,7 @@ export default function ContactPage() {
       
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       {/* Contact Info & Form */}
-      <section className="py-12 md:py-16 bg-white/60 backdrop-blur-[2px] relative z-10">
+      <section className="py-12 md:py-16 relative z-10">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-6xl mx-auto">
             <div className="grid md:grid-cols-2 gap-8 md:gap-12 mb-12 md:mb-16">
@@ -110,13 +110,13 @@ export default function ContactPage() {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6 }}
               >
-                <h2 className="text-xl md:text-2xl font-bold text-gray-900 mb-8">
+                <h2 className="text-xl md:text-2xl font-bold text-white mb-8">
                   Informations de Contact
                 </h2>
                 <div className="space-y-4">
-                  <div className="flex items-start space-x-4 p-4 bg-white border-2 border-gray-200 rounded-xl hover:border-primary-300 hover:shadow-md transition-all duration-300">
-                    <div className="p-2 bg-primary-50 rounded-lg flex-shrink-0">
-                      <MapPin className="w-5 h-5 text-primary-600" />
+                  <div className="flex items-start space-x-4 p-4 bg-white/90 backdrop-blur-md border border-white/50 rounded-xl hover:shadow-lg transition-all duration-300">
+                    <div className="p-2 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-lg flex-shrink-0">
+                      <MapPin className="w-5 h-5 text-white" />
                     </div>
                     <div>
                       <div className="font-bold text-gray-900 mb-1 text-base">Adresse</div>
@@ -124,21 +124,24 @@ export default function ContactPage() {
                     </div>
                   </div>
                   
-                  <div className="flex items-start space-x-4 p-4 bg-white border-2 border-gray-200 rounded-xl hover:border-primary-300 hover:shadow-md transition-all duration-300">
-                    <div className="p-2 bg-primary-50 rounded-lg flex-shrink-0">
-                      <Phone className="w-5 h-5 text-primary-600" />
+                  <div className="flex items-start space-x-4 p-4 bg-white/90 backdrop-blur-md border border-white/50 rounded-xl hover:shadow-lg transition-all duration-300">
+                    <div className="p-2 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-lg flex-shrink-0">
+                      <Phone className="w-5 h-5 text-white" />
                     </div>
                     <div>
                       <div className="font-bold text-gray-900 mb-1 text-base">Téléphone</div>
-                      <a href="tel:+41766212183" className="text-gray-600 hover:text-primary-600 transition text-sm">
+                      <a href="tel:+41766212183" className="text-gray-600 hover:text-primary-600 transition text-sm block">
                         +41 76 621 21 83
+                      </a>
+                      <a href="tel:+41765316903" className="text-gray-600 hover:text-primary-600 transition text-sm block">
+                        +41 76 531 69 03
                       </a>
                     </div>
                   </div>
                   
-                  <div className="flex items-start space-x-4 p-4 bg-white border-2 border-gray-200 rounded-xl hover:border-primary-300 hover:shadow-md transition-all duration-300">
-                    <div className="p-2 bg-primary-50 rounded-lg flex-shrink-0">
-                      <Mail className="w-5 h-5 text-primary-600" />
+                  <div className="flex items-start space-x-4 p-4 bg-white/90 backdrop-blur-md border border-white/50 rounded-xl hover:shadow-lg transition-all duration-300">
+                    <div className="p-2 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-lg flex-shrink-0">
+                      <Mail className="w-5 h-5 text-white" />
                     </div>
                     <div>
                       <div className="font-bold text-gray-900 mb-1 text-base">Email</div>
@@ -148,9 +151,9 @@ export default function ContactPage() {
                     </div>
                   </div>
                   
-                  <div className="flex items-start space-x-4 p-4 bg-white border-2 border-gray-200 rounded-xl hover:border-primary-300 hover:shadow-md transition-all duration-300">
-                    <div className="p-2 bg-primary-50 rounded-lg flex-shrink-0">
-                      <Globe className="w-5 h-5 text-primary-600" />
+                  <div className="flex items-start space-x-4 p-4 bg-white/90 backdrop-blur-md border border-white/50 rounded-xl hover:shadow-lg transition-all duration-300">
+                    <div className="p-2 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-lg flex-shrink-0">
+                      <Globe className="w-5 h-5 text-white" />
                     </div>
                     <div>
                       <div className="font-bold text-gray-900 mb-1 text-base">Website</div>
@@ -160,9 +163,9 @@ export default function ContactPage() {
                     </div>
                   </div>
                   
-                  <div className="flex items-start space-x-4 p-4 bg-white border-2 border-gray-200 rounded-xl hover:border-primary-300 hover:shadow-md transition-all duration-300">
-                    <div className="p-2 bg-primary-50 rounded-lg flex-shrink-0">
-                      <MessageCircle className="w-5 h-5 text-primary-600" />
+                  <div className="flex items-start space-x-4 p-4 bg-white/90 backdrop-blur-md border border-white/50 rounded-xl hover:shadow-lg transition-all duration-300">
+                    <div className="p-2 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-lg flex-shrink-0">
+                      <MessageCircle className="w-5 h-5 text-white" />
                     </div>
                     <div>
                       <div className="font-bold text-gray-900 mb-1 text-base">WhatsApp</div>
@@ -170,9 +173,9 @@ export default function ContactPage() {
                     </div>
                   </div>
                   
-                  <div className="flex items-start space-x-4 p-4 bg-white border-2 border-gray-200 rounded-xl hover:border-primary-300 hover:shadow-md transition-all duration-300">
-                    <div className="p-2 bg-primary-50 rounded-lg flex-shrink-0">
-                      <Clock className="w-5 h-5 text-primary-600" />
+                  <div className="flex items-start space-x-4 p-4 bg-white/90 backdrop-blur-md border border-white/50 rounded-xl hover:shadow-lg transition-all duration-300">
+                    <div className="p-2 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-lg flex-shrink-0">
+                      <Clock className="w-5 h-5 text-white" />
                     </div>
                     <div>
                       <div className="font-bold text-gray-900 mb-1 text-base">Disponibilité</div>
@@ -188,7 +191,7 @@ export default function ContactPage() {
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6 }}
-                className="bg-white border-2 border-gray-200 rounded-xl p-6 md:p-8 shadow-lg hover:shadow-xl transition-shadow duration-300"
+                className="bg-white/90 backdrop-blur-md border border-white/50 rounded-xl p-6 md:p-8 shadow-xl"
               >
                 <h2 className="text-xl md:text-2xl font-bold text-gray-900 mb-8">
                   Demander un Devis

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Star, Quote } from 'lucide-react'
+import { Star, Quote, ChevronLeft, ChevronRight } from 'lucide-react'
 import Image from 'next/image'
 
 interface Testimonial {
@@ -94,18 +94,16 @@ export default function Testimonials() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isAutoPlaying, setIsAutoPlaying] = useState(true)
 
-  // Otomatik değişim
   useEffect(() => {
     if (!isAutoPlaying) return
 
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % testimonials.length)
-    }, 5000) // Her 5 saniyede bir değişir
+    }, 5000)
 
     return () => clearInterval(interval)
   }, [isAutoPlaying])
 
-  // Yıldız render fonksiyonu
   const renderStars = (rating: number) => {
     return Array.from({ length: 5 }).map((_, i) => (
       <Star
@@ -119,43 +117,26 @@ export default function Testimonials() {
     ))
   }
 
-  // Görüntülenecek yorumlar (3'lü grup)
   const visibleTestimonials = [
     testimonials[currentIndex],
     testimonials[(currentIndex + 1) % testimonials.length],
     testimonials[(currentIndex + 2) % testimonials.length],
   ]
 
-  return (
-    <section className="pt-20 md:pt-28 pb-0 bg-gradient-to-b from-white via-gray-50 to-white relative overflow-hidden">
-      {/* Arka plan fotoğraf */}
-      <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 opacity-55">
-          <Image
-            src="/cleaning-3.jpg"
-            alt="Témoignages clients satisfaits - Services de nettoyage professionnel Vertnetgeneve"
-            fill
-            className="object-cover object-center"
-            style={{
-              filter: 'brightness(1.0) contrast(1.15) saturate(1.3) blur(1px)',
-            }}
-            quality={90}
-            sizes="100vw"
-            loading="lazy"
-          />
-        </div>
-        <div className="absolute inset-0 bg-gradient-to-b from-white/50 via-gray-50/30 to-white/50"></div>
-      </div>
-      
-      {/* Yumuşak geçiş - Üst kısım */}
-      <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-white/80 to-transparent pointer-events-none z-1"></div>
-      
-      {/* Dekoratif arka plan */}
-      <div className="absolute inset-0 opacity-5 z-1">
-        <div className="absolute top-0 left-0 w-96 h-96 bg-primary-400 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 right-0 w-96 h-96 bg-accent-400 rounded-full blur-3xl"></div>
-      </div>
+  const nextSlide = () => {
+    setCurrentIndex((prev) => (prev + 1) % testimonials.length)
+    setIsAutoPlaying(false)
+    setTimeout(() => setIsAutoPlaying(true), 10000)
+  }
 
+  const prevSlide = () => {
+    setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length)
+    setIsAutoPlaying(false)
+    setTimeout(() => setIsAutoPlaying(true), 10000)
+  }
+
+  return (
+    <section className="py-20 lg:py-28 relative overflow-hidden">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Başlık */}
         <motion.div
@@ -163,30 +144,61 @@ export default function Testimonials() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-12 md:mb-16"
+          className="text-center mb-14"
         >
-          <div className="inline-flex items-center gap-2 mb-4">
-            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-yellow-400 to-yellow-500 flex items-center justify-center shadow-lg">
+          <motion.div
+            initial={{ opacity: 0, scale: 0 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2, duration: 0.5 }}
+            className="flex justify-center gap-2 mb-6"
+          >
+            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-yellow-400 to-amber-500 flex items-center justify-center shadow-lg shadow-yellow-500/30">
               <Star className="w-6 h-6 text-white fill-white" />
             </div>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-gray-900">
-              Avis Clients
-            </h2>
-          </div>
-          <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto">
+          </motion.div>
+
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-white mb-4 drop-shadow-lg">
+            Avis Clients
+          </h2>
+          
+          <motion.div
+            initial={{ opacity: 0, width: 0 }}
+            whileInView={{ opacity: 1, width: "100%" }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.4, duration: 0.8 }}
+            className="h-1 bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 rounded-full mx-auto mb-6 max-w-xs"
+          />
+
+          <p className="text-lg text-white/90 max-w-2xl mx-auto mb-4 drop-shadow">
             Découvrez ce que nos clients disent de nos services
           </p>
-          <div className="flex items-center justify-center gap-2 mt-4">
+
+          <div className="flex items-center justify-center gap-3">
             <div className="flex items-center gap-1">
               {renderStars(5)}
             </div>
-            <span className="text-2xl font-bold text-gray-900">5.0</span>
-            <span className="text-gray-600">({testimonials.length} avis)</span>
+            <span className="text-2xl font-bold text-white">5.0</span>
+            <span className="text-white/70">({testimonials.length} avis)</span>
           </div>
         </motion.div>
 
-        {/* Yorumlar Carousel */}
+        {/* Yorumlar */}
         <div className="relative">
+          {/* Navigation Buttons */}
+          <button
+            onClick={prevSlide}
+            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 lg:-translate-x-12 z-20 w-12 h-12 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-all shadow-lg hidden md:flex"
+          >
+            <ChevronLeft className="w-6 h-6" />
+          </button>
+          <button
+            onClick={nextSlide}
+            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 lg:translate-x-12 z-20 w-12 h-12 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-all shadow-lg hidden md:flex"
+          >
+            <ChevronRight className="w-6 h-6" />
+          </button>
+
           <AnimatePresence mode="wait">
             <motion.div
               key={currentIndex}
@@ -194,7 +206,7 @@ export default function Testimonials() {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -50 }}
               transition={{ duration: 0.5 }}
-              className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8"
+              className="grid grid-cols-1 md:grid-cols-3 gap-6"
             >
               {visibleTestimonials.map((testimonial, index) => (
                 <motion.div
@@ -202,64 +214,63 @@ export default function Testimonials() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1, duration: 0.5 }}
-                  className="bg-white rounded-2xl p-6 md:p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 relative overflow-hidden group"
+                  whileHover={{ y: -5, scale: 1.02 }}
+                  className="group"
                   onMouseEnter={() => setIsAutoPlaying(false)}
                   onMouseLeave={() => setIsAutoPlaying(true)}
                 >
-                  {/* Google yorumu stili - Quote ikonu */}
-                  <div className="absolute top-4 right-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                    <Quote className="w-16 h-16 text-primary-500" />
-                  </div>
+                  <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 shadow-xl h-full transform transition-all duration-300 group-hover:shadow-2xl group-hover:shadow-emerald-500/10 relative overflow-hidden">
+                    {/* Quote icon */}
+                    <div className="absolute top-4 right-4 opacity-5 group-hover:opacity-10 transition-opacity">
+                      <Quote className="w-16 h-16 text-emerald-500" />
+                    </div>
 
-                  {/* Üst kısım - Kullanıcı bilgileri */}
-                  <div className="flex items-start gap-4 mb-4 relative z-10">
-                    <div className="relative flex-shrink-0">
-                      <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary-500 via-secondary-500 to-accent-500 flex items-center justify-center border-2 border-primary-200 shadow-md">
-                        <span className="text-white font-bold text-lg">
-                          {testimonial.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase()}
-                        </span>
+                    {/* User info */}
+                    <div className="flex items-start gap-4 mb-4 relative z-10">
+                      <div className="relative flex-shrink-0">
+                        <div className="w-12 h-12 rounded-full bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center shadow-lg">
+                          <span className="text-white font-bold text-sm">
+                            {testimonial.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase()}
+                          </span>
+                        </div>
+                        <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-green-500 rounded-full border-2 border-white flex items-center justify-center">
+                          <div className="w-2 h-2 bg-white rounded-full"></div>
+                        </div>
                       </div>
-                      <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-green-500 rounded-full border-2 border-white flex items-center justify-center shadow-sm">
-                        <div className="w-2 h-2 bg-white rounded-full"></div>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center justify-between mb-1">
+                          <span className="font-bold text-gray-900 truncate">
+                            {testimonial.name}
+                          </span>
+                          <span className="text-xs text-gray-500 ml-2 flex-shrink-0">
+                            {testimonial.date}
+                          </span>
+                        </div>
+                        <p className="text-sm text-gray-600 mb-1">
+                          {testimonial.location}
+                        </p>
+                        <div className="flex items-center gap-2">
+                          <div className="flex gap-0.5">
+                            {renderStars(testimonial.rating)}
+                          </div>
+                          <span className="text-xs px-2 py-0.5 bg-emerald-50 text-emerald-700 rounded-full font-medium">
+                            {testimonial.service}
+                          </span>
+                        </div>
                       </div>
                     </div>
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center justify-between mb-1">
-                        <div className="font-bold text-gray-900 text-base truncate">
-                          {testimonial.name}
-                        </div>
-                        <span className="text-xs text-gray-500 flex-shrink-0 ml-2">
-                          {testimonial.date}
-                        </span>
-                      </div>
-                      <p className="text-sm text-gray-600 mb-2">
-                        {testimonial.location}
-                      </p>
-                      <div className="flex items-center gap-2">
-                        <div className="flex items-center gap-0.5">
-                          {renderStars(testimonial.rating)}
-                        </div>
-                        <span className="text-xs text-gray-500">
-                          {testimonial.service}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
 
-                  {/* Yorum metni */}
-                  <div className="relative z-10">
-                    <p className="text-gray-700 leading-relaxed text-sm md:text-base line-clamp-4">
+                    {/* Comment */}
+                    <p className="text-gray-700 leading-relaxed text-sm line-clamp-4 mb-4 relative z-10">
                       {testimonial.comment}
                     </p>
-                  </div>
 
-                  {/* Google yorumu stili - Alt çizgi */}
-                  <div className="mt-4 pt-4 border-t border-gray-100 relative z-10">
-                    <div className="flex items-center gap-2 text-xs text-gray-500">
-                      <div className="w-4 h-4 bg-blue-500 rounded flex items-center justify-center">
+                    {/* Google badge */}
+                    <div className="pt-4 border-t border-gray-100 flex items-center gap-2 relative z-10">
+                      <div className="w-5 h-5 bg-gradient-to-br from-blue-500 to-blue-600 rounded flex items-center justify-center shadow-sm">
                         <span className="text-white text-[10px] font-bold">G</span>
                       </div>
-                      <span>Google Yorumu</span>
+                      <span className="text-xs text-gray-500">Avis Google</span>
                     </div>
                   </div>
                 </motion.div>
@@ -267,8 +278,8 @@ export default function Testimonials() {
             </motion.div>
           </AnimatePresence>
 
-          {/* Navigation dots */}
-          <div className="flex items-center justify-center gap-3 mt-8">
+          {/* Dots */}
+          <div className="flex items-center justify-center gap-2 mt-8">
             {testimonials.map((_, index) => (
               <button
                 key={index}
@@ -277,15 +288,12 @@ export default function Testimonials() {
                   setIsAutoPlaying(false)
                   setTimeout(() => setIsAutoPlaying(true), 10000)
                 }}
-                className={`min-w-[44px] min-h-[44px] rounded-full transition-all duration-300 flex items-center justify-center p-2 ${
+                className={`transition-all duration-300 rounded-full ${
                   index === currentIndex
-                    ? 'w-12 h-3 bg-primary-500'
-                    : 'w-3 h-3 bg-gray-400 hover:bg-gray-500'
+                    ? 'w-8 h-3 bg-emerald-500'
+                    : 'w-3 h-3 bg-white/40 hover:bg-white/60'
                 }`}
-                aria-label={`Go to testimonial ${index + 1}`}
-              >
-                <span className="sr-only">Go to testimonial {index + 1}</span>
-              </button>
+              />
             ))}
           </div>
         </div>
@@ -302,20 +310,18 @@ export default function Testimonials() {
             href="https://www.google.com/search?q=Vertnetgeneve+Genève"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-3 px-6 py-3 bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 border border-gray-200 group"
+            className="inline-flex items-center gap-4 px-6 py-4 bg-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 group hover:scale-105"
           >
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-blue-600 rounded flex items-center justify-center shadow-md">
-                <span className="text-white text-sm font-bold">G</span>
-              </div>
-              <div className="text-left">
-                <p className="text-xs text-gray-500">Google'da</p>
-                <p className="text-sm font-bold text-gray-900">Tüm Yorumları Gör</p>
-              </div>
+            <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center shadow-md">
+              <span className="text-white text-lg font-bold">G</span>
             </div>
-            <div className="flex items-center gap-1">
+            <div className="text-left">
+              <p className="text-xs text-gray-500">Voir sur Google</p>
+              <p className="text-sm font-bold text-gray-900">Tous les Avis</p>
+            </div>
+            <div className="flex items-center gap-1 pl-4 border-l border-gray-200">
               {renderStars(5)}
-              <span className="text-sm font-bold text-gray-900 ml-1">5.0</span>
+              <span className="text-lg font-bold text-gray-900 ml-1">5.0</span>
             </div>
           </a>
         </motion.div>

@@ -3,6 +3,7 @@ import './globals.css'
 import GoogleAnalytics from '@/components/GoogleAnalytics'
 import RouteProgressBar from '@/components/RouteProgressBar'
 import Chatbot from '@/components/Chatbot'
+import SplashScreen from '@/components/SplashScreen'
 import { Suspense } from 'react'
 
 export const metadata: Metadata = {
@@ -66,10 +67,14 @@ export default function RootLayout({
     <html lang="fr" suppressHydrationWarning>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover" />
-        <meta name="theme-color" content="#3b82f6" />
+        <meta name="theme-color" content="#10b981" />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        {/* Font preload for performance */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap" as="style" />
         {/* critical.css dosyasının var olduğundan emin olun */}
         <link rel="stylesheet" href="/critical.css" />
         <script
@@ -130,6 +135,7 @@ export default function RootLayout({
         />
       </head>
       <body className="antialiased min-h-screen flex flex-col bg-white" suppressHydrationWarning>
+        <SplashScreen />
         <Suspense fallback={null}>
           <GoogleAnalytics />
         </Suspense>

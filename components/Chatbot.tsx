@@ -13,8 +13,8 @@ interface Message {
 }
 
 export default function Chatbot() {
-  const CHATBOT_WIDTH = 360
-  const CHATBOT_HEIGHT = 600
+  const CHATBOT_WIDTH = 400
+  const CHATBOT_HEIGHT = 650
 
   const [isOpen, setIsOpen] = useState(false)
   const [isMinimized, setIsMinimized] = useState(false)
@@ -37,7 +37,7 @@ export default function Chatbot() {
     }
   }, [])
 
-  // Responsive Hesaplamaları
+  // Responsive Hesaplamalar
   useEffect(() => {
     const updateSize = () => {
       const vw = window.innerWidth
@@ -92,7 +92,7 @@ export default function Chatbot() {
       // Flowise API entegrasyonu
       // History'yi hazırla - mevcut mesajı hariç tut (sadece önceki mesajlar)
       const previousMessages = messages.filter(m => m.id !== userMessage.id)
-      const history = previousMessages.slice(-5).map(m => ({
+      const history = previousMessages.slice(-10).map(m => ({
         role: m.sender === 'user' ? 'user' : 'assistant',
         content: m.text
       }))
@@ -137,7 +137,7 @@ export default function Chatbot() {
       
       const botMessage: Message = {
         id: (Date.now() + 1).toString(),
-        text: `Désolé, une erreur technique s'est produite: ${errorMessage}. Veuillez réessayer ou contactez-nous directement au +41 76 621 21 83.`,
+        text: `DÃ©solÃ©, une erreur technique s'est produite: ${errorMessage}. Veuillez rÃ©essayer ou contactez-nous directement au +41 76 621 21 83.`,
         sender: 'bot',
         timestamp: new Date(),
         status: 'read',
@@ -175,11 +175,11 @@ export default function Chatbot() {
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => setIsOpen(true)}
-              className="relative w-16 h-16 bg-gradient-to-br from-primary-500 via-secondary-500 to-accent-500 rounded-full shadow-[0_8px_32px_rgba(59,130,246,0.4)] flex items-center justify-center text-white hover:shadow-[0_12px_40px_rgba(59,130,246,0.6)] transition-all duration-300 group overflow-hidden"
+              className="relative w-16 h-16 bg-gradient-to-br from-emerald-500 via-teal-500 to-emerald-600 rounded-full shadow-[0_8px_32px_rgba(16,185,129,0.4)] flex items-center justify-center text-white hover:shadow-[0_12px_40px_rgba(16,185,129,0.6)] transition-all duration-300 group overflow-hidden"
               aria-label="Ouvrir le chatbot"
             >
               <motion.div
-                className="absolute inset-0 bg-gradient-to-br from-primary-400 via-secondary-400 to-accent-400 rounded-full"
+                className="absolute inset-0 bg-gradient-to-br from-emerald-400 via-teal-400 to-emerald-500 rounded-full"
                 animate={{
                   scale: [1, 1.3, 1],
                   opacity: [0.5, 0, 0.5],
@@ -234,11 +234,11 @@ export default function Chatbot() {
             }}
           >
             {/* Header */}
-            <div className="relative p-3 sm:p-4 bg-gradient-to-br from-primary-700 via-primary-600 via-secondary-600 to-accent-600 text-white flex items-center justify-between cursor-pointer overflow-hidden shadow-lg"
+            <div className="relative p-3 sm:p-4 bg-gradient-to-br from-emerald-600 via-teal-600 to-emerald-700 text-white flex items-center justify-between cursor-pointer overflow-hidden shadow-lg"
                  onClick={() => isMinimized && setIsMinimized(false)}>
               {/* Premium animated background gradient */}
               <motion.div
-                className="absolute inset-0 bg-gradient-to-br from-primary-500 via-secondary-500 via-accent-500 to-primary-600"
+                className="absolute inset-0 bg-gradient-to-br from-emerald-500 via-teal-500 to-emerald-600"
                 animate={{
                   backgroundPosition: ['0% 0%', '100% 100%', '0% 0%'],
                 }}
@@ -263,7 +263,7 @@ export default function Chatbot() {
                   <Sparkles className="w-4 h-4 sm:w-5 sm:h-5" />
                 </motion.div>
                 <div className="min-w-0 flex-1">
-                  <p className="text-xs sm:text-sm font-bold flex items-center gap-1.5 sm:gap-2 leading-tight truncate">
+                  <p className="text-[10px] sm:text-xs font-bold flex items-center gap-1.5 sm:gap-2 leading-tight truncate">
                     <span className="truncate">Vertnetgeneve</span>
                     <motion.span
                       className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-emerald-300 rounded-full flex-shrink-0 shadow-sm"
@@ -278,7 +278,7 @@ export default function Chatbot() {
                       }}
                     />
                   </p>
-                  <p className="text-[9px] sm:text-[10px] text-white/90 font-medium leading-tight mt-0.5 truncate">Assistant AI • En ligne</p>
+                  <p className="text-[8px] sm:text-[9px] text-white/90 font-medium leading-tight mt-0.5 truncate">Assistant IA - En ligne</p>
                 </div>
               </div>
               <div className="flex items-center gap-0.5 sm:gap-1 relative z-10 flex-shrink-0">
@@ -316,7 +316,7 @@ export default function Chatbot() {
                         transition={{ delay: 0.2 }}
                       >
                         <motion.div 
-                          className="w-16 h-16 bg-gradient-to-br from-primary-400 via-secondary-400 to-accent-400 rounded-2xl flex items-center justify-center mx-auto mb-3 text-white shadow-lg"
+                          className="w-16 h-16 bg-gradient-to-br from-emerald-400 via-teal-400 to-emerald-500 rounded-2xl flex items-center justify-center mx-auto mb-3 text-white shadow-lg"
                           animate={{
                             scale: [1, 1.05, 1],
                             rotate: [0, 5, -5, 0],
@@ -329,11 +329,11 @@ export default function Chatbot() {
                         >
                           <Sparkles className="w-8 h-8" />
                         </motion.div>
-                        <h3 className="text-lg font-bold text-gray-900 mb-1">Bienvenue ! 👋</h3>
+                        <h3 className="text-base font-bold text-gray-900 mb-1">Bienvenue ! 👋</h3>
                         <p className="text-xs text-gray-500">Laissez-nous vos coordonnées pour mieux vous servir.</p>
                       </motion.div>
                       <motion.input 
-                        className="w-full p-3.5 bg-white border-2 border-gray-200 rounded-xl text-sm outline-none focus:border-primary-400 focus:ring-2 focus:ring-primary-100 transition-all placeholder:text-gray-400"
+                        className="w-full p-3 bg-white border-2 border-gray-200 rounded-xl text-xs outline-none focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100 transition-all placeholder:text-gray-400"
                         placeholder="Votre nom"
                         value={userInfo.name}
                         onChange={e => setUserInfo({...userInfo, name: e.target.value})}
@@ -342,7 +342,7 @@ export default function Chatbot() {
                         transition={{ delay: 0.3 }}
                       />
                       <motion.input 
-                        className="w-full p-3.5 bg-white border-2 border-gray-200 rounded-xl text-sm outline-none focus:border-primary-400 focus:ring-2 focus:ring-primary-100 transition-all placeholder:text-gray-400"
+                        className="w-full p-3 bg-white border-2 border-gray-200 rounded-xl text-xs outline-none focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100 transition-all placeholder:text-gray-400"
                         placeholder="Votre téléphone"
                         value={userInfo.phone}
                         onChange={e => setUserInfo({...userInfo, phone: e.target.value})}
@@ -352,24 +352,24 @@ export default function Chatbot() {
                       />
                       <motion.button 
                         type="submit" 
-                        className="w-full py-3.5 bg-gradient-to-r from-primary-500 via-secondary-500 to-accent-500 text-white rounded-xl font-semibold text-sm hover:shadow-lg hover:scale-[1.02] transition-all duration-300 relative overflow-hidden group"
+                        className="w-full py-3 bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-600 text-white rounded-xl font-semibold text-xs hover:shadow-lg hover:scale-[1.02] transition-all duration-300 relative overflow-hidden group"
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.5 }}
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
                       >
-                        <span className="relative z-10 flex items-center justify-center gap-2">
-                          Commencer la discussion
+                        <span className="relative z-10 flex items-center justify-center gap-2 text-xs">
+                          Commencer
                           <motion.span
                             animate={{ x: [0, 5, 0] }}
                             transition={{ duration: 1.5, repeat: Infinity }}
                           >
-                            →
+                            &rarr;
                           </motion.span>
                         </span>
                         <motion.div
-                          className="absolute inset-0 bg-gradient-to-r from-primary-600 via-secondary-600 to-accent-600"
+                          className="absolute inset-0 bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700"
                           initial={{ x: '-100%' }}
                           whileHover={{ x: 0 }}
                           transition={{ duration: 0.3 }}
@@ -388,25 +388,25 @@ export default function Chatbot() {
                           animate={{ opacity: 1, y: 0, scale: 1 }}
                           transition={{ delay: index * 0.1, duration: 0.3 }}
                         >
-                          <div className={`max-w-[85%] p-3.5 rounded-2xl text-sm relative ${
+                          <div className={`max-w-[80%] p-3 rounded-xl text-sm relative ${
                             m.sender === 'user' 
-                              ? 'bg-gradient-to-br from-primary-500 via-secondary-500 to-accent-500 text-white rounded-tr-sm shadow-lg' 
-                              : 'bg-white border-2 border-gray-100 rounded-tl-sm shadow-md'
+                              ? 'bg-gradient-to-br from-emerald-500 via-teal-500 to-emerald-600 text-white rounded-tr-sm shadow-lg' 
+                              : 'bg-white border border-gray-100 rounded-tl-sm shadow-sm'
                           }`}>
                             <p className="leading-relaxed break-words">{m.text}</p>
-                            <div className={`text-[9px] mt-2 flex items-center gap-1.5 ${
+                            <div className={`text-[10px] mt-1 flex items-center gap-1 ${
                               m.sender === 'user' ? 'text-white/70 justify-end' : 'text-gray-400 justify-start'
                             }`}>
                               <span>{m.timestamp.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
                               {m.sender === 'user' && m.status === 'sent' && (
-                                <Check className="w-3 h-3 text-white/80" />
+                                <Check className="w-2.5 h-2.5 text-white/80" />
                               )}
                             </div>
                             {/* Message tail */}
                             {m.sender === 'user' ? (
-                              <div className="absolute -right-1 bottom-0 w-3 h-3 bg-gradient-to-br from-primary-500 via-secondary-500 to-accent-500 transform rotate-45 translate-x-1/2 translate-y-1/2" />
+                              <div className="absolute -right-0.5 bottom-0 w-2 h-2 bg-gradient-to-br from-emerald-500 via-teal-500 to-emerald-600 transform rotate-45 translate-x-1/2 translate-y-1/2" />
                             ) : (
-                              <div className="absolute -left-1 bottom-0 w-3 h-3 bg-white border-l-2 border-b-2 border-gray-100 transform rotate-45 -translate-x-1/2 translate-y-1/2" />
+                              <div className="absolute -left-0.5 bottom-0 w-2 h-2 bg-white border-l border-b border-gray-100 transform rotate-45 -translate-x-1/2 translate-y-1/2" />
                             )}
                           </div>
                         </motion.div>
@@ -443,18 +443,18 @@ export default function Chatbot() {
 
                     <div className="p-4 sm:p-5 bg-gradient-to-b from-white via-gray-50/30 to-white border-t border-gray-100/50">
                       <motion.div 
-                        className="relative flex items-end gap-2.5 bg-gradient-to-br from-primary-50/80 via-secondary-50/60 to-accent-50/80 rounded-3xl p-3.5 sm:p-4 focus-within:from-primary-100/90 focus-within:via-secondary-100/70 focus-within:to-accent-100/90 focus-within:shadow-xl focus-within:shadow-primary-200/30 transition-all duration-500 border-2 border-transparent focus-within:border-primary-300/50 backdrop-blur-sm"
+                        className="relative flex items-end gap-2 bg-gradient-to-br from-emerald-50/80 via-teal-50/60 to-emerald-50/80 rounded-2xl p-3 sm:p-3.5 focus-within:from-emerald-100/90 focus-within:via-teal-100/70 focus-within:to-emerald-100/90 focus-within:shadow-xl focus-within:shadow-emerald-200/30 transition-all duration-500 border-2 border-transparent focus-within:border-emerald-300/50 backdrop-blur-sm"
                         initial={false}
                         animate={{
                           boxShadow: inputValue.trim() 
-                            ? '0 10px 40px rgba(59, 130, 246, 0.15), 0 0 0 1px rgba(59, 130, 246, 0.1)' 
+                            ? '0 10px 40px rgba(16, 185, 129, 0.15), 0 0 0 1px rgba(16, 185, 129, 0.1)' 
                             : '0 4px 20px rgba(0, 0, 0, 0.05)',
                         }}
                         transition={{ duration: 0.3 }}
                       >
                         {/* Animated background glow */}
                         <motion.div
-                          className="absolute inset-0 bg-gradient-to-r from-primary-200/20 via-secondary-200/20 to-accent-200/20 rounded-3xl opacity-0"
+                          className="absolute inset-0 bg-gradient-to-r from-emerald-200/20 via-teal-200/20 to-emerald-200/20 rounded-2xl opacity-0"
                           animate={{
                             opacity: inputValue.trim() ? [0, 0.5, 0.3, 0.5] : 0,
                           }}
@@ -466,7 +466,7 @@ export default function Chatbot() {
                         />
                         
                         {/* Decorative border gradient */}
-                        <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-primary-300/0 via-primary-300/30 to-accent-300/0 opacity-0 focus-within:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                        <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-emerald-300/0 via-emerald-300/30 to-teal-300/0 opacity-0 focus-within:opacity-100 transition-opacity duration-500 pointer-events-none" />
                         
                         <textarea
                           ref={inputRef}
@@ -479,13 +479,13 @@ export default function Chatbot() {
                           }}
                           onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && (e.preventDefault(), handleSendMessage())}
                           onFocus={(e) => {
-                            e.target.parentElement?.classList.add('ring-2', 'ring-primary-300/50')
+                            e.target.parentElement?.classList.add('ring-2', 'ring-emerald-300/50')
                           }}
                           onBlur={(e) => {
-                            e.target.parentElement?.classList.remove('ring-2', 'ring-primary-300/50')
+                            e.target.parentElement?.classList.remove('ring-2', 'ring-emerald-300/50')
                           }}
                           placeholder="Écrivez votre message ici..."
-                          className="relative z-10 flex-1 bg-transparent border-none outline-none text-sm sm:text-base p-2.5 resize-none max-h-32 break-words overflow-x-hidden placeholder:text-gray-400/70 placeholder:italic placeholder:transition-all placeholder:duration-300 focus:placeholder:text-primary-400/50 leading-relaxed"
+                          className="relative z-10 flex-1 bg-transparent border-none outline-none text-xs sm:text-sm p-2 resize-none max-h-32 break-words overflow-x-hidden placeholder:text-gray-400/70 placeholder:italic placeholder:transition-all placeholder:duration-300 focus:placeholder:text-emerald-400/50 leading-relaxed"
                           style={{
                             wordWrap: 'break-word',
                             overflowWrap: 'break-word',
@@ -503,7 +503,7 @@ export default function Chatbot() {
                             {[0, 1, 2].map((i) => (
                               <motion.div
                                 key={i}
-                                className="w-1 h-1 bg-primary-500 rounded-full"
+                                className="w-1 h-1 bg-emerald-500 rounded-full"
                                 animate={{
                                   y: [0, -4, 0],
                                   opacity: [0.3, 1, 0.3],
@@ -522,7 +522,7 @@ export default function Chatbot() {
                         <motion.button 
                           onClick={handleSendMessage}
                           disabled={!inputValue.trim() || isLoading}
-                          className="relative z-10 p-2.5 sm:p-3 bg-gradient-to-br from-primary-500 via-secondary-500 to-accent-500 text-white rounded-2xl disabled:opacity-30 disabled:cursor-not-allowed transition-all shadow-lg hover:shadow-xl disabled:shadow-md relative overflow-hidden group flex-shrink-0"
+                          className="relative z-10 p-2.5 sm:p-3 bg-gradient-to-br from-emerald-500 via-teal-500 to-emerald-600 text-white rounded-2xl disabled:opacity-30 disabled:cursor-not-allowed transition-all shadow-lg hover:shadow-xl disabled:shadow-md relative overflow-hidden group flex-shrink-0"
                           whileHover={{ 
                             scale: inputValue.trim() && !isLoading ? 1.08 : 1,
                             rotate: inputValue.trim() && !isLoading ? [0, -5, 5, 0] : 0,
@@ -532,7 +532,7 @@ export default function Chatbot() {
                         >
                           {/* Button glow effect */}
                           <motion.div
-                            className="absolute inset-0 bg-gradient-to-br from-primary-400 via-secondary-400 to-accent-400 rounded-2xl opacity-0"
+                            className="absolute inset-0 bg-gradient-to-br from-emerald-400 via-teal-400 to-emerald-500 rounded-2xl opacity-0"
                             animate={{
                               opacity: inputValue.trim() && !isLoading ? [0, 0.6, 0.4, 0.6] : 0,
                             }}
@@ -564,7 +564,7 @@ export default function Chatbot() {
                           
                           {/* Hover gradient overlay */}
                           <motion.div
-                            className="absolute inset-0 bg-gradient-to-br from-primary-600 via-secondary-600 to-accent-600 rounded-2xl"
+                            className="absolute inset-0 bg-gradient-to-br from-emerald-600 via-teal-600 to-emerald-700 rounded-2xl"
                             initial={{ x: '-100%' }}
                             whileHover={{ x: 0 }}
                             transition={{ duration: 0.3 }}

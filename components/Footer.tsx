@@ -1,9 +1,10 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Phone, Mail, MapPin, Facebook, Linkedin, Instagram, Sparkles, Clock, Shield } from 'lucide-react'
+import { Phone, Mail, MapPin, Facebook, Linkedin, Instagram, Clock, Shield } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 import Link from 'next/link'
+import Image from 'next/image'
 
 export default function Footer() {
   const services = [
@@ -33,7 +34,7 @@ export default function Footer() {
   ]
 
   return (
-    <footer className="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-gray-200 relative w-full overflow-y-hidden">
+    <footer className="bg-gray-900/80 backdrop-blur-sm text-gray-200 relative w-full overflow-y-hidden">
       {/* Decorative Elements */}
       <div className="absolute inset-0 opacity-10 overflow-hidden w-full">
         <div className="absolute top-0 left-0 w-96 h-96 bg-primary-500 rounded-full blur-3xl"></div>
@@ -52,8 +53,13 @@ export default function Footer() {
               transition={{ duration: 0.6 }}
             >
               <Link href="/" className="flex items-center space-x-3 mb-1.5 group">
-                <div className="w-12 h-12 bg-gradient-to-br from-primary-500 via-secondary-500 to-accent-500 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300">
-                  <Sparkles className="w-6 h-6 text-white" />
+                <div className="w-14 h-14 relative">
+                  <Image
+                    src="/yenlogo.jpg"
+                    alt="Vertnetgeneve Logo"
+                    fill
+                    className="object-contain"
+                  />
                 </div>
                 <div>
                   <h3 className="text-xl md:text-2xl font-display font-bold text-white leading-[1.2]">Vertnetgeneve</h3>
@@ -155,6 +161,15 @@ export default function Footer() {
                     <Phone className="w-4 h-4 text-accent-400" />
                   </div>
                   <span className="font-semibold">+41 76 621 21 83</span>
+                </a>
+                <a
+                  href="tel:+41765316903"
+                  className="flex items-center space-x-3 text-sm md:text-base text-gray-300 hover:text-white transition-colors group leading-[1.6]"
+                >
+                  <div className="p-1.5 bg-accent-500/20 rounded-lg group-hover:bg-accent-500/30 transition-colors flex-shrink-0">
+                    <Phone className="w-4 h-4 text-accent-400" />
+                  </div>
+                  <span className="font-semibold">+41 76 531 69 03</span>
                 </a>
                 <a
                   href="mailto:info@vertnetgeneve.ch"

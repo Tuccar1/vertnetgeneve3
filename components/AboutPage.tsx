@@ -62,11 +62,7 @@ export default function AboutPage() {
       </div>
       
       {/* Hero Section - Header'a yakın, boşluk yok */}
-      <section className="relative pt-20 sm:pt-24 pb-6 md:pb-8 bg-gradient-to-br from-primary-50/50 via-secondary-50/50 to-accent-50/50 backdrop-blur-[1px] overflow-hidden z-10">
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-0 left-0 w-96 h-96 bg-gradient-to-br from-primary-400 to-secondary-400 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-0 right-0 w-96 h-96 bg-gradient-to-br from-accent-400 to-primary-400 rounded-full blur-3xl"></div>
-        </div>
+      <section className="relative pt-20 sm:pt-24 pb-6 md:pb-8 overflow-hidden z-10">
         
         <div className="max-w-6xl mx-auto px-4 relative z-10">
           <motion.div
@@ -129,7 +125,7 @@ export default function AboutPage() {
       
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
       {/* Features Section */}
-      <section className="py-12 md:py-16 lg:py-20 bg-white/60 backdrop-blur-[2px]">
+      <section className="py-12 md:py-16 lg:py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-6xl mx-auto">
             <div className="grid md:grid-cols-2 gap-10 md:gap-12">
@@ -176,7 +172,7 @@ export default function AboutPage() {
       <div className="h-4 md:h-6"></div>
 
       {/* Company Info Section */}
-      <section className="py-12 md:py-16 lg:py-20 bg-gradient-to-br from-primary-50/60 via-secondary-50/60 to-accent-50/60 backdrop-blur-[2px] relative z-10">
+      <section className="py-12 md:py-16 lg:py-20 relative z-10">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -267,12 +263,7 @@ export default function AboutPage() {
       <div className="h-12 md:h-16 lg:h-20"></div>
 
       {/* CTA Section */}
-      <section className="py-24 md:py-32 lg:py-40 bg-gradient-to-br from-primary-600/75 via-secondary-600/75 to-accent-600/75 backdrop-blur-[2px] text-white relative overflow-hidden z-10">
-        {/* Dekoratif arka plan elementleri */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-0 left-0 w-96 h-96 bg-white rounded-full blur-3xl"></div>
-          <div className="absolute bottom-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl"></div>
-        </div>
+      <section className="py-24 md:py-32 lg:py-40 bg-gradient-to-br from-emerald-600 via-teal-600 to-emerald-700 text-white relative overflow-hidden z-10">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -289,7 +280,7 @@ export default function AboutPage() {
             </p>
             <Link
               href="/contact"
-              className="inline-flex items-center px-10 py-5 md:px-12 md:py-6 bg-white text-primary-600 rounded-2xl font-bold text-lg md:text-xl hover:bg-gray-100 transition-all shadow-2xl hover:scale-105 hover:shadow-3xl"
+              className="inline-flex items-center px-10 py-5 md:px-12 md:py-6 bg-white text-emerald-600 rounded-2xl font-bold text-lg md:text-xl hover:bg-gray-100 transition-all shadow-2xl hover:scale-105 hover:shadow-3xl"
             >
               Demander un Devis
               {/* @ts-ignore */}

@@ -93,9 +93,18 @@ const services: Service[] = [
 
 export default function Services() {
   return (
-    <section id="services" className="py-20 lg:py-32 bg-gradient-to-b from-white via-gray-50 to-white w-full relative">
-      {/* Yumuşak geçiş - Üst kısım */}
-      <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-white to-transparent pointer-events-none z-0"></div>
+    <section id="services" className="py-20 lg:py-32 w-full relative overflow-hidden">
+      {/* Background Image */}
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="/1231.jpg"
+          alt="Services background"
+          fill
+          className="object-cover"
+          priority
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-white/95 via-white/90 to-white/95"></div>
+      </div>
       
       <div className="max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div

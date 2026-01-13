@@ -1,10 +1,10 @@
 import type { Metadata } from 'next'
 import Navigation from '@/components/Navigation'
 import Hero from '@/components/Hero'
-import About from '@/components/About'
 import WhyChooseUs from '@/components/WhyChooseUs'
 import Testimonials from '@/components/Testimonials'
 import Footer from '@/components/Footer'
+import Image from 'next/image'
 
 export const metadata: Metadata = {
   title: 'Accueil - Excellence en Nettoyage Professionnel à Genève',
@@ -54,14 +54,33 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <>
-      <Navigation />
-      <Hero />
-      <About />
-      <WhyChooseUs />
-      <Testimonials />
-      <Footer />
-    </>
+    <div className="relative min-h-screen">
+      {/* Global Background Image */}
+      <div className="fixed inset-0 z-0">
+        <Image
+          src="/cleaning-4.webp"
+          alt="Vertnetgeneve - Nettoyage Professionnel"
+          fill
+          className="object-cover"
+          style={{
+            filter: 'brightness(1.0) contrast(1.1) saturate(1.1)',
+          }}
+          priority
+          quality={100}
+          sizes="100vw"
+        />
+        <div className="absolute inset-0 bg-slate-900/30"></div>
+      </div>
+      
+      {/* Content */}
+      <div className="relative z-10">
+        <Navigation />
+        <Hero />
+        <WhyChooseUs />
+        <Testimonials />
+        <Footer />
+      </div>
+    </div>
   )
 }
 

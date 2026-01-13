@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { ArrowRight, Check, Shield, Clock, Leaf } from 'lucide-react'
 import type { ServiceDetail as ServiceDetailType } from '@/lib/services-data'
+import Image from 'next/image'
 
 interface ServiceDetailProps {
   service: ServiceDetailType
@@ -11,26 +12,39 @@ interface ServiceDetailProps {
 
 export default function ServiceDetail({ service }: ServiceDetailProps) {
   return (
-    <div className="w-full">
-      <div className="max-w-6xl mx-auto px-4">
+    <div className="w-full relative">
+      {/* Sabit arka plan fotoğraf - Tüm sayfada sabit kalacak */}
+      <div className="fixed inset-0 z-0">
+        <Image
+          src={service.backgroundImage}
+          alt={`${service.title} - Vertnetgeneve Services de nettoyage professionnel`}
+          fill
+          className="object-cover"
+          style={{
+            objectPosition: 'center center',
+          }}
+          quality={100}
+          priority={true}
+          sizes="100vw"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-white/20 via-white/10 to-white/20"></div>
+      </div>
+      
+      <div className="max-w-6xl mx-auto px-4 relative z-10">
       {/* Hero Section - Header ile birleşik */}
-      <section className={`relative pt-20 sm:pt-24 pb-12 md:pb-16 bg-gradient-to-br ${service.bgColor} overflow-hidden`}>
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-0 left-0 w-96 h-96 bg-gradient-to-br from-primary-400 to-secondary-400 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-0 right-0 w-96 h-96 bg-gradient-to-br from-accent-400 to-primary-400 rounded-full blur-3xl"></div>
-        </div>
+      <section className={`relative pt-20 sm:pt-24 pb-12 md:pb-16 overflow-hidden`}>
         
         <div className="container mx-auto px-4 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="max-w-4xl mx-auto text-center"
+            className="max-w-4xl mx-auto text-center bg-white/80 backdrop-blur-sm rounded-3xl p-8 shadow-lg"
           >
             <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-display font-bold text-gray-900 mb-3 sm:mb-4 px-2">
               {service.title}
             </h1>
-            <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold bg-gradient-to-r from-primary-600 via-secondary-600 to-accent-600 bg-clip-text text-transparent mb-4 sm:mb-6 px-2">
+            <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-600 bg-clip-text text-transparent mb-4 sm:mb-6 px-2">
               {service.tagline}
             </p>
             {service.heightCapability && (
@@ -46,14 +60,14 @@ export default function ServiceDetail({ service }: ServiceDetailProps) {
       </section>
 
       {/* Benefits Section */}
-      <section className="py-16 bg-white">
+      <section className="py-16">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="max-w-6xl mx-auto"
+            className="max-w-6xl mx-auto bg-white/90 backdrop-blur-sm rounded-3xl p-8 shadow-lg"
           >
             <h2 className="text-3xl md:text-4xl font-display font-bold text-gray-900 mb-12 text-center">
               Avantages
@@ -66,10 +80,10 @@ export default function ServiceDetail({ service }: ServiceDetailProps) {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
-                  className="flex items-start space-x-4 p-6 bg-gradient-to-br from-primary-50 to-secondary-50 rounded-xl border-2 border-primary-200"
+                  className="flex items-start space-x-4 p-6 bg-emerald-50 rounded-xl border-2 border-emerald-200"
                 >
                   {/* @ts-ignore */}
-                  <Check className="w-6 h-6 text-secondary-600 flex-shrink-0 mt-1" />
+                  <Check className="w-6 h-6 text-emerald-600 flex-shrink-0 mt-1" />
                   <p className="text-lg text-gray-800 font-semibold">{benefit}</p>
                 </motion.div>
               ))}
@@ -79,14 +93,14 @@ export default function ServiceDetail({ service }: ServiceDetailProps) {
       </section>
 
       {/* Methods Section */}
-      <section className={`py-16 bg-gradient-to-br ${service.bgColor}`}>
+      <section className={`py-16`}>
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="max-w-6xl mx-auto"
+            className="max-w-6xl mx-auto bg-white/90 backdrop-blur-sm rounded-3xl p-8 shadow-lg"
           >
             <h2 className="text-3xl md:text-4xl font-display font-bold text-gray-900 mb-12 text-center">
               Notre Méthode
@@ -99,7 +113,7 @@ export default function ServiceDetail({ service }: ServiceDetailProps) {
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
-                  className="bg-white rounded-xl p-6 shadow-lg border-2 border-gray-200 hover:border-primary-400 transition-all"
+                  className="bg-white rounded-xl p-6 shadow-lg border-2 border-emerald-200 hover:border-emerald-400 transition-all"
                 >
                   <p className="text-gray-800 font-medium">{method}</p>
                 </motion.div>
@@ -110,14 +124,14 @@ export default function ServiceDetail({ service }: ServiceDetailProps) {
       </section>
 
       {/* Detailed Services */}
-      <section className="py-16 bg-white">
+      <section className="py-16">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="max-w-6xl mx-auto"
+            className="max-w-6xl mx-auto bg-white/90 backdrop-blur-sm rounded-3xl p-8 shadow-lg"
           >
             <h2 className="text-3xl md:text-4xl font-display font-bold text-gray-900 mb-12 text-center">
               Certains de Nos Services
@@ -130,9 +144,9 @@ export default function ServiceDetail({ service }: ServiceDetailProps) {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: index * 0.05 }}
-                  className="flex items-center space-x-3 p-4 bg-gradient-to-r from-primary-50 to-secondary-50 rounded-lg"
+                  className="flex items-center space-x-3 p-4 bg-emerald-50 rounded-lg border border-emerald-200"
                 >
-                  <div className={`w-2 h-2 rounded-full bg-gradient-to-r ${service.gradient}`}></div>
+                  <div className="w-2 h-2 rounded-full bg-emerald-500"></div>
                   <p className="text-gray-800">{item}</p>
                 </motion.div>
               ))}
@@ -142,14 +156,14 @@ export default function ServiceDetail({ service }: ServiceDetailProps) {
       </section>
 
       {/* Why Choose Us */}
-      <section className={`py-16 bg-gradient-to-br ${service.bgColor}`}>
+      <section className={`py-16`}>
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="max-w-6xl mx-auto"
+            className="max-w-6xl mx-auto bg-white/90 backdrop-blur-sm rounded-3xl p-8 shadow-lg"
           >
             <h2 className="text-3xl md:text-4xl font-display font-bold text-gray-900 mb-12 text-center">
               Pourquoi Nous Choisir
@@ -162,7 +176,7 @@ export default function ServiceDetail({ service }: ServiceDetailProps) {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
-                  className="bg-white rounded-xl p-8 shadow-lg border-2 border-gray-200 hover:border-primary-400 transition-all"
+                  className="bg-white rounded-xl p-8 shadow-lg border-2 border-emerald-200 hover:border-emerald-400 transition-all"
                 >
                   <h3 className="text-xl font-bold text-gray-900 mb-4">{item.title}</h3>
                   <p className="text-gray-600 leading-relaxed">{item.description}</p>
@@ -174,7 +188,7 @@ export default function ServiceDetail({ service }: ServiceDetailProps) {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-gradient-to-br from-primary-600 via-secondary-600 to-accent-600 text-white">
+      <section className="py-16 bg-gradient-to-br from-emerald-600 via-teal-600 to-emerald-700 text-white">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -192,7 +206,7 @@ export default function ServiceDetail({ service }: ServiceDetailProps) {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href="/contact"
-                className="px-8 py-4 bg-white text-primary-600 rounded-lg font-bold text-lg hover:bg-gray-100 transition-all shadow-xl hover:scale-105 inline-flex items-center justify-center"
+                className="px-8 py-4 bg-white text-emerald-600 rounded-lg font-bold text-lg hover:bg-gray-100 transition-all shadow-xl hover:scale-105 inline-flex items-center justify-center"
               >
                 Demander un Devis
                 {/* @ts-ignore */}
@@ -212,4 +226,3 @@ export default function ServiceDetail({ service }: ServiceDetailProps) {
     </div>
   )
 }
-

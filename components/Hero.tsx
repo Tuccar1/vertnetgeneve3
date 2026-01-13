@@ -35,38 +35,6 @@ export default function Hero() {
       id="accueil"
       className="relative min-h-screen flex flex-col justify-start overflow-hidden pt-20 sm:pt-24 w-full pb-20 lg:pb-32"
     >
-      {/* Background Image - Seçilen görsel */}
-      <div className="absolute inset-0 z-0 overflow-hidden">
-        {/* Gradient overlay - Yazıların okunabilirliği için, görsel renklerine uyumlu */}
-        <div className="absolute inset-0 bg-gradient-to-b from-blue-900/25 via-blue-800/15 to-yellow-50/35 z-10"></div>
-        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-white/25 z-10"></div>
-        
-        {/* Profesyonel temizlik görseli - Net ve görünür */}
-        <div className="absolute inset-0 w-full h-full z-0">
-          <Image
-            src={heroImage.url}
-            alt="Services de nettoyage professionnel à Genève - Vertnetgeneve Excellence"
-            fill
-            className="object-cover object-center"
-            style={{
-              objectPosition: 'center',
-              width: '100%',
-              height: '100%',
-              opacity: 0.7,
-              filter: 'brightness(0.95) contrast(1.0) saturate(1.0)',
-            }}
-            priority
-            quality={100}
-            sizes="100vw"
-          />
-        </div>
-        
-        {/* Ek dekoratif element - daha az görünür */}
-        <div className="absolute bottom-20 right-10 md:right-20 lg:right-32 w-32 h-32 md:w-40 md:h-40 opacity-10 z-5">
-          <div className="w-full h-full bg-gradient-to-br from-primary-300/20 to-primary-500/10 rounded-full blur-2xl"></div>
-        </div>
-      </div>
-
       {/* Content */}
       <div className="max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8 relative z-20">
         <motion.div
@@ -76,28 +44,43 @@ export default function Hero() {
           className="max-w-4xl mx-auto text-center"
         >
           <motion.div variants={itemVariants}>
-            <span className="inline-block px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-4 bg-gradient-to-r from-blue-50/95 via-white/95 to-yellow-50/95 backdrop-blur-md rounded-full text-gray-800 text-xs sm:text-sm md:text-base font-bold mb-6 sm:mb-8 md:mb-10 border-2 border-white/90 shadow-xl [text-shadow:_1px_1px_2px_rgba(255,255,255,0.8)]">
-              Excellence en Nettoyage Professionnel
-            </span>
+            <motion.span 
+              className="inline-block px-4 py-2 sm:px-5 sm:py-2.5 bg-white/10 backdrop-blur-sm rounded-full text-white text-sm sm:text-base font-medium mb-8 sm:mb-10 border border-white/40"
+              animate={{ 
+                borderColor: ['rgba(255,255,255,0.4)', 'rgba(255,255,255,0.7)', 'rgba(255,255,255,0.4)'],
+              }}
+              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            >
+              ✨ Excellence en Nettoyage Professionnel ✨
+            </motion.span>
           </motion.div>
 
           <motion.h1
             variants={itemVariants}
-            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-display font-bold text-gray-900 mb-6 sm:mb-8 leading-[1.2] tracking-tight drop-shadow-[0_2px_8px_rgba(255,255,255,0.9)] [text-shadow:_2px_2px_8px_rgba(255,255,255,0.8),_-2px_-2px_8px_rgba(255,255,255,0.8)]"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display font-bold text-white mb-4 leading-[1.1] tracking-tight drop-shadow-[0_4px_12px_rgba(0,0,0,0.5)] [text-shadow:_2px_2px_4px_rgba(0,0,0,0.6)]"
           >
-            Votre Partenaire de{' '}
-            <span className="bg-gradient-to-r from-blue-700 via-blue-600 to-blue-500 bg-clip-text text-transparent drop-shadow-[0_2px_8px_rgba(255,255,255,0.9)] [text-shadow:_2px_2px_8px_rgba(255,255,255,0.8)]">
-              Confiance
-            </span>
+            Votre Partenaire de
           </motion.h1>
-
-          <motion.p
+          
+          <motion.h2
             variants={itemVariants}
-            className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-800 mb-8 sm:mb-10 md:mb-12 leading-[1.7] max-w-3xl mx-auto font-semibold px-4 drop-shadow-[0_2px_6px_rgba(255,255,255,0.9)] [text-shadow:_1px_1px_6px_rgba(255,255,255,0.8),_-1px_-1px_6px_rgba(255,255,255,0.8)]"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display font-bold mb-10 sm:mb-12 leading-[1.1] tracking-tight"
           >
-            Services de nettoyage professionnel de qualité supérieure pour les
-            entreprises et particuliers à Genève. Disponible 24h/24 et 7j/7.
-          </motion.p>
+            <motion.span 
+              className="bg-gradient-to-r from-amber-300 via-yellow-300 to-orange-300 bg-clip-text text-transparent inline-block drop-shadow-[0_4px_12px_rgba(0,0,0,0.3)]"
+              animate={{ 
+                backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
+              }}
+              transition={{ 
+                duration: 3, 
+                repeat: Infinity, 
+                ease: "easeInOut" 
+              }}
+              style={{ backgroundSize: '200% 200%' }}
+            >
+              Confiance
+            </motion.span>
+          </motion.h2>
 
           <motion.div
             variants={itemVariants}
@@ -196,9 +179,6 @@ export default function Hero() {
           </motion.div>
         </motion.div>
       </div>
-
-      {/* Yumuşak geçiş - Alt kısım */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent via-white/50 to-white pointer-events-none z-10"></div>
     </section>
   )
 }

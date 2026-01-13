@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { Calendar, ArrowRight, BookOpen, Sparkles } from 'lucide-react'
 import { BlogPost } from '@/lib/blog'
+import Image from 'next/image'
 
 interface BlogListProps {
   posts: BlogPost[]
@@ -11,14 +12,25 @@ interface BlogListProps {
 
 export default function BlogList({ posts }: BlogListProps) {
   return (
-    <div className="w-full">
-      {/* Hero Section - Header'a yakın, boşluk yok */}
-      <section className="relative pt-20 sm:pt-24 pb-8 sm:pb-12 md:pb-16 bg-gradient-to-br from-primary-50 via-secondary-50 to-accent-50 overflow-hidden">
-        <div className="absolute inset-0 opacity-10 overflow-hidden w-full">
-          <div className="absolute top-0 left-0 w-96 h-96 bg-gradient-to-br from-primary-400 to-secondary-400 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-0 right-0 w-96 h-96 bg-gradient-to-br from-accent-400 to-primary-400 rounded-full blur-3xl"></div>
-        </div>
-        
+    <div className="w-full relative min-h-screen">
+      {/* Sabit arka plan fotoğrafı */}
+      <div className="fixed inset-0 -z-20">
+        <Image
+          src="/11.webp"
+          alt="Blog - Vertnetgeneve"
+          fill
+          className="object-cover object-center"
+          quality={100}
+          priority
+          sizes="100vw"
+          unoptimized
+        />
+      </div>
+      {/* Koyu overlay - yazıların okunabilirliği için */}
+      <div className="fixed inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/50 -z-10" />
+      
+      {/* Hero Section - Şeffaf alan yok, doğrudan içerik */}
+      <section className="relative pt-24 sm:pt-32 pb-12 sm:pb-16 overflow-hidden">
         <div className="max-w-6xl mx-auto px-4 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -28,37 +40,43 @@ export default function BlogList({ posts }: BlogListProps) {
           >
             {/* Dekoratif ikonlar */}
             <motion.div
-              className="flex justify-center gap-4 mb-6"
+              className="flex justify-center gap-3 sm:gap-4 mb-6"
               initial={{ opacity: 0, scale: 0 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.2, duration: 0.5 }}
             >
               <motion.div
-                className="w-12 h-12 rounded-full bg-gradient-to-br from-primary-400 to-primary-600 flex items-center justify-center shadow-lg"
+                className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-emerald-400 to-emerald-600 flex items-center justify-center shadow-lg shadow-emerald-500/30"
                 animate={{ rotate: [0, 360], scale: [1, 1.1, 1] }}
                 transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
               >
-                <BookOpen className="w-6 h-6 text-white" />
+                <BookOpen className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
               </motion.div>
               <motion.div
-                className="w-12 h-12 rounded-full bg-gradient-to-br from-secondary-400 to-secondary-600 flex items-center justify-center shadow-lg"
+                className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-teal-400 to-teal-600 flex items-center justify-center shadow-lg shadow-teal-500/30"
                 animate={{ rotate: [360, 0], scale: [1, 1.1, 1] }}
                 transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
               >
-                <Sparkles className="w-6 h-6 text-white" />
+                <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
               </motion.div>
             </motion.div>
             
-            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-display font-bold text-gray-900 mb-4 sm:mb-6 leading-[1.2]">
+            <h1 
+              className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-display font-bold text-white mb-4 sm:mb-6 leading-[1.2]"
+              style={{ textShadow: '2px 2px 8px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.5)' }}
+            >
               Vertnetgeneve Blog
             </h1>
             <motion.div
               initial={{ opacity: 0, width: 0 }}
               animate={{ opacity: 1, width: "100%" }}
               transition={{ delay: 0.4, duration: 0.8 }}
-              className="h-1 bg-gradient-to-r from-primary-500 via-secondary-500 to-accent-500 rounded-full mx-auto mb-4 sm:mb-6 max-w-xs"
+              className="h-1 bg-gradient-to-r from-emerald-400 via-teal-400 to-emerald-400 rounded-full mx-auto mb-4 sm:mb-6 max-w-xs"
             />
-            <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-600 leading-[1.7]">
+            <p 
+              className="text-sm sm:text-base md:text-lg lg:text-xl text-white leading-[1.7] px-4"
+              style={{ textShadow: '1px 1px 6px rgba(0,0,0,0.8), 0 0 15px rgba(0,0,0,0.4)' }}
+            >
               Science et Pratique du Nettoyage
             </p>
           </motion.div>
@@ -67,11 +85,11 @@ export default function BlogList({ posts }: BlogListProps) {
       
       <div className="max-w-6xl mx-auto px-4">
       {/* Blog Posts - Simple Vertical List */}
-      <section className="py-12 sm:py-16 bg-white">
+      <section className="py-12 sm:py-16">
         <div className="container mx-auto px-4 sm:px-6">
           {posts.length === 0 ? (
-            <div className="text-center py-20">
-              <p className="text-xl text-gray-600 mb-8">Aucun article pour le moment.</p>
+            <div className="bg-white/90 backdrop-blur-md rounded-2xl p-8 text-center shadow-xl">
+              <p className="text-xl text-gray-700 mb-4">Aucun article pour le moment.</p>
               <p className="text-gray-500">Les articles seront bientôt disponibles.</p>
             </div>
           ) : (
@@ -82,16 +100,16 @@ export default function BlogList({ posts }: BlogListProps) {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.4, delay: index * 0.05 }}
-                  className="border-b border-gray-200 pb-6 sm:pb-8 last:border-b-0"
+                  className="bg-white/90 backdrop-blur-md rounded-2xl p-6 sm:p-8 shadow-xl border border-white/50 hover:shadow-2xl hover:shadow-emerald-500/10 transition-all duration-300"
                 >
                   <div className="mb-3 sm:mb-4">
-                    <span className="inline-block px-3 py-1 sm:px-4 sm:py-1.5 bg-primary-600 text-white text-xs sm:text-sm font-semibold rounded-full">
+                    <span className="inline-block px-3 py-1 sm:px-4 sm:py-1.5 bg-gradient-to-r from-emerald-500 to-teal-500 text-white text-xs sm:text-sm font-semibold rounded-full shadow-lg shadow-emerald-500/30">
                       {post.category}
                     </span>
                   </div>
                   
                   <Link href={`/blog/${post.slug}`} prefetch={true} className="block group">
-                    <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-display font-bold text-gray-900 mb-3 sm:mb-4 leading-[1.25] group-hover:text-primary-600 transition-colors">
+                    <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-display font-bold text-gray-800 mb-3 sm:mb-4 leading-[1.25] group-hover:text-emerald-600 transition-colors">
                       {post.title}
                     </h2>
                   </Link>
@@ -122,7 +140,7 @@ export default function BlogList({ posts }: BlogListProps) {
                     <Link
                       href={`/blog/${post.slug}`}
                       prefetch={true}
-                      className="inline-flex items-center text-sm sm:text-base text-primary-600 font-semibold hover:text-primary-700 transition-colors group/link"
+                      className="inline-flex items-center text-sm sm:text-base text-emerald-600 font-semibold hover:text-emerald-700 transition-colors group/link"
                     >
                       Lire la suite
                       {/* @ts-ignore */}

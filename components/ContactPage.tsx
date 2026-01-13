@@ -145,8 +145,8 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <div className="font-bold text-gray-900 mb-1 text-base">Email</div>
-                      <a href="mailto:info@vertnetgeneve.ch" className="text-gray-600 hover:text-primary-600 transition text-sm">
-                        info@vertnetgeneve.ch
+                      <a href="mailto:contact@vertnetgeneve.ch" className="text-gray-600 hover:text-primary-600 transition text-sm">
+                        contact@vertnetgeneve.ch
                       </a>
                     </div>
                   </div>
@@ -198,36 +198,49 @@ export default function ContactPage() {
                 </h2>
                 <form className="space-y-5">
                   <div>
+                    <label htmlFor="contact-name" className="sr-only">Nom complet</label>
                     <input
+                      id="contact-name"
                       type="text"
                       placeholder="Nom complet"
-                      className="w-full px-4 py-3 rounded-xl bg-white border-2 border-gray-200 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm transition hover:border-gray-300"
+                      aria-label="Votre nom complet"
+                      className="w-full px-4 py-3 rounded-xl bg-white border-2 border-gray-200 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm transition hover:border-gray-300 min-h-[48px]"
                     />
                   </div>
                   <div>
+                    <label htmlFor="contact-email" className="sr-only">Email</label>
                     <input
+                      id="contact-email"
                       type="email"
                       placeholder="Email"
-                      className="w-full px-4 py-3 rounded-xl bg-white border-2 border-gray-200 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm transition hover:border-gray-300"
+                      aria-label="Votre adresse email"
+                      className="w-full px-4 py-3 rounded-xl bg-white border-2 border-gray-200 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm transition hover:border-gray-300 min-h-[48px]"
                     />
                   </div>
                   <div>
+                    <label htmlFor="contact-phone" className="sr-only">Téléphone</label>
                     <input
+                      id="contact-phone"
                       type="tel"
                       placeholder="Téléphone"
-                      className="w-full px-4 py-3 rounded-xl bg-white border-2 border-gray-200 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm transition hover:border-gray-300"
+                      aria-label="Votre numéro de téléphone"
+                      className="w-full px-4 py-3 rounded-xl bg-white border-2 border-gray-200 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm transition hover:border-gray-300 min-h-[48px]"
                     />
                   </div>
                   <div>
+                    <label htmlFor="contact-message" className="sr-only">Message</label>
                     <textarea
+                      id="contact-message"
                       placeholder="Message"
                       rows={5}
+                      aria-label="Votre message"
                       className="w-full px-4 py-3 rounded-xl bg-white border-2 border-gray-200 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 resize-none text-sm transition hover:border-gray-300"
                     />
                   </div>
                   <button
                     type="submit"
-                    className="w-full bg-gradient-to-r from-primary-600 via-secondary-600 to-accent-600 text-white px-6 py-3.5 rounded-xl font-semibold text-base hover:from-primary-700 hover:via-secondary-700 hover:to-accent-700 transition shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-[0.98]"
+                    aria-label="Envoyer la demande de devis"
+                    className="w-full bg-gradient-to-r from-primary-600 via-secondary-600 to-accent-600 text-white px-6 py-3.5 rounded-xl font-semibold text-base hover:from-primary-700 hover:via-secondary-700 hover:to-accent-700 transition shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] min-h-[48px]"
                   >
                     Envoyer la Demande
                   </button>

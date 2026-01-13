@@ -87,7 +87,7 @@ export default function RootLayout({
               description: 'Services de nettoyage professionnel de qualité supérieure à Genève. Disponible 24h/24 et 7j/7.',
               url: 'https://www.vertnetgeneve.ch',
               telephone: '+41766212183',
-              email: 'info@vertnetgeneve.ch',
+              email: 'contact@vertnetgeneve.ch',
               address: {
                 '@type': 'PostalAddress',
                 addressLocality: 'Genève',

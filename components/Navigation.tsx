@@ -59,61 +59,118 @@ export default function Navigation() {
   ]
 
   return (
-    <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.5, ease: 'easeOut' }}
-      className={`fixed top-0 left-0 right-0 z-50 w-full transition-all duration-500 relative ${
-        scrolled
-          ? 'bg-white/95 backdrop-blur-xl shadow-lg shadow-emerald-500/5 border-b border-emerald-100'
-          : 'bg-white/80 backdrop-blur-md'
-      }`}
+    <>
+      {/* Top Premium Bar */}
+      <motion.div 
+        initial={{ y: -50 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.4, ease: 'easeOut' }}
+        className="fixed top-0 left-0 right-0 z-[51] bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700 text-white py-[2px] px-4 hidden md:block"
       >
-      {/* Animated Gradient Background */}
-      <motion.div
-        className="absolute inset-0 bg-gradient-to-r from-emerald-50/40 via-teal-50/30 to-emerald-50/40 pointer-events-none"
-        animate={{
-          opacity: [0.3, 0.6, 0.3],
-        }}
-        transition={{
-          duration: 3,
-          repeat: Infinity,
-          ease: 'easeInOut',
-        }}
-      />
-      <motion.div
-        className="absolute inset-0 bg-gradient-to-l from-teal-50/30 via-emerald-50/20 to-teal-50/30 pointer-events-none"
-        animate={{
-          opacity: [0.2, 0.5, 0.2],
-        }}
-        transition={{
-          duration: 2.5,
-          repeat: Infinity,
-          ease: 'easeInOut',
-          delay: 0.5,
-        }}
-      />
-      <motion.div
-        className="absolute inset-0 bg-gradient-to-br from-emerald-100/20 via-transparent to-teal-100/20 pointer-events-none"
-        animate={{
-          opacity: [0.1, 0.3, 0.1],
-        }}
-        transition={{
-          duration: 4,
-          repeat: Infinity,
-          ease: 'easeInOut',
-          delay: 1,
-        }}
-      />
+        <div className="max-w-7xl mx-auto flex items-center justify-between text-[9px]">
+          <div className="flex items-center gap-3">
+            <motion.a 
+              href="https://wa.me/41766212183"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 hover:text-emerald-200 transition-colors cursor-pointer"
+              whileHover={{ scale: 1.02 }}
+            >
+              <Phone className="w-3 h-3" />
+              <span className="font-medium">+41 76 621 21 83</span>
+            </motion.a>
+            <span className="text-emerald-300">|</span>
+            <motion.a 
+              href="https://wa.me/41765316903"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 hover:text-emerald-200 transition-colors cursor-pointer"
+              whileHover={{ scale: 1.02 }}
+            >
+              <Phone className="w-3 h-3" />
+              <span className="font-medium">+41 76 531 69 03</span>
+            </motion.a>
+            <span className="text-emerald-300">|</span>
+            <motion.a 
+              href="mailto:contact@vertnetgeneve.ch"
+              className="flex items-center gap-1.5 hover:text-emerald-200 transition-colors cursor-pointer"
+              whileHover={{ scale: 1.02 }}
+            >
+              <Mail className="w-3 h-3" />
+              <span className="font-medium">contact@vertnetgeneve.ch</span>
+            </motion.a>
+          </div>
+          <div className="flex items-center gap-2">
+            <motion.span
+              animate={{ opacity: [1, 0.5, 1] }}
+              transition={{ duration: 2, repeat: Infinity }}
+              className="flex items-center gap-1 text-emerald-200"
+            >
+              <Sparkles className="w-3 h-3" />
+              <span className="text-[10px] font-semibold">Nettoyage Professionnel à Genève</span>
+            </motion.span>
+          </div>
+        </div>
+      </motion.div>
+
+      <motion.nav
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.5, ease: 'easeOut' }}
+        className={`fixed left-0 right-0 z-50 w-full transition-all duration-500 relative ${
+          scrolled
+            ? 'md:top-8 top-0 bg-white/98 backdrop-blur-xl shadow-xl shadow-emerald-500/10 border-b border-emerald-100'
+            : 'md:top-8 top-0 bg-white backdrop-blur-md shadow-md'
+        }`}
+      >
+        {/* Premium Gold Accent Line */}
+        <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-emerald-400 via-yellow-400 to-emerald-400" />
+        
+        {/* Animated Gradient Background */}
+        <motion.div
+          className="absolute inset-0 bg-gradient-to-r from-emerald-50/50 via-white to-emerald-50/50 pointer-events-none"
+          animate={{
+            opacity: [0.4, 0.7, 0.4],
+          }}
+          transition={{
+            duration: 3,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          }}
+        />
+        <motion.div
+          className="absolute inset-0 bg-gradient-to-l from-teal-50/40 via-transparent to-teal-50/40 pointer-events-none"
+          animate={{
+            opacity: [0.3, 0.6, 0.3],
+          }}
+          transition={{
+            duration: 2.5,
+            repeat: Infinity,
+            ease: 'easeInOut',
+            delay: 0.5,
+          }}
+        />
       <div className="w-full relative z-10">
         <div className="flex items-center justify-end h-20 sm:h-24 gap-4 sm:gap-6 lg:gap-8 px-4 sm:px-6 lg:px-8 xl:px-12 mx-auto w-full max-w-7xl">
-          {/* Logo - Daha Premium */}
+          {/* Logo - Premium Design with Glow Effect */}
           <Link href="/" className="flex items-center group flex-shrink-0 mr-auto">
             <motion.div
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="relative flex-shrink-0"
             >
+              {/* Logo Glow Effect */}
+              <motion.div
+                className="absolute -inset-2 bg-gradient-to-r from-emerald-400/20 via-teal-400/20 to-emerald-400/20 rounded-xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                animate={{
+                  scale: [1, 1.05, 1],
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: 'easeInOut',
+                }}
+              />
               <div className="h-16 sm:h-20 md:h-22 lg:h-20 xl:h-24 w-auto relative">
                 <Image
                   src="/yenlogo.jpg"
@@ -128,8 +185,8 @@ export default function Navigation() {
             </motion.div>
           </Link>
 
-          {/* Desktop Navigation - Daha Premium */}
-          <div className="hidden lg:flex items-center gap-x-0.5 xl:gap-x-1 2xl:gap-x-1.5 justify-end max-w-none mx-1 lg:mx-2 min-w-0">
+          {/* Desktop Navigation - Premium Style */}
+          <div className="hidden lg:flex items-center gap-x-1 xl:gap-x-2 2xl:gap-x-3 justify-end max-w-none mx-1 lg:mx-2 min-w-0">
             {navItems.map((item, index) => {
               // Bazı menü elemanlarını küçük ekranlarda gizle
               const isHiddenOnLarge = ['Qualité', 'Règlement'].includes(item.label)
@@ -137,24 +194,24 @@ export default function Navigation() {
                 return (
                   <div
                     key={item.href}
-                    className="relative hidden 2xl:block"
+                    className="relative hidden 2xl:flex items-center"
                     onMouseEnter={() => item.hasDropdown && setServicesHover(true)}
                     onMouseLeave={() => item.hasDropdown && setServicesHover(false)}
                   >
                     <Link
                       href={item.href}
                       prefetch={true}
-                      className="relative px-1.5 py-1 lg:px-2 lg:py-1.5 text-gray-700 hover:text-primary-600 font-semibold text-[10px] lg:text-[11px] transition-all duration-300 rounded-lg group whitespace-nowrap leading-tight block"
+                      className="relative px-2 py-1.5 lg:px-3 lg:py-2 xl:px-3.5 xl:py-2 text-gray-700 hover:text-emerald-600 font-semibold text-[11px] lg:text-xs xl:text-sm transition-all duration-300 rounded-xl group whitespace-nowrap leading-tight flex items-center"
                     >
                       <span className="relative z-10">{item.label}</span>
                       <motion.span
-                        className="absolute inset-0 bg-gradient-to-r from-primary-50 to-accent-50 rounded-lg opacity-0 group-hover:opacity-100"
+                        className="absolute inset-0 bg-gradient-to-r from-emerald-50 to-teal-50 rounded-xl opacity-0 group-hover:opacity-100 border border-emerald-100 group-hover:border-emerald-200"
                         transition={{ duration: 0.3 }}
                       />
                       <motion.span
-                        className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-primary-500 to-accent-500 rounded-full"
-                        initial={{ scaleX: 0 }}
-                        whileHover={{ scaleX: 1 }}
+                        className="absolute -bottom-0.5 left-2 right-2 h-[2px] bg-gradient-to-r from-emerald-500 via-teal-400 to-emerald-500 rounded-full"
+                        initial={{ scaleX: 0, opacity: 0 }}
+                        whileHover={{ scaleX: 1, opacity: 1 }}
                         transition={{ duration: 0.3 }}
                       />
                     </Link>
@@ -164,24 +221,24 @@ export default function Navigation() {
               return (
                 <div
                   key={item.href}
-                  className="relative"
+                  className="relative flex items-center"
                   onMouseEnter={() => item.hasDropdown && setServicesHover(true)}
                   onMouseLeave={() => item.hasDropdown && setServicesHover(false)}
                 >
                   <Link
                     href={item.href}
                     prefetch={true}
-                    className="relative px-1.5 py-1 lg:px-2 lg:py-1.5 xl:px-2.5 xl:py-2 text-gray-700 hover:text-primary-600 font-semibold text-[10px] lg:text-[11px] xl:text-xs transition-all duration-300 rounded-lg group whitespace-nowrap leading-tight block"
+                    className="relative px-2 py-1.5 lg:px-3 lg:py-2 xl:px-3.5 xl:py-2 text-gray-700 hover:text-emerald-600 font-semibold text-[11px] lg:text-xs xl:text-sm transition-all duration-300 rounded-xl group whitespace-nowrap leading-tight flex items-center"
                   >
                     <span className="relative z-10">{item.label}</span>
                     <motion.span
-                      className="absolute inset-0 bg-gradient-to-r from-primary-50 to-accent-50 rounded-lg opacity-0 group-hover:opacity-100"
+                      className="absolute inset-0 bg-gradient-to-r from-emerald-50 to-teal-50 rounded-xl opacity-0 group-hover:opacity-100 border border-emerald-100 group-hover:border-emerald-200"
                       transition={{ duration: 0.3 }}
                     />
                     <motion.span
-                      className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-primary-500 to-accent-500 rounded-full"
-                      initial={{ scaleX: 0 }}
-                      whileHover={{ scaleX: 1 }}
+                      className="absolute -bottom-0.5 left-2 right-2 h-[2px] bg-gradient-to-r from-emerald-500 via-teal-400 to-emerald-500 rounded-full"
+                      initial={{ scaleX: 0, opacity: 0 }}
+                      whileHover={{ scaleX: 1, opacity: 1 }}
                       transition={{ duration: 0.3 }}
                     />
                   </Link>
@@ -245,41 +302,29 @@ export default function Navigation() {
           </div>
 
           {/* Contact Info & CTA - Premium Design */}
-          <div className="hidden lg:flex items-center gap-x-2 xl:gap-x-3 flex-shrink-0 min-w-0">
-            {/* Phone Numbers */}
-            <div className="flex items-center gap-x-1 xl:gap-x-2">
-              <motion.a
-                href="tel:+41766212183"
-                className="flex items-center gap-x-1 text-gray-700 hover:text-emerald-600 transition-colors group whitespace-nowrap flex-shrink-0"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                <div className="p-1.5 bg-gradient-to-br from-emerald-50 to-emerald-100 rounded-lg group-hover:from-emerald-100 group-hover:to-emerald-200 transition-all duration-300 shadow-sm group-hover:shadow-md flex-shrink-0">
-                  <Phone className="w-3.5 h-3.5 text-emerald-600" />
-                </div>
-                <span className="font-bold text-[10px] xl:text-xs leading-tight">+41 76 621 21 83</span>
-              </motion.a>
-              
-              <span className="text-gray-300 hidden xl:inline">|</span>
-              
-              <motion.a
-                href="tel:+41765316903"
-                className="flex items-center gap-x-1 text-gray-700 hover:text-emerald-600 transition-colors group whitespace-nowrap flex-shrink-0 hidden xl:flex"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                <span className="font-bold text-[10px] xl:text-xs leading-tight">+41 76 531 69 03</span>
-              </motion.a>
-            </div>
+          <div className="hidden lg:flex items-center gap-x-3 xl:gap-x-4 flex-shrink-0 min-w-0">
             
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="flex-shrink-0 ml-1 xl:ml-2">
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="flex-shrink-0">
               <Link
                 href="/booking"
-                className="relative px-3 py-2 xl:px-4 xl:py-2.5 bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-600 text-white rounded-xl font-bold text-xs xl:text-sm shadow-lg hover:shadow-xl hover:shadow-emerald-500/30 transition-all duration-300 overflow-hidden group whitespace-nowrap flex items-center leading-tight"
+                className="relative px-4 py-2.5 xl:px-6 xl:py-3 bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-600 text-white rounded-xl font-bold text-xs xl:text-sm shadow-lg hover:shadow-xl hover:shadow-emerald-500/40 transition-all duration-300 overflow-hidden group whitespace-nowrap flex items-center leading-tight border border-emerald-400/30"
               >
-                <span className="relative z-10 flex items-center gap-1">
-                  <Sparkles className="w-3.5 h-3.5" />
+                {/* Shimmer Effect */}
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12"
+                  animate={{
+                    x: ['-100%', '200%'],
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: 'easeInOut',
+                  }}
+                />
+                <span className="relative z-10 flex items-center gap-2">
+                  <Sparkles className="w-4 h-4" />
                   <span>Devis Gratuit</span>
+                  <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                 </span>
                 <motion.div
                   className="absolute inset-0 bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700"
@@ -293,9 +338,10 @@ export default function Navigation() {
 
           {/* Mobile Menu Button */}
                 <motion.button
-                  className="lg:hidden text-gray-700 p-2 rounded-lg hover:bg-primary-100 transition-colors flex-shrink-0"
+                  className="lg:hidden text-gray-700 p-3 rounded-lg hover:bg-primary-100 transition-colors flex-shrink-0 min-w-[44px] min-h-[44px] flex items-center justify-center"
                   onClick={() => setIsOpen(!isOpen)}
-                  aria-label="Toggle menu"
+                  aria-label={isOpen ? "Fermer le menu de navigation" : "Ouvrir le menu de navigation"}
+                  aria-expanded={isOpen}
                   whileTap={{ scale: 0.9 }}
                 >
                   <AnimatePresence mode="wait">
@@ -397,5 +443,6 @@ export default function Navigation() {
         </AnimatePresence>
       </div>
     </motion.nav>
+    </>
   )
 }

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Navigation from '@/components/Navigation'
 import Hero from '@/components/Hero'
+import MarqueeServices from '@/components/MarqueeServices'
 import WhyChooseUs from '@/components/WhyChooseUs'
 import Testimonials from '@/components/Testimonials'
 import Footer from '@/components/Footer'
@@ -76,6 +77,7 @@ export default function Home() {
       <div className="relative z-10">
         <Navigation />
         <Hero />
+        <MarqueeServices />
         <WhyChooseUs />
         <Testimonials />
         <Footer />

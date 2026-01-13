@@ -32,8 +32,8 @@ export default function Contact() {
     {
       icon: Mail,
       title: 'Email',
-      content: 'info@vertnetgeneve.ch',
-      link: 'mailto:info@vertnetgeneve.ch',
+      content: 'contact@vertnetgeneve.ch',
+      link: 'mailto:contact@vertnetgeneve.ch',
       color: 'text-primary-600',
     },
     {

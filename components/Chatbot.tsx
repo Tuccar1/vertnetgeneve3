@@ -13,8 +13,8 @@ interface Message {
 }
 
 export default function Chatbot() {
-  const CHATBOT_WIDTH = 400
-  const CHATBOT_HEIGHT = 650
+  const CHATBOT_WIDTH = 360
+  const CHATBOT_HEIGHT = 550
 
   const [isOpen, setIsOpen] = useState(false)
   const [isMinimized, setIsMinimized] = useState(false)
@@ -175,8 +175,9 @@ export default function Chatbot() {
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => setIsOpen(true)}
-              className="relative w-16 h-16 bg-gradient-to-br from-emerald-500 via-teal-500 to-emerald-600 rounded-full shadow-[0_8px_32px_rgba(16,185,129,0.4)] flex items-center justify-center text-white hover:shadow-[0_12px_40px_rgba(16,185,129,0.6)] transition-all duration-300 group overflow-hidden"
-              aria-label="Ouvrir le chatbot"
+              className="relative w-16 h-16 bg-gradient-to-br from-emerald-500 via-teal-500 to-emerald-600 rounded-full shadow-[0_8px_32px_rgba(16,185,129,0.4)] flex items-center justify-center text-white hover:shadow-[0_12px_40px_rgba(16,185,129,0.6)] transition-all duration-300 group overflow-hidden min-w-[48px] min-h-[48px]"
+              aria-label="Ouvrir l'assistant virtuel Vertnetgeneve"
+              title="Assistant virtuel"
             >
               <motion.div
                 className="absolute inset-0 bg-gradient-to-br from-emerald-400 via-teal-400 to-emerald-500 rounded-full"
@@ -284,21 +285,23 @@ export default function Chatbot() {
               <div className="flex items-center gap-0.5 sm:gap-1 relative z-10 flex-shrink-0">
                 <motion.button 
                   onClick={(e) => { e.stopPropagation(); setIsMinimized(!isMinimized) }} 
-                  className="p-1.5 sm:p-2 hover:bg-white/25 rounded-lg transition-all duration-200 active:scale-95"
+                  className="p-2.5 sm:p-3 hover:bg-white/25 rounded-lg transition-all duration-200 active:scale-95 min-w-[44px] min-h-[44px] flex items-center justify-center"
                   whileHover={{ scale: 1.1, backgroundColor: 'rgba(255,255,255,0.3)' }}
                   whileTap={{ scale: 0.9 }}
-                  aria-label={isMinimized ? "Maximiser" : "Minimiser"}
+                  aria-label={isMinimized ? "Agrandir la fenêtre de chat" : "Réduire la fenêtre de chat"}
+                  title={isMinimized ? "Agrandir" : "Réduire"}
                 >
-                  {isMinimized ? <Maximize2 className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> : <Minimize2 className="w-3.5 h-3.5 sm:w-4 sm:h-4" />}
+                  {isMinimized ? <Maximize2 className="w-4 h-4 sm:w-5 sm:h-5" /> : <Minimize2 className="w-4 h-4 sm:w-5 sm:h-5" />}
                 </motion.button>
                 <motion.button 
                   onClick={(e) => { e.stopPropagation(); setIsOpen(false) }} 
-                  className="p-1.5 sm:p-2 hover:bg-white/25 rounded-lg transition-all duration-200 active:scale-95"
+                  className="p-2.5 sm:p-3 hover:bg-white/25 rounded-lg transition-all duration-200 active:scale-95 min-w-[44px] min-h-[44px] flex items-center justify-center"
                   whileHover={{ scale: 1.1, rotate: 90, backgroundColor: 'rgba(255,255,255,0.3)' }}
                   whileTap={{ scale: 0.9 }}
-                  aria-label="Fermer"
+                  aria-label="Fermer l'assistant virtuel"
+                  title="Fermer"
                 >
-                  <X className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                  <X className="w-4 h-4 sm:w-5 sm:h-5" />
                 </motion.button>
               </div>
             </div>
@@ -340,6 +343,7 @@ export default function Chatbot() {
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: 0.3 }}
+                        aria-label="Votre nom"
                       />
                       <motion.input 
                         className="w-full p-3 bg-white border-2 border-gray-200 rounded-xl text-xs outline-none focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100 transition-all placeholder:text-gray-400"
@@ -349,6 +353,8 @@ export default function Chatbot() {
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: 0.4 }}
+                        aria-label="Votre téléphone"
+                        type="tel"
                       />
                       <motion.button 
                         type="submit" 
@@ -485,6 +491,7 @@ export default function Chatbot() {
                             e.target.parentElement?.classList.remove('ring-2', 'ring-emerald-300/50')
                           }}
                           placeholder="Écrivez votre message ici..."
+                          aria-label="Écrivez votre message"
                           className="relative z-10 flex-1 bg-transparent border-none outline-none text-xs sm:text-sm p-2 resize-none max-h-32 break-words overflow-x-hidden placeholder:text-gray-400/70 placeholder:italic placeholder:transition-all placeholder:duration-300 focus:placeholder:text-emerald-400/50 leading-relaxed"
                           style={{
                             wordWrap: 'break-word',
@@ -522,13 +529,15 @@ export default function Chatbot() {
                         <motion.button 
                           onClick={handleSendMessage}
                           disabled={!inputValue.trim() || isLoading}
-                          className="relative z-10 p-2.5 sm:p-3 bg-gradient-to-br from-emerald-500 via-teal-500 to-emerald-600 text-white rounded-2xl disabled:opacity-30 disabled:cursor-not-allowed transition-all shadow-lg hover:shadow-xl disabled:shadow-md relative overflow-hidden group flex-shrink-0"
+                          className="relative z-10 p-3 sm:p-3.5 bg-gradient-to-br from-emerald-500 via-teal-500 to-emerald-600 text-white rounded-2xl disabled:opacity-30 disabled:cursor-not-allowed transition-all shadow-lg hover:shadow-xl disabled:shadow-md relative overflow-hidden group flex-shrink-0 min-w-[44px] min-h-[44px] flex items-center justify-center"
                           whileHover={{ 
                             scale: inputValue.trim() && !isLoading ? 1.08 : 1,
                             rotate: inputValue.trim() && !isLoading ? [0, -5, 5, 0] : 0,
                           }}
                           whileTap={{ scale: inputValue.trim() && !isLoading ? 0.92 : 1 }}
                           transition={{ type: 'spring', stiffness: 400, damping: 17 }}
+                          aria-label="Envoyer le message"
+                          title="Envoyer"
                         >
                           {/* Button glow effect */}
                           <motion.div

@@ -145,7 +145,7 @@ export default function Hero() {
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="relative w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-white/90 backdrop-blur-sm shadow-lg flex items-center justify-center group overflow-hidden border-2 border-white/50"
+                    className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-white shadow-lg flex items-center justify-center group overflow-hidden border-2 border-gray-200 min-w-[44px] min-h-[44px]"
                     whileHover={{ scale: 1.15, y: -5, rotate: 360 }}
                     whileTap={{ scale: 0.9 }}
                     initial={{ opacity: 0, y: 20 }}
@@ -158,7 +158,7 @@ export default function Hero() {
                       className={`absolute inset-0 bg-gradient-to-br ${social.color} opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
                     />
                     {/* Icon */}
-                    <IconComponent className="w-5 h-5 sm:w-6 sm:h-6 text-gray-700 group-hover:text-white relative z-10 transition-colors duration-300" />
+                    <IconComponent className="w-6 h-6 sm:w-7 sm:h-7 text-gray-800 group-hover:text-white relative z-10 transition-colors duration-300" />
                     {/* Glow efekti */}
                     <motion.div
                       className={`absolute inset-0 bg-gradient-to-br ${social.color} rounded-full blur-md opacity-0 group-hover:opacity-50`}

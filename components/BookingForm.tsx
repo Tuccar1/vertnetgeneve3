@@ -95,14 +95,16 @@ export default function BookingForm() {
               >
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div>
-                    <label className="block text-gray-700 font-semibold mb-2">
+                    <label htmlFor="service" className="block text-gray-700 font-semibold mb-2">
                       Service *
                     </label>
                     <select
+                      id="service"
                       required
                       value={formData.service}
                       onChange={(e) => setFormData({ ...formData, service: e.target.value })}
-                      className="w-full px-4 py-3 rounded-lg bg-white border-2 border-gray-200 focus:border-primary-500 focus:outline-none"
+                      className="w-full px-4 py-3 rounded-lg bg-white border-2 border-gray-200 focus:border-primary-500 focus:outline-none min-h-[48px]"
+                      aria-label="Sélectionnez un service de nettoyage"
                     >
                       <option value="">Sélectionnez un service</option>
                       {serviceOptions.map((option) => (
@@ -115,110 +117,125 @@ export default function BookingForm() {
 
                   <div className="grid md:grid-cols-2 gap-6">
                     <div>
-                      <label className="block text-gray-700 font-semibold mb-2 flex items-center">
+                      <label htmlFor="booking-date" className="block text-gray-700 font-semibold mb-2 flex items-center">
                         {/* @ts-ignore */}
                         <Calendar className="w-5 h-5 mr-2" />
                         Date *
                       </label>
                       <input
+                        id="booking-date"
                         type="date"
                         required
                         value={formData.date}
                         onChange={(e) => setFormData({ ...formData, date: e.target.value })}
                         min={new Date().toISOString().split('T')[0]}
-                        className="w-full px-4 py-3 rounded-lg bg-white border-2 border-gray-200 focus:border-primary-500 focus:outline-none"
+                        className="w-full px-4 py-3 rounded-lg bg-white border-2 border-gray-200 focus:border-primary-500 focus:outline-none min-h-[48px]"
+                        aria-label="Sélectionnez la date de réservation"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-gray-700 font-semibold mb-2 flex items-center">
+                      <label htmlFor="booking-time" className="block text-gray-700 font-semibold mb-2 flex items-center">
                         {/* @ts-ignore */}
                         <Clock className="w-5 h-5 mr-2" />
                         Heure *
                       </label>
                       <input
+                        id="booking-time"
                         type="time"
                         required
                         value={formData.time}
                         onChange={(e) => setFormData({ ...formData, time: e.target.value })}
-                        className="w-full px-4 py-3 rounded-lg bg-white border-2 border-gray-200 focus:border-primary-500 focus:outline-none"
+                        className="w-full px-4 py-3 rounded-lg bg-white border-2 border-gray-200 focus:border-primary-500 focus:outline-none min-h-[48px]"
+                        aria-label="Sélectionnez l'heure de réservation"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-gray-700 font-semibold mb-2 flex items-center">
+                    <label htmlFor="booking-address" className="block text-gray-700 font-semibold mb-2 flex items-center">
                       {/* @ts-ignore */}
                       <MapPin className="w-5 h-5 mr-2" />
                       Adresse *
                     </label>
                     <input
+                      id="booking-address"
                       type="text"
                       required
                       value={formData.address}
                       onChange={(e) => setFormData({ ...formData, address: e.target.value })}
                       placeholder="Votre adresse complète"
-                      className="w-full px-4 py-3 rounded-lg bg-white border-2 border-gray-200 focus:border-primary-500 focus:outline-none"
+                      className="w-full px-4 py-3 rounded-lg bg-white border-2 border-gray-200 focus:border-primary-500 focus:outline-none min-h-[48px]"
+                      aria-label="Entrez votre adresse complète"
                     />
                   </div>
 
                   <div className="grid md:grid-cols-2 gap-6">
                     <div>
-                      <label className="block text-gray-700 font-semibold mb-2">
+                      <label htmlFor="booking-name" className="block text-gray-700 font-semibold mb-2">
                         Nom complet *
                       </label>
                       <input
+                        id="booking-name"
                         type="text"
                         required
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        className="w-full px-4 py-3 rounded-lg bg-white border-2 border-gray-200 focus:border-primary-500 focus:outline-none"
+                        className="w-full px-4 py-3 rounded-lg bg-white border-2 border-gray-200 focus:border-primary-500 focus:outline-none min-h-[48px]"
+                        aria-label="Entrez votre nom complet"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-gray-700 font-semibold mb-2">
+                      <label htmlFor="booking-phone" className="block text-gray-700 font-semibold mb-2">
                         Téléphone *
                       </label>
                       <input
+                        id="booking-phone"
                         type="tel"
                         required
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                        className="w-full px-4 py-3 rounded-lg bg-white border-2 border-gray-200 focus:border-primary-500 focus:outline-none"
+                        className="w-full px-4 py-3 rounded-lg bg-white border-2 border-gray-200 focus:border-primary-500 focus:outline-none min-h-[48px]"
+                        aria-label="Entrez votre numéro de téléphone"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-gray-700 font-semibold mb-2">
+                    <label htmlFor="booking-email" className="block text-gray-700 font-semibold mb-2">
                       Email *
                     </label>
                     <input
+                      id="booking-email"
                       type="email"
                       required
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full px-4 py-3 rounded-lg bg-white border-2 border-gray-200 focus:border-primary-500 focus:outline-none"
+                      className="w-full px-4 py-3 rounded-lg bg-white border-2 border-gray-200 focus:border-primary-500 focus:outline-none min-h-[48px]"
+                      aria-label="Entrez votre adresse email"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-gray-700 font-semibold mb-2">
+                    <label htmlFor="booking-message" className="block text-gray-700 font-semibold mb-2">
                       Message (optionnel)
                     </label>
                     <textarea
+                      id="booking-message"
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                       rows={4}
                       className="w-full px-4 py-3 rounded-lg bg-white border-2 border-gray-200 focus:border-primary-500 focus:outline-none resize-none"
                       placeholder="Informations supplémentaires..."
+                      aria-label="Message ou informations supplémentaires"
                     />
                   </div>
 
                   <button
                     type="submit"
-                    className="w-full bg-gradient-to-r from-primary-600 via-secondary-600 to-accent-600 text-white px-8 py-4 rounded-lg font-bold text-lg hover:shadow-xl transition-all transform hover:scale-105"
+                    className="w-full bg-gradient-to-r from-primary-600 via-secondary-600 to-accent-600 text-white px-8 py-4 rounded-lg font-bold text-lg hover:shadow-xl transition-all transform hover:scale-105 min-h-[48px]"
+                    aria-label="Confirmer la réservation"
                   >
                     Confirmer la Réservation
                   </button>

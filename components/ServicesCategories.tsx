@@ -69,7 +69,6 @@ export default function ServicesCategories() {
           priority={true}
           sizes="100vw"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-white/30 via-white/20 to-white/40"></div>
       </div>
       
       {/* Hero Section - Header'a yakın, boşluk yok */}
@@ -112,16 +111,16 @@ export default function ServicesCategories() {
               </motion.div>
             </motion.div>
             
-            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-bold text-white mb-3 sm:mb-4 px-2 drop-shadow-lg">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-bold text-white mb-3 sm:mb-4 px-2 [text-shadow:_0_2px_8px_rgba(0,0,0,0.9),_0_4px_16px_rgba(0,0,0,0.8),_0_0_40px_rgba(0,0,0,0.6),_2px_2px_0_rgba(0,0,0,0.5)]">
               Nos Services
             </h1>
             <motion.div
               initial={{ opacity: 0, width: 0 }}
               animate={{ opacity: 1, width: "100%" }}
               transition={{ delay: 0.4, duration: 0.8 }}
-              className="h-1 bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 rounded-full mx-auto mb-4 max-w-xs"
+              className="h-1.5 bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 rounded-full mx-auto mb-4 max-w-xs shadow-[0_0_20px_rgba(16,185,129,0.6)]"
             />
-            <p className="text-lg text-white/90 max-w-3xl mx-auto drop-shadow">
+            <p className="text-lg md:text-xl text-white max-w-3xl mx-auto font-semibold [text-shadow:_0_2px_8px_rgba(0,0,0,0.9),_0_4px_16px_rgba(0,0,0,0.8),_0_0_30px_rgba(0,0,0,0.5),_1px_1px_0_rgba(0,0,0,0.4)]">
               Des solutions de nettoyage professionnel adaptées à tous vos besoins
             </p>
           </motion.div>

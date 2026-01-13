@@ -2,23 +2,10 @@
 
 import { motion } from 'framer-motion'
 import { Phone, Mail, MapPin, Facebook, Linkedin, Instagram, Clock, Shield } from 'lucide-react'
-import type { LucideIcon } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
 
 export default function Footer() {
-  const services = [
-    { name: 'Canapés et fauteuils', href: '/services/canapes-et-matelas' },
-    { name: 'Fin de Bail', href: '/services/fin-de-bail' },
-    { name: 'Fin de Chantier', href: '/services/fin-de-chantier' },
-    { name: 'Conciergerie', href: '/services/conciergerie' },
-    { name: 'Immeubles', href: '/services/immeubles' },
-    { name: 'Bureaux', href: '/services/bureaux' },
-    { name: 'Toiture', href: '/services/toiture' },
-    { name: 'Vitres', href: '/services/vitres' },
-    { name: 'Façade', href: '/services/facade' },
-  ]
-
   const company = [
     { name: 'À Propos', href: '/a-propos' },
     { name: 'Contact', href: '/contact' },
@@ -34,26 +21,28 @@ export default function Footer() {
   ]
 
   return (
-    <footer className="bg-gray-900/80 backdrop-blur-sm text-gray-200 relative w-full overflow-y-hidden">
+    <footer className="bg-gray-900/85 backdrop-blur-sm text-gray-200 relative w-full">
       {/* Decorative Elements */}
       <div className="absolute inset-0 opacity-10 overflow-hidden w-full">
-        <div className="absolute top-0 left-0 w-96 h-96 bg-primary-500 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 right-0 w-96 h-96 bg-accent-500 rounded-full blur-3xl"></div>
+        <div className="absolute top-0 left-0 w-64 h-64 bg-primary-500 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 right-0 w-64 h-64 bg-accent-500 rounded-full blur-3xl"></div>
       </div>
 
       <div className="max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Main Footer Content */}
-        <div className="pt-0 pb-2 sm:pb-3">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-            {/* Company Info */}
+        <div className="py-6 sm:py-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 items-start">
+            
+            {/* Company Info - Sol */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
+              className="text-center md:text-left"
             >
-              <Link href="/" className="flex items-center space-x-3 mb-1.5 group">
-                <div className="w-14 h-14 relative">
+              <Link href="/" className="inline-flex items-center space-x-3 mb-3 group">
+                <div className="w-14 h-14 relative flex-shrink-0">
                   <Image
                     src="/yenlogo.jpg"
                     alt="Vertnetgeneve Logo"
@@ -62,147 +51,102 @@ export default function Footer() {
                   />
                 </div>
                 <div>
-                  <h3 className="text-xl md:text-2xl font-display font-bold text-white leading-[1.2]">Vertnetgeneve</h3>
-                  <p className="text-xs md:text-sm text-gray-300 leading-[1.4]">Excellence Professionnelle</p>
+                  <h3 className="text-xl font-display font-bold text-white">Vertnetgeneve</h3>
+                  <p className="text-xs text-gray-400">Excellence Professionnelle</p>
                 </div>
               </Link>
-              <p className="text-sm md:text-base text-gray-300 leading-[1.6] mb-1.5">
-                Excellence en nettoyage professionnel à Genève et en Suisse. Au cœur de Genève, pour un avenir plus propre.
+              <p className="text-sm text-gray-300 leading-relaxed mb-3 max-w-xs mx-auto md:mx-0">
+                Excellence en nettoyage professionnel à Genève. Au cœur de Genève, pour un avenir plus propre.
               </p>
               
               {/* Trust Badges */}
-              <div className="space-y-1">
-                <div className="flex items-center space-x-2 text-sm">
-                  <Shield className="w-4 h-4 text-secondary-400" />
-                  <span className="text-gray-300">Garantie Satisfaction 100%</span>
+              <div className="flex flex-col sm:flex-row items-center md:items-start gap-2 text-xs">
+                <div className="flex items-center gap-1.5">
+                  <Shield className="w-4 h-4 text-emerald-400" />
+                  <span className="text-gray-300">Garantie 100%</span>
                 </div>
-                <div className="flex items-center space-x-2 text-sm">
-                  <Clock className="w-4 h-4 text-accent-400" />
-                  <span className="text-gray-300">Disponible 24h/24 et 7j/7</span>
+                <div className="flex items-center gap-1.5">
+                  <Clock className="w-4 h-4 text-amber-400" />
+                  <span className="text-gray-300">24h/24 - 7j/7</span>
                 </div>
               </div>
             </motion.div>
 
-            {/* Services */}
+            {/* Entreprise - Orta */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.1 }}
+              className="text-center"
             >
-              <h4 className="text-base md:text-lg font-bold text-white mb-1.5 flex items-center leading-[1.5]">
-                <span className="w-1 h-6 bg-gradient-to-b from-primary-500 to-accent-500 rounded-full mr-3 flex-shrink-0"></span>
-                Services
-              </h4>
-              <ul className="space-y-1">
-                {services.map((service, index) => (
-                  <li key={index}>
-                    <Link
-                      href={service.href}
-                      prefetch={true}
-                      className="text-sm md:text-base text-gray-300 hover:text-white transition-colors duration-200 flex items-center group leading-[1.7]"
-                    >
-                      <span className="w-1.5 h-1.5 bg-primary-500 rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0"></span>
-                      <span className="group-hover:translate-x-1 transition-transform duration-200">
-                        {service.name}
-                      </span>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
-
-            {/* Company */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              <h4 className="text-lg font-bold text-white mb-1.5 flex items-center">
-                <span className="w-1 h-6 bg-gradient-to-b from-secondary-500 to-accent-500 rounded-full mr-3"></span>
+              <h4 className="text-base font-bold text-white mb-3 inline-flex items-center justify-center">
+                <span className="w-1 h-5 bg-gradient-to-b from-emerald-500 to-teal-500 rounded-full mr-2"></span>
                 Entreprise
               </h4>
-              <ul className="space-y-1">
+              <ul className="space-y-1.5">
                 {company.map((item, index) => (
                   <li key={index}>
                     <Link
                       href={item.href}
                       prefetch={true}
-                      className="text-sm md:text-base text-gray-300 hover:text-white transition-colors duration-200 flex items-center group leading-[1.7]"
+                      className="text-sm text-gray-300 hover:text-white transition-colors duration-200 inline-block"
                     >
-                      <span className="w-1.5 h-1.5 bg-secondary-500 rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0"></span>
-                      <span className="group-hover:translate-x-1 transition-transform duration-200">
-                        {item.name}
-                      </span>
+                      {item.name}
                     </Link>
                   </li>
                 ))}
               </ul>
             </motion.div>
 
-            {/* Contact Info */}
+            {/* Contact Info - Sağ */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.3 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="text-center md:text-right"
             >
-              <h4 className="text-lg font-bold text-white mb-1.5 flex items-center">
-                <span className="w-1 h-6 bg-gradient-to-b from-accent-500 to-primary-500 rounded-full mr-3"></span>
+              <h4 className="text-base font-bold text-white mb-3 inline-flex items-center justify-center md:justify-end">
+                <span className="w-1 h-5 bg-gradient-to-b from-amber-500 to-orange-500 rounded-full mr-2"></span>
                 Contact
               </h4>
-              <div className="space-y-1.5">
-                <a
-                  href="tel:+41766212183"
-                  className="flex items-center space-x-3 text-sm md:text-base text-gray-300 hover:text-white transition-colors group leading-[1.6]"
-                >
-                  <div className="p-1.5 bg-accent-500/20 rounded-lg group-hover:bg-accent-500/30 transition-colors flex-shrink-0">
-                    <Phone className="w-4 h-4 text-accent-400" />
-                  </div>
-                  <span className="font-semibold">+41 76 621 21 83</span>
+              <div className="space-y-2">
+                <div className="flex flex-col items-center md:items-end gap-1.5 text-sm">
+                  <a href="tel:+41766212183" className="text-gray-300 hover:text-white transition-colors flex items-center gap-1.5">
+                    <Phone className="w-4 h-4 text-emerald-400" />
+                    <span className="font-semibold">+41 76 621 21 83</span>
+                  </a>
+                  <a href="tel:+41765316903" className="text-gray-300 hover:text-white transition-colors flex items-center gap-1.5">
+                    <Phone className="w-4 h-4 text-emerald-400" />
+                    <span className="font-semibold">+41 76 531 69 03</span>
+                  </a>
+                </div>
+                <a href="mailto:contact@vertnetgeneve.ch" className="flex items-center justify-center md:justify-end gap-1.5 text-sm text-gray-300 hover:text-white transition-colors">
+                  <Mail className="w-4 h-4 text-blue-400" />
+                  <span>contact@vertnetgeneve.ch</span>
                 </a>
-                <a
-                  href="tel:+41765316903"
-                  className="flex items-center space-x-3 text-sm md:text-base text-gray-300 hover:text-white transition-colors group leading-[1.6]"
-                >
-                  <div className="p-1.5 bg-accent-500/20 rounded-lg group-hover:bg-accent-500/30 transition-colors flex-shrink-0">
-                    <Phone className="w-4 h-4 text-accent-400" />
-                  </div>
-                  <span className="font-semibold">+41 76 531 69 03</span>
-                </a>
-                <a
-                  href="mailto:info@vertnetgeneve.ch"
-                  className="flex items-center space-x-3 text-sm md:text-base text-gray-300 hover:text-white transition-colors group leading-[1.6]"
-                >
-                  <div className="p-1.5 bg-primary-500/20 rounded-lg group-hover:bg-primary-500/30 transition-colors flex-shrink-0">
-                    <Mail className="w-4 h-4 text-primary-400" />
-                  </div>
-                  <span>info@vertnetgeneve.ch</span>
-                </a>
-                <div className="flex items-start space-x-3 text-sm md:text-base text-gray-300 leading-[1.6]">
-                  <div className="p-1.5 bg-secondary-500/20 rounded-lg mt-0.5 flex-shrink-0">
-                    <MapPin className="w-4 h-4 text-secondary-400" />
-                  </div>
+                <div className="flex items-center justify-center md:justify-end gap-1.5 text-sm text-gray-300">
+                  <MapPin className="w-4 h-4 text-rose-400" />
                   <span>Genève, Suisse</span>
                 </div>
 
                 {/* Social Media */}
-                <div className="pt-1.5">
-                  <p className="text-sm md:text-base font-semibold text-white mb-1.5 leading-[1.5]">Suivez-nous</p>
-                  <div className="flex space-x-3">
+                <div className="pt-2 flex items-center justify-center md:justify-end gap-3">
+                  <p className="text-xs font-semibold text-white">Suivez-nous:</p>
+                  <div className="flex space-x-2">
                     {socialLinks.map((social, index) => {
                       const IconComponent = social.icon
                       return (
                         <motion.a
                           key={index}
                           href={social.href}
-                          className="p-2.5 bg-white/5 hover:bg-white/10 rounded-lg transition-all duration-300 group"
-                          whileHover={{ scale: 1.1, y: -2 }}
+                          className="p-2 bg-white/10 hover:bg-white/20 rounded-lg transition-all duration-300"
+                          whileHover={{ scale: 1.1 }}
                           whileTap={{ scale: 0.95 }}
-                          aria-label={social.label}
+                          aria-label={`Visitez notre page ${social.label}`}
                         >
-                          <IconComponent className="w-5 h-5 text-gray-300 group-hover:text-white transition-colors" />
+                          <IconComponent className="w-4 h-4 text-gray-300 hover:text-white" />
                         </motion.a>
                       )
                     })}
@@ -214,21 +158,21 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-gray-800 py-2 sm:py-2.5">
-          <div className="flex flex-col md:flex-row justify-between items-center space-y-1.5 sm:space-y-2 md:space-y-0">
-            <p className="text-xs sm:text-sm md:text-base text-gray-500 text-center md:text-left leading-[1.7]">
-              &copy; {new Date().getFullYear()} Vertnetgeneve. Tous droits réservés.
+        <div className="border-t border-gray-700/50 py-4">
+          <div className="flex flex-col sm:flex-row justify-between items-center gap-3">
+            <p className="text-xs text-gray-400">
+              © {new Date().getFullYear()} Vertnetgeneve. Tous droits réservés.
             </p>
-            <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 md:gap-6 text-xs sm:text-sm md:text-base text-gray-200 leading-[1.7]">
-              <Link href="#" className="hover:text-white transition-colors leading-[1.7] font-medium text-gray-200">
+            <div className="flex flex-wrap items-center justify-center gap-4 text-xs text-gray-400">
+              <Link href="#" className="hover:text-white transition-colors">
                 Politique de Confidentialité
               </Link>
               <span className="text-gray-600">•</span>
-              <Link href="#" className="hover:text-white transition-colors leading-[1.7] font-medium text-gray-200">
+              <Link href="#" className="hover:text-white transition-colors">
                 Conditions d'Utilisation
               </Link>
               <span className="text-gray-600">•</span>
-              <Link href="#" className="hover:text-white transition-colors leading-[1.7] font-medium text-gray-200">
+              <Link href="#" className="hover:text-white transition-colors">
                 Mentions Légales
               </Link>
             </div>

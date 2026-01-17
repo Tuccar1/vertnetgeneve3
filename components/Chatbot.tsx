@@ -1,8 +1,9 @@
 'use client'
 
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, useCallback } from 'react'
+import { usePathname } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
-import { X, Minimize2, Maximize2, MessageCircle, Send, Loader2, Sparkles, Check, CheckCheck, Circle } from 'lucide-react'
+import { X, Minimize2, Maximize2, MessageCircle, Send, Loader2, Sparkles, Check, CheckCheck, Circle, Move, GripVertical } from 'lucide-react'
 
 interface Message {
   id: string
@@ -13,21 +14,90 @@ interface Message {
 }
 
 export default function Chatbot() {
-  const CHATBOT_WIDTH = 360
-  const CHATBOT_HEIGHT = 550
+  const pathname = usePathname()
+  const CHATBOT_WIDTH = 380
+  const CHATBOT_HEIGHT = 600
+  const MIN_WIDTH = 320
+  const MIN_HEIGHT = 400
+  const MAX_WIDTH = 600
+  const MAX_HEIGHT = 900
 
+  const [mounted, setMounted] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
   const [isMinimized, setIsMinimized] = useState(false)
   const [size, setSize] = useState({ width: CHATBOT_WIDTH, height: CHATBOT_HEIGHT })
+  const [position, setPosition] = useState({ x: 0, y: 0 })
+  const [isDragging, setIsDragging] = useState(false)
+  const [isResizing, setIsResizing] = useState(false)
   const [showWelcomeForm, setShowWelcomeForm] = useState(true)
   const [userInfo, setUserInfo] = useState({ name: '', phone: '' })
   const [messages, setMessages] = useState<Message[]>([])
   const [inputValue, setInputValue] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [isTyping, setIsTyping] = useState(false)
+  const [chatSessionId, setChatSessionId] = useState<string | null>(null)
   
   const chatContainerRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLTextAreaElement>(null)
+  const chatWindowRef = useRef<HTMLDivElement>(null)
+  const dragStartRef = useRef({ x: 0, y: 0 })
+  const resizeStartRef = useRef({ width: 0, height: 0, x: 0, y: 0 })
+
+  // Client mount check
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  // Analytics tracking functions
+  const trackChatEvent = useCallback(async (type: string, data: Record<string, unknown> = {}) => {
+    try {
+      const visitorId = typeof window !== 'undefined' ? localStorage.getItem('visitor_id') || '' : '';
+      await fetch('/api/analytics/chatbot', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          type,
+          sessionId: chatSessionId,
+          visitorId,
+          ...data
+        })
+      });
+    } catch (error) {
+      console.error('Chat tracking error:', error);
+    }
+  }, [chatSessionId]);
+
+  // Start chat session
+  const startChatSession = useCallback(async () => {
+    try {
+      const visitorId = typeof window !== 'undefined' ? localStorage.getItem('visitor_id') || '' : '';
+      const response = await fetch('/api/analytics/chatbot', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          type: 'start',
+          visitorId,
+          userName: userInfo.name,
+          userPhone: userInfo.phone
+        })
+      });
+      const data = await response.json();
+      if (data.sessionId) {
+        setChatSessionId(data.sessionId);
+      }
+    } catch (error) {
+      console.error('Failed to start chat session:', error);
+    }
+  }, [userInfo.name, userInfo.phone]);
+
+  // End chat session on unmount or close
+  useEffect(() => {
+    return () => {
+      if (chatSessionId) {
+        trackChatEvent('end');
+      }
+    };
+  }, [chatSessionId, trackChatEvent]);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -43,10 +113,12 @@ export default function Chatbot() {
       const vw = window.innerWidth
       const vh = window.innerHeight
       
-      setSize({
-        width: vw < 640 ? vw - 32 : CHATBOT_WIDTH,
-        height: vh < 700 ? vh - 100 : CHATBOT_HEIGHT
-      })
+      if (!isResizing) {
+        setSize(prev => ({
+          width: vw < 640 ? vw - 32 : Math.min(prev.width, vw - 40),
+          height: vh < 750 ? vh - 80 : Math.min(prev.height, vh - 40)
+        }))
+      }
     }
 
     updateSize()
@@ -55,7 +127,109 @@ export default function Chatbot() {
     return () => {
       window.removeEventListener('resize', updateSize)
     }
+  }, [isResizing])
+
+  // Drag handlers - Mouse
+  const handleDragStart = (e: React.MouseEvent) => {
+    if (isMinimized) return
+    // Mobilde drag'i devre dışı bırak
+    if (window.innerWidth < 640) return
+    e.preventDefault()
+    setIsDragging(true)
+    dragStartRef.current = {
+      x: e.clientX - position.x,
+      y: e.clientY - position.y
+    }
+  }
+
+  // Drag handlers - Touch (mobil için)
+  const handleTouchStart = (e: React.TouchEvent) => {
+    if (isMinimized) return
+    // Mobilde drag'i devre dışı bırak - sadece butonlara dokunabilsin
+    return
+  }
+
+  const handleDragMove = useCallback((e: MouseEvent) => {
+    if (!isDragging) return
+    const vw = window.innerWidth
+    const vh = window.innerHeight
+    
+    let newX = e.clientX - dragStartRef.current.x
+    let newY = e.clientY - dragStartRef.current.y
+    
+    // Sınırları kontrol et
+    const maxX = vw - size.width - 20
+    const maxY = vh - size.height - 20
+    const minX = -(vw - size.width - 40)
+    const minY = -(vh - size.height - 40)
+    
+    newX = Math.max(minX, Math.min(newX, maxX))
+    newY = Math.max(minY, Math.min(newY, 0))
+    
+    setPosition({ x: newX, y: newY })
+  }, [isDragging, size.width, size.height])
+
+  const handleDragEnd = useCallback(() => {
+    setIsDragging(false)
   }, [])
+
+  // Resize handlers
+  const handleResizeStart = (e: React.MouseEvent) => {
+    // Mobilde resize'ı devre dışı bırak
+    if (window.innerWidth < 640) return
+    e.preventDefault()
+    e.stopPropagation()
+    setIsResizing(true)
+    resizeStartRef.current = {
+      width: size.width,
+      height: size.height,
+      x: e.clientX,
+      y: e.clientY
+    }
+  }
+
+  const handleResizeMove = useCallback((e: MouseEvent) => {
+    if (!isResizing) return
+    
+    const deltaX = resizeStartRef.current.x - e.clientX
+    const deltaY = resizeStartRef.current.y - e.clientY
+    
+    let newWidth = resizeStartRef.current.width + deltaX
+    let newHeight = resizeStartRef.current.height + deltaY
+    
+    // Min/Max sınırları
+    newWidth = Math.max(MIN_WIDTH, Math.min(newWidth, MAX_WIDTH))
+    newHeight = Math.max(MIN_HEIGHT, Math.min(newHeight, MAX_HEIGHT))
+    
+    setSize({ width: newWidth, height: newHeight })
+  }, [isResizing])
+
+  const handleResizeEnd = useCallback(() => {
+    setIsResizing(false)
+  }, [])
+
+  // Global mouse event listeners
+  useEffect(() => {
+    if (isDragging) {
+      window.addEventListener('mousemove', handleDragMove)
+      window.addEventListener('mouseup', handleDragEnd)
+      return () => {
+        window.removeEventListener('mousemove', handleDragMove)
+        window.removeEventListener('mouseup', handleDragEnd)
+      }
+    }
+  }, [isDragging, handleDragMove, handleDragEnd])
+
+  useEffect(() => {
+    if (isResizing) {
+      window.addEventListener('mousemove', handleResizeMove)
+      window.addEventListener('mouseup', handleResizeEnd)
+      return () => {
+        window.removeEventListener('mousemove', handleResizeMove)
+        window.removeEventListener('mouseup', handleResizeEnd)
+      }
+    }
+  }, [isResizing, handleResizeMove, handleResizeEnd])
 
   // Auto-scroll
   useEffect(() => {
@@ -79,8 +253,11 @@ export default function Chatbot() {
     const currentInput = inputValue
     setInputValue('')
     setIsLoading(true)
-    
-    if (inputRef.current) inputRef.current.style.height = '48px'
+
+    // Track user message
+    if (chatSessionId) {
+      trackChatEvent('message', { message: currentInput, sender: 'user' });
+    }
 
     // Mesaj gönderildi olarak işaretle
     setTimeout(() => {
@@ -130,6 +307,12 @@ export default function Chatbot() {
       }
       
       setMessages(prev => [...prev, botMessage])
+      
+      // Track bot response
+      if (chatSessionId) {
+        trackChatEvent('message', { message: botResponse, sender: 'bot' });
+      }
+      
       setIsTyping(false)
       setIsLoading(false)
     } catch (error) {
@@ -151,6 +334,10 @@ export default function Chatbot() {
   const handleWelcomeFormSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     setShowWelcomeForm(false)
+    
+    // Start chat session with user info
+    startChatSession();
+    
     setMessages([{
       id: 'welcome',
       text: `Bonjour ${userInfo.name || ''}! 👋 Comment puis-je vous aider?`,
@@ -160,8 +347,25 @@ export default function Chatbot() {
     }])
   }
 
+  // Admin panelde chatbot'u gösterme
+  if (pathname?.startsWith('/admin')) {
+    return null
+  }
+
+  // Hydration hatası önleme - client mount bekle
+  if (!mounted) {
+    return null
+  }
+
   return (
-    <div className="fixed z-[9999]" style={{ bottom: '20px', right: '16px', left: 'auto' }}>
+    <div 
+      className={`fixed z-[9999] ${isOpen && typeof window !== 'undefined' && window.innerWidth < 640 ? 'inset-0' : ''}`}
+      style={isOpen && typeof window !== 'undefined' && window.innerWidth < 640 ? {} : { 
+        bottom: `${20 - position.y}px`, 
+        right: `${16 - position.x}px`, 
+        left: 'auto' 
+      }}
+    >
       <AnimatePresence>
         {!isOpen ? (
           <motion.div
@@ -216,93 +420,99 @@ export default function Chatbot() {
           </motion.div>
         ) : (
           <motion.div
+            ref={chatWindowRef}
             key="chat-window"
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            className="bg-white rounded-[32px] shadow-[0_25px_60px_rgba(0,0,0,0.15)] border border-gray-100/50 flex flex-col overflow-hidden backdrop-blur-sm"
+            className={`relative flex flex-col overflow-hidden ${isDragging ? 'cursor-grabbing' : ''} ${isResizing ? 'select-none' : ''} 
+              sm:rounded-3xl max-sm:fixed max-sm:inset-0 max-sm:rounded-none`}
             style={{ 
-                width: size.width, 
+                width: typeof window !== 'undefined' && window.innerWidth < 640 ? '100%' : size.width, 
                 height: isMinimized 
-                  ? (typeof window !== 'undefined' && window.innerWidth < 640 ? '56px' : '64px')
-                  : size.height,
+                  ? (typeof window !== 'undefined' && window.innerWidth < 640 ? '56px' : '60px')
+                  : (typeof window !== 'undefined' && window.innerWidth < 640 ? '100%' : size.height),
                 maxWidth: typeof window !== 'undefined' && window.innerWidth < 640 
-                  ? 'calc(100vw - 32px)' 
-                  : typeof window !== 'undefined' && window.innerWidth < 1024
-                  ? 'calc(100vw - 40px)'
-                  : `${CHATBOT_WIDTH}px`,
-                transition: 'height 0.3s ease'
+                  ? '100%' 
+                  : `${MAX_WIDTH}px`,
+                transition: isDragging || isResizing ? 'none' : 'height 0.3s ease'
             }}
           >
-            {/* Header */}
-            <div className="relative p-3 sm:p-4 bg-gradient-to-br from-emerald-600 via-teal-600 to-emerald-700 text-white flex items-center justify-between cursor-pointer overflow-hidden shadow-lg"
-                 onClick={() => isMinimized && setIsMinimized(false)}>
-              {/* Premium animated background gradient */}
-              <motion.div
-                className="absolute inset-0 bg-gradient-to-br from-emerald-500 via-teal-500 to-emerald-600"
-                animate={{
-                  backgroundPosition: ['0% 0%', '100% 100%', '0% 0%'],
-                }}
-                transition={{
-                  duration: 8,
-                  repeat: Infinity,
-                  ease: 'easeInOut',
-                }}
-                style={{
-                  backgroundSize: '200% 200%',
-                }}
-              />
-              {/* Subtle overlay for depth */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-white/5 pointer-events-none" />
+            {/* Decorative gradient border frame */}
+            <div className="absolute inset-0 rounded-3xl p-[2px] bg-gradient-to-br from-emerald-400 via-teal-500 to-emerald-600 max-sm:rounded-none max-sm:hidden">
+              <div className="absolute inset-[2px] bg-white rounded-[22px]" />
+            </div>
+            
+            {/* Outer glow effect */}
+            <div className="absolute -inset-1 bg-gradient-to-br from-emerald-400/20 via-teal-500/20 to-emerald-600/20 rounded-[28px] blur-xl max-sm:hidden" />
+            
+            {/* Inner content wrapper */}
+            <div className="relative z-10 flex flex-col h-full bg-white sm:rounded-[22px] overflow-hidden sm:m-[2px]">
+            {/* Resize Handle - Sol Üst Köşe */}
+            {!isMinimized && (
+              <div
+                onMouseDown={handleResizeStart}
+                className="absolute top-0 left-0 w-5 h-5 cursor-nw-resize z-50 group hidden sm:block"
+                title="Boyutlandır"
+              >
+                <div className="absolute top-1.5 left-1.5 w-2 h-2 border-l-2 border-t-2 border-white/30 group-hover:border-white/60 transition-colors" />
+              </div>
+            )}
+            
+            {/* Header - Draggable - Professional Design */}
+            <div 
+              className={`relative px-3 py-2.5 sm:px-4 sm:py-3 bg-gradient-to-r from-emerald-500 via-emerald-600 to-teal-600 text-white flex items-center justify-between overflow-hidden ${!isMinimized ? 'cursor-grab active:cursor-grabbing' : 'cursor-pointer'}`}
+              onMouseDown={handleDragStart}
+              onClick={() => isMinimized && setIsMinimized(false)}
+            >
+              {/* Subtle shine effect */}
+              <div className="absolute inset-0 bg-gradient-to-b from-white/10 to-transparent pointer-events-none" />
               
-              <div className="flex items-center gap-2 sm:gap-3 relative z-10 min-w-0 flex-1">
-                <motion.div 
-                  className="w-8 h-8 sm:w-10 sm:h-10 bg-white/25 backdrop-blur-md rounded-xl flex items-center justify-center shadow-xl flex-shrink-0"
-                  whileHover={{ scale: 1.1, rotate: 5 }}
-                  transition={{ type: 'spring', stiffness: 300 }}
-                >
-                  <Sparkles className="w-4 h-4 sm:w-5 sm:h-5" />
-                </motion.div>
+              <div className="flex items-center gap-2.5 sm:gap-3 relative z-10 min-w-0 flex-1">
+                {/* Drag handle - only visible on desktop */}
+                <div className="hidden sm:flex items-center justify-center w-5 opacity-40 hover:opacity-70 transition-opacity">
+                  <GripVertical className="w-4 h-4" />
+                </div>
+                
+                {/* Logo/Icon */}
+                <div className="relative flex-shrink-0">
+                  <div className="w-9 h-9 sm:w-10 sm:h-10 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center">
+                    <Sparkles className="w-5 h-5 sm:w-5 sm:h-5 text-white" />
+                  </div>
+                  {/* Online indicator */}
+                  <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-400 rounded-full border-2 border-emerald-600" />
+                </div>
+                
+                {/* Title & Status */}
                 <div className="min-w-0 flex-1">
-                  <p className="text-[10px] sm:text-xs font-bold flex items-center gap-1.5 sm:gap-2 leading-tight truncate">
-                    <span className="truncate">Vertnetgeneve</span>
-                    <motion.span
-                      className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-emerald-300 rounded-full flex-shrink-0 shadow-sm"
-                      animate={{
-                        scale: [1, 1.4, 1],
-                        opacity: [1, 0.6, 1],
-                      }}
-                      transition={{
-                        duration: 2,
-                        repeat: Infinity,
-                        ease: 'easeInOut',
-                      }}
-                    />
+                  <h3 className="text-sm sm:text-base font-semibold tracking-tight truncate" id="live-edit-chatbotTitle">
+                    Vertnetgeneve
+                  </h3>
+                  <p className="text-[10px] sm:text-xs text-white/80 font-medium flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse" />
+                    Assistant IA • En ligne
                   </p>
-                  <p className="text-[8px] sm:text-[9px] text-white/90 font-medium leading-tight mt-0.5 truncate">Assistant IA - En ligne</p>
                 </div>
               </div>
-              <div className="flex items-center gap-0.5 sm:gap-1 relative z-10 flex-shrink-0">
-                <motion.button 
+              
+              {/* Action Buttons */}
+              <div className="flex items-center gap-1 relative z-10 flex-shrink-0">
+                <button 
                   onClick={(e) => { e.stopPropagation(); setIsMinimized(!isMinimized) }} 
-                  className="p-2.5 sm:p-3 hover:bg-white/25 rounded-lg transition-all duration-200 active:scale-95 min-w-[44px] min-h-[44px] flex items-center justify-center"
-                  whileHover={{ scale: 1.1, backgroundColor: 'rgba(255,255,255,0.3)' }}
-                  whileTap={{ scale: 0.9 }}
-                  aria-label={isMinimized ? "Agrandir la fenêtre de chat" : "Réduire la fenêtre de chat"}
+                  className="w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center rounded-lg hover:bg-white/20 active:bg-white/30 transition-colors"
+                  aria-label={isMinimized ? "Agrandir" : "Réduire"}
                   title={isMinimized ? "Agrandir" : "Réduire"}
                 >
-                  {isMinimized ? <Maximize2 className="w-4 h-4 sm:w-5 sm:h-5" /> : <Minimize2 className="w-4 h-4 sm:w-5 sm:h-5" />}
-                </motion.button>
-                <motion.button 
+                  {isMinimized ? <Maximize2 className="w-4 h-4" /> : <Minimize2 className="w-4 h-4" />}
+                </button>
+                <button 
                   onClick={(e) => { e.stopPropagation(); setIsOpen(false) }} 
-                  className="p-2.5 sm:p-3 hover:bg-white/25 rounded-lg transition-all duration-200 active:scale-95 min-w-[44px] min-h-[44px] flex items-center justify-center"
-                  whileHover={{ scale: 1.1, rotate: 90, backgroundColor: 'rgba(255,255,255,0.3)' }}
-                  whileTap={{ scale: 0.9 }}
-                  aria-label="Fermer l'assistant virtuel"
+                  className="w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center rounded-lg hover:bg-white/20 active:bg-white/30 transition-colors"
+                  aria-label="Fermer"
                   title="Fermer"
                 >
-                  <X className="w-4 h-4 sm:w-5 sm:h-5" />
-                </motion.button>
+                  <X className="w-4 h-4" />
+                </button>
               </div>
             </div>
 
@@ -385,58 +595,68 @@ export default function Chatbot() {
                   </div>
                 ) : (
                   <>
-                    <div ref={chatContainerRef} className="flex-1 overflow-y-auto p-4 space-y-4 bg-gradient-to-b from-gray-50/30 via-white to-gray-50/30 chatbot-scrollbar">
+                    <div 
+                      ref={chatContainerRef} 
+                      className="flex-1 overflow-y-auto p-3 space-y-2 chatbot-scrollbar relative"
+                      style={{
+                        background: 'linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 25%, #f0fdfa 50%, #ecfdf5 75%, #f0fdf4 100%)'
+                      }}
+                    >
+                      {/* Subtle pattern overlay */}
+                      <div 
+                        className="absolute inset-0 opacity-30 pointer-events-none"
+                        style={{
+                          backgroundImage: `radial-gradient(circle at 20% 50%, rgba(16, 185, 129, 0.1) 0%, transparent 50%),
+                                           radial-gradient(circle at 80% 20%, rgba(20, 184, 166, 0.1) 0%, transparent 50%),
+                                           radial-gradient(circle at 40% 80%, rgba(16, 185, 129, 0.08) 0%, transparent 50%)`
+                        }}
+                      />
+                      
                       {messages.map((m, index) => (
                         <motion.div 
                           key={m.id} 
-                          className={`flex ${m.sender === 'user' ? 'justify-end' : 'justify-start'}`}
-                          initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                          animate={{ opacity: 1, y: 0, scale: 1 }}
-                          transition={{ delay: index * 0.1, duration: 0.3 }}
+                          className={`flex ${m.sender === 'user' ? 'justify-end' : 'justify-start'} relative z-10`}
+                          initial={{ opacity: 0, y: 3 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.15 }}
                         >
-                          <div className={`max-w-[80%] p-3 rounded-xl text-sm relative ${
+                          <div className={`max-w-[85%] px-3 py-2 rounded-2xl text-sm ${
                             m.sender === 'user' 
-                              ? 'bg-gradient-to-br from-emerald-500 via-teal-500 to-emerald-600 text-white rounded-tr-sm shadow-lg' 
-                              : 'bg-white border border-gray-100 rounded-tl-sm shadow-sm'
+                              ? 'bg-gradient-to-br from-emerald-500 to-teal-500 text-white rounded-br-md shadow-md' 
+                              : 'bg-white/90 backdrop-blur-sm border border-emerald-100/50 rounded-bl-md shadow-sm'
                           }`}>
-                            <p className="leading-relaxed break-words">{m.text}</p>
+                            <p className="leading-relaxed break-words whitespace-pre-wrap">{m.text}</p>
                             <div className={`text-[10px] mt-1 flex items-center gap-1 ${
-                              m.sender === 'user' ? 'text-white/70 justify-end' : 'text-gray-400 justify-start'
+                              m.sender === 'user' ? 'text-white/60 justify-end' : 'text-emerald-600/50 justify-start'
                             }`}>
                               <span>{m.timestamp.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
                               {m.sender === 'user' && m.status === 'sent' && (
-                                <Check className="w-2.5 h-2.5 text-white/80" />
+                                <Check className="w-2.5 h-2.5 text-white/70" />
                               )}
                             </div>
-                            {/* Message tail */}
-                            {m.sender === 'user' ? (
-                              <div className="absolute -right-0.5 bottom-0 w-2 h-2 bg-gradient-to-br from-emerald-500 via-teal-500 to-emerald-600 transform rotate-45 translate-x-1/2 translate-y-1/2" />
-                            ) : (
-                              <div className="absolute -left-0.5 bottom-0 w-2 h-2 bg-white border-l border-b border-gray-100 transform rotate-45 -translate-x-1/2 translate-y-1/2" />
-                            )}
                           </div>
                         </motion.div>
                       ))}
                       {isTyping && (
                         <motion.div 
-                          className="flex items-center gap-2 ml-2"
+                          className="flex items-center ml-1 relative z-10"
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
                         >
-                          <div className="bg-white border-2 border-gray-100 rounded-2xl rounded-tl-sm p-3 shadow-md">
+                          <div className="bg-white/90 backdrop-blur-sm border border-emerald-100/50 rounded-xl px-3 py-2 shadow-sm">
                             <div className="flex gap-1">
                               {[0, 1, 2].map((i) => (
                                 <motion.div
                                   key={i}
-                                  className="w-2 h-2 bg-gray-400 rounded-full"
+                                  className="w-2 h-2 bg-emerald-400 rounded-full"
                                   animate={{
-                                    y: [0, -8, 0],
-                                    opacity: [0.5, 1, 0.5],
+                                    y: [0, -5, 0],
+                                    opacity: [0.4, 1, 0.4],
                                   }}
                                   transition={{
                                     duration: 0.6,
                                     repeat: Infinity,
-                                    delay: i * 0.2,
+                                    delay: i * 0.15,
                                     ease: 'easeInOut',
                                   }}
                                 />
@@ -447,144 +667,39 @@ export default function Chatbot() {
                       )}
                     </div>
 
-                    <div className="p-4 sm:p-5 bg-gradient-to-b from-white via-gray-50/30 to-white border-t border-gray-100/50">
-                      <motion.div 
-                        className="relative flex items-end gap-2 bg-gradient-to-br from-emerald-50/80 via-teal-50/60 to-emerald-50/80 rounded-2xl p-3 sm:p-3.5 focus-within:from-emerald-100/90 focus-within:via-teal-100/70 focus-within:to-emerald-100/90 focus-within:shadow-xl focus-within:shadow-emerald-200/30 transition-all duration-500 border-2 border-transparent focus-within:border-emerald-300/50 backdrop-blur-sm"
-                        initial={false}
-                        animate={{
-                          boxShadow: inputValue.trim() 
-                            ? '0 10px 40px rgba(16, 185, 129, 0.15), 0 0 0 1px rgba(16, 185, 129, 0.1)' 
-                            : '0 4px 20px rgba(0, 0, 0, 0.05)',
-                        }}
-                        transition={{ duration: 0.3 }}
-                      >
-                        {/* Animated background glow */}
-                        <motion.div
-                          className="absolute inset-0 bg-gradient-to-r from-emerald-200/20 via-teal-200/20 to-emerald-200/20 rounded-2xl opacity-0"
-                          animate={{
-                            opacity: inputValue.trim() ? [0, 0.5, 0.3, 0.5] : 0,
-                          }}
-                          transition={{
-                            duration: 3,
-                            repeat: Infinity,
-                            ease: 'easeInOut',
-                          }}
-                        />
-                        
-                        {/* Decorative border gradient */}
-                        <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-emerald-300/0 via-emerald-300/30 to-teal-300/0 opacity-0 focus-within:opacity-100 transition-opacity duration-500 pointer-events-none" />
-                        
+                    <div className="p-3 bg-gradient-to-t from-white via-white to-emerald-50/30 border-t border-emerald-100/50">
+                      <div className="flex items-end gap-2 bg-white rounded-2xl px-3 py-2 border border-emerald-200/50 focus-within:border-emerald-400 focus-within:ring-2 focus-within:ring-emerald-200/50 transition-all shadow-sm">
                         <textarea
                           ref={inputRef}
-                          rows={1}
+                          rows={2}
                           value={inputValue}
-                          onChange={(e) => {
-                            setInputValue(e.target.value)
-                            e.target.style.height = 'auto'
-                            e.target.style.height = `${Math.min(e.target.scrollHeight, 80)}px`
-                          }}
+                          onChange={(e) => setInputValue(e.target.value)}
                           onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && (e.preventDefault(), handleSendMessage())}
-                          onFocus={(e) => {
-                            e.target.parentElement?.classList.add('ring-2', 'ring-emerald-300/50')
-                          }}
-                          onBlur={(e) => {
-                            e.target.parentElement?.classList.remove('ring-2', 'ring-emerald-300/50')
-                          }}
-                          placeholder="Écrivez votre message ici..."
+                          placeholder="Écrivez votre message..."
                           aria-label="Écrivez votre message"
-                          className="relative z-10 flex-1 bg-transparent border-none outline-none text-xs sm:text-sm p-2 resize-none max-h-32 break-words overflow-x-hidden placeholder:text-gray-400/70 placeholder:italic placeholder:transition-all placeholder:duration-300 focus:placeholder:text-emerald-400/50 leading-relaxed"
-                          style={{
-                            wordWrap: 'break-word',
-                            overflowWrap: 'break-word',
-                          }}
+                          className="flex-1 bg-transparent border-none outline-none text-sm placeholder:text-gray-400 resize-none leading-relaxed"
                         />
                         
-                        {/* Typing indicator dots */}
-                        {inputValue.trim() && (
-                          <motion.div
-                            className="absolute bottom-2 left-4 flex gap-1 opacity-50"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 0.3 }}
-                            exit={{ opacity: 0 }}
-                          >
-                            {[0, 1, 2].map((i) => (
-                              <motion.div
-                                key={i}
-                                className="w-1 h-1 bg-emerald-500 rounded-full"
-                                animate={{
-                                  y: [0, -4, 0],
-                                  opacity: [0.3, 1, 0.3],
-                                }}
-                                transition={{
-                                  duration: 1,
-                                  repeat: Infinity,
-                                  delay: i * 0.2,
-                                  ease: 'easeInOut',
-                                }}
-                              />
-                            ))}
-                          </motion.div>
-                        )}
-                        
-                        <motion.button 
+                        <button 
                           onClick={handleSendMessage}
                           disabled={!inputValue.trim() || isLoading}
-                          className="relative z-10 p-3 sm:p-3.5 bg-gradient-to-br from-emerald-500 via-teal-500 to-emerald-600 text-white rounded-2xl disabled:opacity-30 disabled:cursor-not-allowed transition-all shadow-lg hover:shadow-xl disabled:shadow-md relative overflow-hidden group flex-shrink-0 min-w-[44px] min-h-[44px] flex items-center justify-center"
-                          whileHover={{ 
-                            scale: inputValue.trim() && !isLoading ? 1.08 : 1,
-                            rotate: inputValue.trim() && !isLoading ? [0, -5, 5, 0] : 0,
-                          }}
-                          whileTap={{ scale: inputValue.trim() && !isLoading ? 0.92 : 1 }}
-                          transition={{ type: 'spring', stiffness: 400, damping: 17 }}
+                          className="p-2.5 bg-gradient-to-r from-emerald-500 to-teal-500 text-white rounded-xl hover:from-emerald-600 hover:to-teal-600 disabled:opacity-30 disabled:cursor-not-allowed transition-all shadow-md hover:shadow-lg"
                           aria-label="Envoyer le message"
                           title="Envoyer"
                         >
-                          {/* Button glow effect */}
-                          <motion.div
-                            className="absolute inset-0 bg-gradient-to-br from-emerald-400 via-teal-400 to-emerald-500 rounded-2xl opacity-0"
-                            animate={{
-                              opacity: inputValue.trim() && !isLoading ? [0, 0.6, 0.4, 0.6] : 0,
-                            }}
-                            transition={{
-                              duration: 2,
-                              repeat: Infinity,
-                              ease: 'easeInOut',
-                            }}
-                          />
-                          
                           {isLoading ? (
-                            <Loader2 className="w-4 h-4 sm:w-5 sm:h-5 animate-spin relative z-10" />
+                            <Loader2 className="w-5 h-5 animate-spin" />
                           ) : (
-                            <motion.div
-                              className="relative z-10"
-                              animate={{ 
-                                rotate: inputValue.trim() ? [0, 15, -15, 0] : 0,
-                                scale: inputValue.trim() ? [1, 1.1, 1] : 1,
-                              }}
-                              transition={{ 
-                                duration: 1.5, 
-                                repeat: Infinity,
-                                ease: 'easeInOut',
-                              }}
-                            >
-                              <Send className="w-4 h-4 sm:w-5 sm:h-5" />
-                            </motion.div>
+                            <Send className="w-5 h-5" />
                           )}
-                          
-                          {/* Hover gradient overlay */}
-                          <motion.div
-                            className="absolute inset-0 bg-gradient-to-br from-emerald-600 via-teal-600 to-emerald-700 rounded-2xl"
-                            initial={{ x: '-100%' }}
-                            whileHover={{ x: 0 }}
-                            transition={{ duration: 0.3 }}
-                          />
-                        </motion.button>
-                      </motion.div>
+                        </button>
+                      </div>
                     </div>
                   </>
                 )}
               </>
             )}
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

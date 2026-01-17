@@ -1,0 +1,2 @@
+# This file ensures the data folder exists in the repo
+# Actual data files (analytics.json, chatbot-sessions.json, etc.) are ignored

@@ -116,3 +116,146 @@ enum QuoteStatus {
   REJECTED
 }
 
+// Analytics Models
+model Visitor {
+  id            String    @id @default(cuid())
+  visitorId     String    @unique  // Browser fingerprint
+  ip            String?
+  country       String?
+  city          String?
+  device        String?   // mobile, desktop, tablet
+  browser       String?
+  browserVersion String?
+  os            String?
+  screenWidth   Int?
+  screenHeight  Int?
+  language      String?
+  referrer      String?
+  firstVisit    DateTime  @default(now())
+  lastVisit     DateTime  @default(now())
+  totalVisits   Int       @default(1)
+  sessions      Session[]
+  pageViews     PageView[]
+  chatSessions  ChatSession[]
+}
+
+model Session {
+  id            String    @id @default(cuid())
+  visitorId     String
+  visitor       Visitor   @relation(fields: [visitorId], references: [id], onDelete: Cascade)
+  startTime     DateTime  @default(now())
+  endTime       DateTime?
+  duration      Int?      // seconds
+  pageViews     PageView[]
+  isActive      Boolean   @default(true)
+  createdAt     DateTime  @default(now())
+}
+
+model PageView {
+  id            String    @id @default(cuid())
+  visitorId     String
+  visitor       Visitor   @relation(fields: [visitorId], references: [id], onDelete: Cascade)
+  sessionId     String?
+  session       Session?  @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  path          String
+  title         String?
+  referrer      String?
+  duration      Int?      // seconds on page
+  scrollDepth   Int?      // percentage
+  timestamp     DateTime  @default(now())
+}
+
+model ChatSession {
+  id            String    @id @default(cuid())
+  visitorId     String
+  visitor       Visitor   @relation(fields: [visitorId], references: [id], onDelete: Cascade)
+  userName      String?
+  userPhone     String?
+  messageCount  Int       @default(0)
+  startTime     DateTime  @default(now())
+  endTime       DateTime?
+  messages      ChatMessage[]
+}
+
+model ChatMessage {
+  id            String    @id @default(cuid())
+  chatSessionId String
+  chatSession   ChatSession @relation(fields: [chatSessionId], references: [id], onDelete: Cascade)
+  sender        String    // 'user' or 'bot'
+  message       String
+  timestamp     DateTime  @default(now())
+}
+
+model DailyStats {
+  id              String    @id @default(cuid())
+  date            DateTime  @unique @db.Date
+  uniqueVisitors  Int       @default(0)
+  totalPageViews  Int       @default(0)
+  totalSessions   Int       @default(0)
+  avgSessionDuration Int?   // seconds
+  bounceRate      Float?    // percentage
+  chatbotUsers    Int       @default(0)
+  topPages        Json?     // [{path, views}]
+  deviceStats     Json?     // {mobile, desktop, tablet}
+  browserStats    Json?     // {chrome, firefox, safari, etc}
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+}
+
+// Site Özelleştirme Modelleri
+model SiteSettings {
+  id              String    @id @default(cuid())
+  name            String    @default("default")  // Ayar seti adı
+  isActive        Boolean   @default(false)      // Aktif ayar mı?
+  isPublished     Boolean   @default(false)      // Yayınlanmış mı?
+  
+  // Tema ayarları
+  themePresetId   String?   // Temel tema ID'si
+  themeSettings   Json?     // Renk, font ve diğer özelleştirmeler
+  
+  // İçerik ayarları
+  contentSettings Json?     // Hero, hakkımızda vb. içerikler
+  
+  // Logo ve branding
+  brandingSettings Json?    // Logo, favicon, meta açıklamaları
+  
+  // Versiyon bilgisi
+  version         Int       @default(1)
+  
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  publishedAt     DateTime?
+  
+  history         SettingsHistory[]
+}
+
+model SettingsHistory {
+  id              String    @id @default(cuid())
+  settingsId      String
+  settings        SiteSettings @relation(fields: [settingsId], references: [id], onDelete: Cascade)
+  
+  changes         Json      // Değişiklik detayları [{path, oldValue, newValue}]
+  snapshot        Json      // Tam ayar durumu
+  description     String?   // Değişiklik açıklaması
+  
+  createdAt       DateTime  @default(now())
+}
+
+model SavedThemePreset {
+  id              String    @id @default(cuid())
+  name            String    @unique
+  description     String?
+  thumbnail       String?   // Base64 veya URL
+  
+  // Tema detayları
+  colors          Json      // {primary, secondary, accent, ...}
+  fonts           Json      // {heading, body, size, weight}
+  components      Json      // {borderRadius, buttonStyle, ...}
+  
+  isDefault       Boolean   @default(false)  // Varsayılan tema mı?
+  isPublic        Boolean   @default(true)   // Herkese açık mı?
+  
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+}
+

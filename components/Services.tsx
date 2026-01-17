@@ -114,10 +114,10 @@ export default function Services() {
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="text-center mb-16 lg:mb-20"
         >
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-bold text-gray-900 mb-6 sm:mb-8 leading-[1.25]">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-bold text-gray-900 mb-6 sm:mb-8 leading-[1.25]" id="live-edit-servicesTitle">
             Nos Services
           </h2>
-          <p className="text-sm sm:text-base md:text-lg text-gray-600 max-w-3xl mx-auto leading-[1.7] px-4">
+          <p className="text-sm sm:text-base md:text-lg text-gray-600 max-w-3xl mx-auto leading-[1.7] px-4" id="live-edit-servicesSubtitle">
             Des solutions de nettoyage complètes adaptées à tous vos besoins professionnels et résidentiels
           </p>
         </motion.div>

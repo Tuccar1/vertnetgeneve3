@@ -62,13 +62,13 @@ export default function About() {
             transition={{ duration: 0.6 }}
             className="text-center mb-16 lg:mb-20"
           >
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-bold text-white mb-6 sm:mb-8 leading-[1.25] drop-shadow-lg">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-bold text-white mb-6 sm:mb-8 leading-[1.25] drop-shadow-lg" id="live-edit-aboutTitle">
               À Propos de Notre Entreprise
             </h2>
-            <h3 className="text-xl sm:text-2xl md:text-3xl font-display font-semibold text-white/90 mb-6 sm:mb-8 leading-[1.3] drop-shadow-md">
+            <h3 className="text-xl sm:text-2xl md:text-3xl font-display font-semibold text-white/90 mb-6 sm:mb-8 leading-[1.3] drop-shadow-md" id="live-edit-aboutSubtitle">
               L'excellence dans les Services de Nettoyage
             </h3>
-            <p className="text-sm sm:text-base md:text-lg text-white/80 max-w-3xl mx-auto leading-[1.7] px-4 drop-shadow">
+            <p className="text-sm sm:text-base md:text-lg text-white/80 max-w-3xl mx-auto leading-[1.7] px-4 drop-shadow" id="live-edit-aboutDescription">
               Chez Vertnetgeneve, nous ne sommes pas seulement un prestataire de services de nettoyage—nous sommes votre partenaire de confiance pour maintenir un environnement propre, sain et durable. Notre mission est non seulement de répondre à vos attentes, mais de les dépasser à chaque visite.
             </p>
           </motion.div>

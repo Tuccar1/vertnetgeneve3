@@ -1,11 +1,17 @@
 'use client'
 
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Clock, Shield, Leaf, Users, Award, Heart, Sparkles, CheckCircle2 } from 'lucide-react'
 import Image from 'next/image'
 
 export default function WhyChooseUs() {
+  const [mounted, setMounted] = useState(false)
+  
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+  
   const reasons = [
     {
       icon: Clock,
@@ -58,7 +64,7 @@ export default function WhyChooseUs() {
   ]
 
   return (
-    <section id="pourquoi-nous" className="py-20 lg:py-28 w-full relative overflow-hidden">
+    <section id="pourquoi-nous" className="py-12 lg:py-16 w-full relative overflow-hidden" suppressHydrationWarning>
       <div className="max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Başlık Bölümü */}
         <motion.div
@@ -82,7 +88,25 @@ export default function WhyChooseUs() {
           </motion.div>
           
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-white mb-4 drop-shadow-lg">
-            Pourquoi Nous Choisir
+            <motion.span
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              Pourquoi{' '}
+            </motion.span>
+            <motion.span
+              className="bg-gradient-to-r from-emerald-300 via-teal-300 to-cyan-300 bg-clip-text text-transparent"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              animate={{ 
+                backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
+              }}
+              style={{ backgroundSize: '200% 200%' }}
+            >
+              Nous Choisir
+            </motion.span>
           </h2>
           
           <motion.div
@@ -109,47 +133,88 @@ export default function WhyChooseUs() {
             return (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, y: 40, rotateX: -15 }}
+                whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.5, delay: index * 0.1, ease: "easeOut" }}
-                whileHover={{ y: -8, scale: 1.02 }}
-                className="group"
+                transition={{ duration: 0.6, delay: index * 0.15, ease: "easeOut" }}
+                whileHover={{ 
+                  y: -12, 
+                  scale: 1.03,
+                  rotateY: 5,
+                  transition: { duration: 0.3 }
+                }}
+                className="group perspective-1000"
               >
-                <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl overflow-hidden h-full transform transition-all duration-300 group-hover:shadow-2xl group-hover:shadow-emerald-500/20">
+                <motion.div 
+                  className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl overflow-hidden h-full transform transition-all duration-300 group-hover:shadow-2xl group-hover:shadow-emerald-500/30"
+                  animate={{
+                    boxShadow: [
+                      "0 10px 40px -10px rgba(16, 185, 129, 0.1)",
+                      "0 10px 40px -10px rgba(16, 185, 129, 0.25)",
+                      "0 10px 40px -10px rgba(16, 185, 129, 0.1)"
+                    ]
+                  }}
+                  transition={{ duration: 3, repeat: Infinity, delay: index * 0.5 }}
+                >
                   {/* Kart Resmi */}
                   <div className="relative h-36 overflow-hidden">
                     <Image
                       src={reason.image}
                       alt={`${reason.title} - Vertnetgeneve`}
                       fill
-                      className="object-cover transition-transform duration-500 group-hover:scale-110"
+                      className="object-cover transition-transform duration-700 group-hover:scale-115"
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                       quality={90}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
                     
+                    {/* Shimmer effect on image */}
+                    <motion.div
+                      className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12"
+                      animate={{ x: ['-200%', '200%'] }}
+                      transition={{ duration: 3, repeat: Infinity, repeatDelay: 2, ease: "easeInOut" }}
+                    />
+                    
                     {/* İkon */}
-                    <div className={`absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 w-14 h-14 rounded-xl ${reason.bgColor} flex items-center justify-center shadow-lg z-10 border-4 border-white`}>
+                    <motion.div 
+                      className={`absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 w-14 h-14 rounded-xl ${reason.bgColor} flex items-center justify-center shadow-lg z-10 border-4 border-white`}
+                      whileHover={{ rotate: 360, scale: 1.1 }}
+                      transition={{ duration: 0.5 }}
+                    >
                       <IconComponent className="w-7 h-7 text-white" />
-                    </div>
+                    </motion.div>
                   </div>
                   
                   {/* Kart İçeriği */}
                   <div className="p-6 pt-10 text-center">
-                    <h3 className="text-lg font-bold text-gray-900 mb-3 group-hover:text-emerald-600 transition-colors">
+                    <motion.h3 
+                      className="text-lg font-bold text-gray-900 mb-3 group-hover:text-emerald-600 transition-colors"
+                      initial={{ opacity: 0 }}
+                      whileInView={{ opacity: 1 }}
+                      transition={{ delay: index * 0.1 + 0.3 }}
+                    >
                       {reason.title}
-                    </h3>
-                    <p className="text-sm text-gray-600 leading-relaxed">
+                    </motion.h3>
+                    <motion.p 
+                      className="text-sm text-gray-600 leading-relaxed"
+                      initial={{ opacity: 0 }}
+                      whileInView={{ opacity: 1 }}
+                      transition={{ delay: index * 0.1 + 0.4 }}
+                    >
                       {reason.description}
-                    </p>
+                    </motion.p>
                     
                     {/* Alt dekoratif çizgi */}
-                    <div className="mt-4 flex justify-center">
-                      <div className="w-12 h-1 rounded-full bg-gradient-to-r from-emerald-400 to-teal-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    </div>
+                    <motion.div 
+                      className="mt-4 flex justify-center"
+                      initial={{ scaleX: 0 }}
+                      whileInView={{ scaleX: 1 }}
+                      transition={{ delay: index * 0.1 + 0.5, duration: 0.5 }}
+                    >
+                      <div className="w-12 h-1 rounded-full bg-gradient-to-r from-emerald-400 to-teal-400 group-hover:w-20 transition-all duration-300"></div>
+                    </motion.div>
                   </div>
-                </div>
+                </motion.div>
               </motion.div>
             )
           })}

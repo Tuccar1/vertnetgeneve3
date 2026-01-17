@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import { Phone, Mail, MapPin, Facebook, Linkedin, Instagram, Clock, Shield } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
+import { trackContactClick } from './AnalyticsTracker'
 
 export default function Footer() {
   const company = [
@@ -19,6 +20,21 @@ export default function Footer() {
     { icon: Linkedin, href: '#', label: 'LinkedIn' },
     { icon: Instagram, href: '#', label: 'Instagram' },
   ]
+
+  const handlePhoneClick = (phone: string) => {
+    console.log('📞 Footer phone click:', phone);
+    trackContactClick('phone', phone);
+  };
+
+  const handleEmailClick = (email: string) => {
+    console.log('📧 Footer email click:', email);
+    trackContactClick('email', email);
+  };
+
+  const handleWhatsAppClick = (phone: string) => {
+    console.log('💬 Footer whatsapp click:', phone);
+    trackContactClick('whatsapp', phone);
+  };
 
   return (
     <footer className="bg-gray-900/85 backdrop-blur-sm text-gray-200 relative w-full">
@@ -55,7 +71,7 @@ export default function Footer() {
                   <p className="text-xs text-gray-400">Excellence Professionnelle</p>
                 </div>
               </Link>
-              <p className="text-sm text-gray-300 leading-relaxed mb-3 max-w-xs mx-auto md:mx-0">
+              <p className="text-sm text-gray-300 leading-relaxed mb-3 max-w-xs mx-auto md:mx-0" id="live-edit-footerDescription">
                 Excellence en nettoyage professionnel à Genève. Au cœur de Genève, pour un avenir plus propre.
               </p>
               
@@ -113,18 +129,30 @@ export default function Footer() {
               </h4>
               <div className="space-y-2">
                 <div className="flex flex-col items-center md:items-end gap-1.5 text-sm">
-                  <a href="tel:+41766212183" className="text-gray-300 hover:text-white transition-colors flex items-center gap-1.5">
+                  <a 
+                    href="tel:+41766212183" 
+                    onClick={() => handlePhoneClick('+41766212183')}
+                    className="text-gray-300 hover:text-white transition-colors flex items-center gap-1.5"
+                  >
                     <Phone className="w-4 h-4 text-emerald-400" />
                     <span className="font-semibold">+41 76 621 21 83</span>
                   </a>
-                  <a href="tel:+41765316903" className="text-gray-300 hover:text-white transition-colors flex items-center gap-1.5">
+                  <a 
+                    href="tel:+41765316903" 
+                    onClick={() => handlePhoneClick('+41765316903')}
+                    className="text-gray-300 hover:text-white transition-colors flex items-center gap-1.5"
+                  >
                     <Phone className="w-4 h-4 text-emerald-400" />
                     <span className="font-semibold">+41 76 531 69 03</span>
                   </a>
                 </div>
-                <a href="mailto:contact@vertnetgeneve.ch" className="flex items-center justify-center md:justify-end gap-1.5 text-sm text-gray-300 hover:text-white transition-colors">
+                <a 
+                  href="mailto:info@vertnetgeneve.ch" 
+                  onClick={() => handleEmailClick('info@vertnetgeneve.ch')}
+                  className="flex items-center justify-center md:justify-end gap-1.5 text-sm text-gray-300 hover:text-white transition-colors"
+                >
                   <Mail className="w-4 h-4 text-blue-400" />
-                  <span>contact@vertnetgeneve.ch</span>
+                  <span>info@vertnetgeneve.ch</span>
                 </a>
                 <div className="flex items-center justify-center md:justify-end gap-1.5 text-sm text-gray-300">
                   <MapPin className="w-4 h-4 text-rose-400" />
@@ -161,7 +189,7 @@ export default function Footer() {
         <div className="border-t border-gray-700/50 py-4">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-3">
             <p className="text-xs text-gray-400">
-              © {new Date().getFullYear()} Vertnetgeneve. Tous droits réservés.
+              © 2024 Vertnetgeneve. Tous droits réservés.
             </p>
             <div className="flex flex-wrap items-center justify-center gap-4 text-xs text-gray-400">
               <Link href="#" className="hover:text-white transition-colors">

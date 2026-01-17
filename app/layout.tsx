@@ -1,10 +1,33 @@
 import type { Metadata } from 'next'
+import { Inter, Poppins } from 'next/font/google'
 import './globals.css'
-import GoogleAnalytics from '@/components/GoogleAnalytics'
-import RouteProgressBar from '@/components/RouteProgressBar'
-import Chatbot from '@/components/Chatbot'
-import SplashScreen from '@/components/SplashScreen'
+import dynamic from 'next/dynamic'
 import { Suspense } from 'react'
+
+// Dynamic imports - client-side only
+const ThemeProvider = dynamic(() => import('@/components/ThemeProvider'), { ssr: false })
+const GoogleAnalytics = dynamic(() => import('@/components/GoogleAnalytics'), { ssr: false })
+const RouteProgressBar = dynamic(() => import('@/components/RouteProgressBar'), { ssr: false })
+const Chatbot = dynamic(() => import('@/components/Chatbot'), { ssr: false })
+const SplashScreen = dynamic(() => import('@/components/SplashScreen'), { ssr: false })
+const PageTransition = dynamic(() => import('@/components/PageTransition'), { ssr: false })
+const AnalyticsTracker = dynamic(() => import('@/components/AnalyticsTracker'), { ssr: false })
+
+// Next.js font optimizasyonu - CLS ve LCP için kritik
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-inter',
+  preload: true,
+})
+
+const poppins = Poppins({
+  subsets: ['latin'],
+  weight: ['500', '600', '700', '800'],
+  display: 'swap',
+  variable: '--font-poppins',
+  preload: true,
+})
 
 export const metadata: Metadata = {
   title: {
@@ -64,19 +87,15 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="fr" suppressHydrationWarning>
+    <html lang="fr" className={`${inter.variable} ${poppins.variable}`} suppressHydrationWarning>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover" />
         <meta name="theme-color" content="#10b981" />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-        {/* Font preload for performance */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap" as="style" />
-        {/* critical.css dosyasının var olduğundan emin olun */}
-        <link rel="stylesheet" href="/critical.css" />
+        <meta name="format-detection" content="telephone=no" />
+        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -87,7 +106,7 @@ export default function RootLayout({
               description: 'Services de nettoyage professionnel de qualité supérieure à Genève. Disponible 24h/24 et 7j/7.',
               url: 'https://www.vertnetgeneve.ch',
               telephone: '+41766212183',
-              email: 'contact@vertnetgeneve.ch',
+              email: 'info@vertnetgeneve.ch',
               address: {
                 '@type': 'PostalAddress',
                 addressLocality: 'Genève',
@@ -142,7 +161,8 @@ export default function RootLayout({
         <Suspense fallback={null}>
           <RouteProgressBar />
         </Suspense>
-        <main className="flex-1 w-full">
+        <AnalyticsTracker />
+        <main className="flex-1 w-full" suppressHydrationWarning>
           {children}
         </main>
         <Chatbot />

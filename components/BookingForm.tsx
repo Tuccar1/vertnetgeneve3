@@ -1,11 +1,13 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Calendar, Clock, MapPin, CheckCircle } from 'lucide-react'
 import { servicesData } from '@/lib/services-data'
 
 export default function BookingForm() {
+  const [mounted, setMounted] = useState(false)
+  const [minDate, setMinDate] = useState('')
   const [formData, setFormData] = useState({
     service: '',
     date: '',
@@ -17,6 +19,12 @@ export default function BookingForm() {
     message: '',
   })
   const [submitted, setSubmitted] = useState(false)
+
+  // Client-side mount
+  useEffect(() => {
+    setMounted(true)
+    setMinDate(new Date().toISOString().split('T')[0])
+  }, [])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -128,7 +136,7 @@ export default function BookingForm() {
                         required
                         value={formData.date}
                         onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-                        min={new Date().toISOString().split('T')[0]}
+                        min={minDate}
                         className="w-full px-4 py-3 rounded-lg bg-white border-2 border-gray-200 focus:border-primary-500 focus:outline-none min-h-[48px]"
                         aria-label="Sélectionnez la date de réservation"
                       />

@@ -1,11 +1,13 @@
 import type { Metadata } from 'next'
-import Navigation from '@/components/Navigation'
-import Hero from '@/components/Hero'
-import MarqueeServices from '@/components/MarqueeServices'
-import WhyChooseUs from '@/components/WhyChooseUs'
-import Testimonials from '@/components/Testimonials'
-import Footer from '@/components/Footer'
+import dynamic from 'next/dynamic'
 import Image from 'next/image'
+
+// Dynamic imports - client-side only, no SSR
+const Navigation = dynamic(() => import('@/components/Navigation'), { ssr: false })
+const Hero = dynamic(() => import('@/components/Hero'), { ssr: false })
+const WhyChooseUs = dynamic(() => import('@/components/WhyChooseUs'), { ssr: false })
+const Testimonials = dynamic(() => import('@/components/Testimonials'), { ssr: false })
+const Footer = dynamic(() => import('@/components/Footer'), { ssr: false })
 
 export const metadata: Metadata = {
   title: 'Accueil - Excellence en Nettoyage Professionnel à Genève',
@@ -59,25 +61,24 @@ export default function Home() {
       {/* Global Background Image */}
       <div className="fixed inset-0 z-0">
         <Image
-          src="/cleaning-4.webp"
-          alt="Vertnetgeneve - Nettoyage Professionnel"
+          src="/11ssss.jpg"
+          alt="Vertnetgeneve - Nettoyage Professionnel à Genève"
           fill
           className="object-cover"
           style={{
-            filter: 'brightness(1.0) contrast(1.1) saturate(1.1)',
+            filter: 'brightness(1.15) contrast(1.15) saturate(1.2)',
           }}
           priority
-          quality={100}
+          quality={85}
           sizes="100vw"
         />
-        <div className="absolute inset-0 bg-slate-900/30"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-900/40 via-slate-900/20 to-slate-900/50"></div>
       </div>
       
       {/* Content */}
       <div className="relative z-10">
         <Navigation />
         <Hero />
-        <MarqueeServices />
         <WhyChooseUs />
         <Testimonials />
         <Footer />

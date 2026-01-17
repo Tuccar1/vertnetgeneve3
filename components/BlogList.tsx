@@ -17,13 +17,12 @@ export default function BlogList({ posts }: BlogListProps) {
       <div className="fixed inset-0 -z-20">
         <Image
           src="/11.webp"
-          alt="Blog - Vertnetgeneve"
+          alt="Blog - Vertnetgeneve Nettoyage Professionnel Genève"
           fill
           className="object-cover object-center"
-          quality={100}
+          quality={85}
           priority
           sizes="100vw"
-          unoptimized
         />
       </div>
       {/* Koyu overlay - yazıların okunabilirliği için */}

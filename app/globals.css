@@ -1,15 +1,40 @@
-/* Font Import - sadece gerekli font ağırlıkları */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap');
-
-/* Tailwind direktifleri - font import'tan sonra */
+/* Tailwind direktifleri */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
-    --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
-    --font-display: 'Poppins', system-ui, -apple-system, sans-serif;
+    --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
+    --font-display: var(--font-poppins), system-ui, -apple-system, sans-serif;
+    
+    /* Theme Colors - varsayılan değerler */
+    --color-primary: #10b981;
+    --color-secondary: #059669;
+    --color-accent: #f97316;
+    --color-background: #ffffff;
+    --color-surface: #f0fdf4;
+    --color-text: #1f2937;
+    --color-text-muted: #6b7280;
+    --color-border: #d1fae5;
+    --color-success: #22c55e;
+    --color-error: #ef4444;
+    --color-warning: #f59e0b;
+    
+    /* Fonts */
+    --font-heading: 'Poppins', system-ui, sans-serif;
+    --font-body: 'Inter', system-ui, sans-serif;
+    --font-base-size: 16px;
+    --font-heading-weight: 600;
+    --font-body-weight: 400;
+    
+    /* Components */
+    --border-radius: 8px;
+    --button-radius: 9999px;
+    --card-radius: 12px;
+    --shadow-sm: 0 1px 3px 0 rgb(16 185 129 / 0.1);
+    --shadow-md: 0 4px 6px -1px rgb(16 185 129 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(16 185 129 / 0.1);
   }
 
   html {
@@ -30,87 +55,6 @@
     overflow-x: hidden;
     position: relative;
     width: 100%;
-    /* Animasyonlu arka plan pattern */
-    background-image: 
-      radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.05) 0%, transparent 50%),
-      radial-gradient(circle at 80% 80%, rgba(34, 197, 94, 0.05) 0%, transparent 50%),
-      radial-gradient(circle at 40% 20%, rgba(234, 179, 8, 0.05) 0%, transparent 50%);
-    background-size: 100% 100%, 100% 100%, 100% 100%;
-    background-position: 0% 0%, 100% 100%, 50% 50%;
-    animation: backgroundMove 20s ease-in-out infinite;
-  }
-  
-  /* Arka plan animasyonu */
-  @keyframes backgroundMove {
-    0%, 100% {
-      background-position: 0% 0%, 100% 100%, 50% 50%;
-    }
-    50% {
-      background-position: 100% 100%, 0% 0%, 50% 50%;
-    }
-  }
-  
-  /* Renkli + Sembolleri için pseudo-element - Çoklu Katman */
-  body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: 
-      /* Mavi + sembolleri */
-      url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M50 20 L50 35 M50 65 L50 80 M20 50 L35 50 M65 50 L80 50' stroke='%233b82f6' stroke-width='2.5' stroke-opacity='0.30' stroke-linecap='round'/%3E%3C/svg%3E"),
-      /* Yeşil + sembolleri */
-      url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M60 25 L60 40 M60 80 L60 95 M25 60 L40 60 M80 60 L95 60' stroke='%2322c55e' stroke-width='2' stroke-opacity='0.28' stroke-linecap='round'/%3E%3C/svg%3E"),
-      /* Sarı + sembolleri */
-      url("data:image/svg+xml,%3Csvg width='90' height='90' viewBox='0 0 90 90' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M45 15 L45 30 M45 60 L45 75 M15 45 L30 45 M60 45 L75 45' stroke='%23eab308' stroke-width='2' stroke-opacity='0.25' stroke-linecap='round'/%3E%3C/svg%3E");
-    background-size: 100px 100px, 120px 120px, 90px 90px;
-    background-position: 0 0, 50px 50px, 25px 25px;
-    pointer-events: none;
-    z-index: 0;
-    opacity: 1;
-    animation: patternMove1 30s linear infinite, patternMove2 35s linear infinite reverse, patternMove3 25s linear infinite, patternPulse 4s ease-in-out infinite;
-  }
-  
-  /* + Sembolleri animasyonu - Katman 1 (Mavi) */
-  @keyframes patternMove1 {
-    0% {
-      background-position: 0 0, 50px 50px, 25px 25px;
-    }
-    100% {
-      background-position: 100px 100px, 150px 150px, 125px 125px;
-    }
-  }
-  
-  /* + Sembolleri animasyonu - Katman 2 (Yeşil) */
-  @keyframes patternMove2 {
-    0% {
-      background-position: 0 0, 50px 50px, 25px 25px;
-    }
-    100% {
-      background-position: -100px -100px, -50px -50px, -75px -75px;
-    }
-  }
-  
-  /* + Sembolleri animasyonu - Katman 3 (Sarı) */
-  @keyframes patternMove3 {
-    0% {
-      background-position: 0 0, 50px 50px, 25px 25px;
-    }
-    100% {
-      background-position: 90px -90px, 140px -40px, 115px -65px;
-    }
-  }
-  
-  /* + Sembolleri animasyonu - Yanıp Sönme */
-  @keyframes patternPulse {
-    0%, 100% {
-      opacity: 0.5;
-    }
-    50% {
-      opacity: 0.8;
-    }
   }
   
   /* İçerik için z-index */

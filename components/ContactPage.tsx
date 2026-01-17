@@ -4,10 +4,23 @@ import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { MapPin, Phone, Mail, Globe, MessageCircle, Clock, Send, Sparkles, Loader2 } from 'lucide-react'
 import Image from 'next/image'
+import { trackContactClick } from './AnalyticsTracker'
 
 export default function ContactPage() {
   const [mapLoaded, setMapLoaded] = useState(false)
   const [mapError, setMapError] = useState(false)
+
+  const handlePhoneClick = (phone: string) => {
+    trackContactClick('phone', phone);
+  };
+
+  const handleEmailClick = (email: string) => {
+    trackContactClick('email', email);
+  };
+
+  const handleWhatsAppClick = (phone: string) => {
+    trackContactClick('whatsapp', phone);
+  };
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -130,10 +143,18 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <div className="font-bold text-gray-900 mb-1 text-base">Téléphone</div>
-                      <a href="tel:+41766212183" className="text-gray-600 hover:text-primary-600 transition text-sm block">
+                      <a 
+                        href="tel:+41766212183" 
+                        onClick={() => handlePhoneClick('+41766212183')}
+                        className="text-gray-600 hover:text-primary-600 transition text-sm block"
+                      >
                         +41 76 621 21 83
                       </a>
-                      <a href="tel:+41765316903" className="text-gray-600 hover:text-primary-600 transition text-sm block">
+                      <a 
+                        href="tel:+41765316903" 
+                        onClick={() => handlePhoneClick('+41765316903')}
+                        className="text-gray-600 hover:text-primary-600 transition text-sm block"
+                      >
                         +41 76 531 69 03
                       </a>
                     </div>
@@ -145,8 +166,12 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <div className="font-bold text-gray-900 mb-1 text-base">Email</div>
-                      <a href="mailto:contact@vertnetgeneve.ch" className="text-gray-600 hover:text-primary-600 transition text-sm">
-                        contact@vertnetgeneve.ch
+                      <a 
+                        href="mailto:info@vertnetgeneve.ch" 
+                        onClick={() => handleEmailClick('info@vertnetgeneve.ch')}
+                        className="text-gray-600 hover:text-primary-600 transition text-sm"
+                      >
+                        info@vertnetgeneve.ch
                       </a>
                     </div>
                   </div>
@@ -169,7 +194,15 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <div className="font-bold text-gray-900 mb-1 text-base">WhatsApp</div>
-                      <p className="text-gray-600 text-sm">Contactez-nous facilement via WhatsApp!</p>
+                      <a 
+                        href="https://wa.me/41766212183" 
+                        onClick={() => handleWhatsAppClick('+41766212183')}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-gray-600 hover:text-primary-600 transition text-sm"
+                      >
+                        Contactez-nous facilement via WhatsApp!
+                      </a>
                     </div>
                   </div>
                   

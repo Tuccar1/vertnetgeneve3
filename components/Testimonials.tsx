@@ -91,11 +91,16 @@ const testimonials: Testimonial[] = [
 ]
 
 export default function Testimonials() {
+  const [mounted, setMounted] = useState(false)
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isAutoPlaying, setIsAutoPlaying] = useState(true)
 
   useEffect(() => {
-    if (!isAutoPlaying) return
+    setMounted(true)
+  }, [])
+
+  useEffect(() => {
+    if (!isAutoPlaying || !mounted) return
 
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % testimonials.length)
@@ -136,7 +141,7 @@ export default function Testimonials() {
   }
 
   return (
-    <section className="py-20 lg:py-28 relative overflow-hidden">
+    <section className="py-12 lg:py-16 relative overflow-hidden">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Başlık */}
         <motion.div
@@ -159,7 +164,26 @@ export default function Testimonials() {
           </motion.div>
 
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-white mb-4 drop-shadow-lg">
-            Avis Clients
+            <motion.span
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              id="live-edit-testimonialsTitle"
+            >
+              Avis{' '}
+            </motion.span>
+            <motion.span
+              className="bg-gradient-to-r from-yellow-300 via-amber-300 to-orange-300 bg-clip-text text-transparent"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              animate={{ 
+                backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
+              }}
+              style={{ backgroundSize: '200% 200%' }}
+            >
+              Clients
+            </motion.span>
           </h2>
           
           <motion.div
@@ -170,7 +194,7 @@ export default function Testimonials() {
             className="h-1 bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 rounded-full mx-auto mb-6 max-w-xs"
           />
 
-          <p className="text-lg text-white/90 max-w-2xl mx-auto mb-4 drop-shadow">
+          <p className="text-lg text-white/90 max-w-2xl mx-auto mb-4 drop-shadow" id="live-edit-testimonialsSubtitle">
             Découvrez ce que nos clients disent de nos services
           </p>
 
@@ -211,37 +235,68 @@ export default function Testimonials() {
               {visibleTestimonials.map((testimonial, index) => (
                 <motion.div
                   key={testimonial.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1, duration: 0.5 }}
-                  whileHover={{ y: -5, scale: 1.02 }}
+                  initial={{ opacity: 0, y: 30, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  transition={{ delay: index * 0.15, duration: 0.5, ease: "easeOut" }}
+                  whileHover={{ 
+                    y: -10, 
+                    scale: 1.03,
+                    transition: { duration: 0.3 }
+                  }}
                   className="group"
                   onMouseEnter={() => setIsAutoPlaying(false)}
                   onMouseLeave={() => setIsAutoPlaying(true)}
                 >
-                  <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 shadow-xl h-full transform transition-all duration-300 group-hover:shadow-2xl group-hover:shadow-emerald-500/10 relative overflow-hidden">
+                  <motion.div 
+                    className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 shadow-xl h-full transform transition-all duration-300 group-hover:shadow-2xl group-hover:shadow-emerald-500/20 relative overflow-hidden"
+                    animate={{
+                      boxShadow: [
+                        "0 10px 40px -10px rgba(16, 185, 129, 0.1)",
+                        "0 10px 40px -10px rgba(16, 185, 129, 0.2)",
+                        "0 10px 40px -10px rgba(16, 185, 129, 0.1)"
+                      ]
+                    }}
+                    transition={{ duration: 2.5, repeat: Infinity, delay: index * 0.3 }}
+                  >
                     {/* Quote icon */}
-                    <div className="absolute top-4 right-4 opacity-5 group-hover:opacity-10 transition-opacity">
+                    <motion.div 
+                      className="absolute top-4 right-4 opacity-5 group-hover:opacity-15 transition-opacity"
+                      animate={{ rotate: [0, 10, -10, 0] }}
+                      transition={{ duration: 4, repeat: Infinity }}
+                    >
                       <Quote className="w-16 h-16 text-emerald-500" />
-                    </div>
+                    </motion.div>
 
                     {/* User info */}
                     <div className="flex items-start gap-4 mb-4 relative z-10">
-                      <div className="relative flex-shrink-0">
+                      <motion.div 
+                        className="relative flex-shrink-0"
+                        whileHover={{ scale: 1.1, rotate: 5 }}
+                        transition={{ duration: 0.3 }}
+                      >
                         <div className="w-12 h-12 rounded-full bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center shadow-lg">
                           <span className="text-white font-bold text-sm">
                             {testimonial.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase()}
                           </span>
                         </div>
-                        <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-green-500 rounded-full border-2 border-white flex items-center justify-center">
+                        <motion.div 
+                          className="absolute -bottom-1 -right-1 w-5 h-5 bg-green-500 rounded-full border-2 border-white flex items-center justify-center"
+                          animate={{ scale: [1, 1.2, 1] }}
+                          transition={{ duration: 2, repeat: Infinity }}
+                        >
                           <div className="w-2 h-2 bg-white rounded-full"></div>
-                        </div>
-                      </div>
+                        </motion.div>
+                      </motion.div>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center justify-between mb-1">
-                          <span className="font-bold text-gray-900 truncate">
+                          <motion.span 
+                            className="font-bold text-gray-900 truncate"
+                            initial={{ opacity: 0, x: -10 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: index * 0.1 + 0.2 }}
+                          >
                             {testimonial.name}
-                          </span>
+                          </motion.span>
                           <span className="text-xs text-gray-500 ml-2 flex-shrink-0">
                             {testimonial.date}
                           </span>
@@ -250,29 +305,57 @@ export default function Testimonials() {
                           {testimonial.location}
                         </p>
                         <div className="flex items-center gap-2">
-                          <div className="flex gap-0.5">
+                          <motion.div 
+                            className="flex gap-0.5"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: index * 0.1 + 0.3 }}
+                          >
                             {renderStars(testimonial.rating)}
-                          </div>
-                          <span className="text-xs px-2 py-0.5 bg-emerald-50 text-emerald-700 rounded-full font-medium">
+                          </motion.div>
+                          <motion.span 
+                            className="text-xs px-2 py-0.5 bg-emerald-50 text-emerald-700 rounded-full font-medium"
+                            whileHover={{ scale: 1.1 }}
+                          >
                             {testimonial.service}
-                          </span>
+                          </motion.span>
                         </div>
                       </div>
                     </div>
 
                     {/* Comment */}
-                    <p className="text-gray-700 leading-relaxed text-sm line-clamp-4 mb-4 relative z-10">
+                    <motion.p 
+                      className="text-gray-700 leading-relaxed text-sm line-clamp-4 mb-4 relative z-10"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: index * 0.1 + 0.4 }}
+                    >
                       {testimonial.comment}
-                    </p>
+                    </motion.p>
 
                     {/* Google badge */}
-                    <div className="pt-4 border-t border-gray-100 flex items-center gap-2 relative z-10">
-                      <div className="w-5 h-5 bg-gradient-to-br from-blue-500 to-blue-600 rounded flex items-center justify-center shadow-sm">
+                    <motion.div 
+                      className="pt-4 border-t border-gray-100 flex items-center gap-2 relative z-10"
+                      whileHover={{ x: 5 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <motion.div 
+                        className="w-5 h-5 bg-gradient-to-br from-blue-500 to-blue-600 rounded flex items-center justify-center shadow-sm"
+                        animate={{ rotate: [0, 360] }}
+                        transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+                      >
                         <span className="text-white text-[10px] font-bold">G</span>
-                      </div>
+                      </motion.div>
                       <span className="text-xs text-gray-500">Avis Google</span>
-                    </div>
-                  </div>
+                    </motion.div>
+                    
+                    {/* Shimmer effect */}
+                    <motion.div
+                      className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12 pointer-events-none"
+                      animate={{ x: ['-200%', '200%'] }}
+                      transition={{ duration: 4, repeat: Infinity, repeatDelay: 3, ease: "easeInOut" }}
+                    />
+                  </motion.div>
                 </motion.div>
               ))}
             </motion.div>

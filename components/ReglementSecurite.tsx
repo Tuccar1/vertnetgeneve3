@@ -110,17 +110,19 @@ export default function ReglementSecurite() {
       <div className="fixed inset-0 -z-20">
         <Image
           src="/nature-4k-pc-full-hd-wallpaper-preview.jpg"
-          alt="Règlement et Sécurité - Conformité légale et sécurité du personnel - Vertnetgeneve"
+          alt="Règlement et Sécurité - Conformité légale et sécurité du personnel - Vertnetgeneve Genève"
           fill
           className="object-cover object-center scale-105"
-          quality={100}
+          style={{
+            filter: 'brightness(1.3) contrast(1.1) saturate(1.1)',
+          }}
+          quality={85}
           priority
           sizes="100vw"
-          unoptimized
         />
       </div>
       {/* Koyu overlay - yazıların okunabilirliği için */}
-      <div className="fixed inset-0 bg-black/50 -z-10" />
+      <div className="fixed inset-0 bg-black/40 -z-10" />
       
       {/* Hero Section - Header'a yakın, boşluk yok */}
       <section className="relative pt-20 sm:pt-24 pb-12 md:pb-16 overflow-hidden">

@@ -5,6 +5,7 @@ import { Menu, X, Phone, Sparkles, ArrowRight, Mail } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
+import { trackContactClick } from './AnalyticsTracker'
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
@@ -75,9 +76,10 @@ export default function Navigation() {
               rel="noopener noreferrer"
               className="flex items-center gap-1.5 hover:text-emerald-200 transition-colors cursor-pointer"
               whileHover={{ scale: 1.02 }}
+              onClick={() => trackContactClick('whatsapp', '+41766212183')}
             >
               <Phone className="w-3 h-3" />
-              <span className="font-medium">+41 76 621 21 83</span>
+              <span className="font-medium" id="live-edit-headerPhone1">+41 76 621 21 83</span>
             </motion.a>
             <span className="text-emerald-300">|</span>
             <motion.a 
@@ -86,18 +88,20 @@ export default function Navigation() {
               rel="noopener noreferrer"
               className="flex items-center gap-1.5 hover:text-emerald-200 transition-colors cursor-pointer"
               whileHover={{ scale: 1.02 }}
+              onClick={() => trackContactClick('whatsapp', '+41765316903')}
             >
               <Phone className="w-3 h-3" />
-              <span className="font-medium">+41 76 531 69 03</span>
+              <span className="font-medium" id="live-edit-headerPhone2">+41 76 531 69 03</span>
             </motion.a>
             <span className="text-emerald-300">|</span>
             <motion.a 
-              href="mailto:contact@vertnetgeneve.ch"
+              href="mailto:info@vertnetgeneve.ch"
               className="flex items-center gap-1.5 hover:text-emerald-200 transition-colors cursor-pointer"
               whileHover={{ scale: 1.02 }}
+              onClick={() => trackContactClick('email', 'info@vertnetgeneve.ch')}
             >
               <Mail className="w-3 h-3" />
-              <span className="font-medium">contact@vertnetgeneve.ch</span>
+              <span className="font-medium" id="live-edit-headerEmail">info@vertnetgeneve.ch</span>
             </motion.a>
           </div>
           <div className="flex items-center gap-2">
@@ -107,7 +111,7 @@ export default function Navigation() {
               className="flex items-center gap-1 text-emerald-200"
             >
               <Sparkles className="w-3 h-3" />
-              <span className="text-[10px] font-semibold">Nettoyage Professionnel à Genève</span>
+              <span className="text-[10px] font-semibold" id="live-edit-headerTagline">Nettoyage Professionnel à Genève</span>
             </motion.span>
           </div>
         </div>
@@ -404,7 +408,7 @@ export default function Navigation() {
                     initial={{ x: -20, opacity: 0 }}
                     animate={{ x: 0, opacity: 1 }}
                     transition={{ delay: navItems.length * 0.1 }}
-                    onClick={() => setIsOpen(false)}
+                    onClick={() => { trackContactClick('phone', '+41766212183'); setIsOpen(false); }}
                   >
                     <Phone className="w-5 h-5" />
                     <span>+41 76 621 21 83</span>
@@ -415,7 +419,7 @@ export default function Navigation() {
                     initial={{ x: -20, opacity: 0 }}
                     animate={{ x: 0, opacity: 1 }}
                     transition={{ delay: (navItems.length + 0.5) * 0.1 }}
-                    onClick={() => setIsOpen(false)}
+                    onClick={() => { trackContactClick('phone', '+41765316903'); setIsOpen(false); }}
                   >
                     <Phone className="w-5 h-5" />
                     <span>+41 76 531 69 03</span>

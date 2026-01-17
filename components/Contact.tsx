@@ -32,8 +32,8 @@ export default function Contact() {
     {
       icon: Mail,
       title: 'Email',
-      content: 'contact@vertnetgeneve.ch',
-      link: 'mailto:contact@vertnetgeneve.ch',
+      content: 'info@vertnetgeneve.ch',
+      link: 'mailto:info@vertnetgeneve.ch',
       color: 'text-primary-600',
     },
     {
@@ -65,10 +65,10 @@ export default function Contact() {
       <div className="max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-6 sm:mb-8">
-            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-3 sm:mb-4 leading-[1.25] text-gray-900">
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-3 sm:mb-4 leading-[1.25] text-gray-900" id="live-edit-contactTitle">
               Contactez-Nous
             </h2>
-            <p className="text-xs sm:text-sm md:text-base text-gray-600 leading-[1.7]">
+            <p className="text-xs sm:text-sm md:text-base text-gray-600 leading-[1.7]" id="live-edit-contactSubtitle">
               Obtenez un devis gratuit et personnalisé
             </p>
           </div>

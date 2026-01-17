@@ -39,6 +39,7 @@ interface AddOn {
 }
 
 export default function QuoteCalculator() {
+  const [mounted, setMounted] = useState(false)
   const [currentStep, setCurrentStep] = useState(1)
   const [squareMeters, setSquareMeters] = useState(50)
   const [selectedService, setSelectedService] = useState<string>('')
@@ -58,6 +59,12 @@ export default function QuoteCalculator() {
   })
   const [submitted, setSubmitted] = useState(false)
   const [quoteId, setQuoteId] = useState('')
+  const [minDate, setMinDate] = useState('')
+
+  useEffect(() => {
+    setMounted(true)
+    setMinDate(new Date().toISOString().split('T')[0])
+  }, [])
 
   const serviceTypes: ServiceType[] = [
     {
@@ -753,7 +760,7 @@ export default function QuoteCalculator() {
                         type="date"
                         value={formData.preferredDate}
                         onChange={(e) => setFormData({ ...formData, preferredDate: e.target.value })}
-                        min={new Date().toISOString().split('T')[0]}
+                        min={minDate}
                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
                       />
                     </div>

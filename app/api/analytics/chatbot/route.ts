@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getAnalyticsData } from '../stats/route';
+import { getAnalyticsData } from '@/lib/analytics-memory';
 import { saveChatbotToFile, loadChatbotToMemory } from '@/lib/analytics-storage';
 
 // Intent detection keywords - Français, Anglais, Turc
@@ -244,7 +244,7 @@ declare global {
   var chatSessionsLoaded: boolean | undefined;
 }
 
-export async function getChatSessions(): Promise<Map<string, ExtendedChatSession>> {
+async function getChatSessions(): Promise<Map<string, ExtendedChatSession>> {
   if (!global.chatSessionsExtended) {
     global.chatSessionsExtended = new Map();
   }

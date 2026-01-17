@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getAnalyticsData } from '../stats/route';
+import { getAnalyticsData } from '@/lib/analytics-memory';
 
 export async function GET(request: NextRequest) {
   try {

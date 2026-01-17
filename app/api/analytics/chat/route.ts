@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getAnalyticsData, scheduleSave } from '../stats/route';
+import { getAnalyticsData, scheduleSave } from '@/lib/analytics-memory';
 
 export async function POST(request: NextRequest) {
   try {

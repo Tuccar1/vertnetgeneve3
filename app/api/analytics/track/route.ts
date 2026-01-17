@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getAnalyticsData, scheduleSave } from '../stats/route';
+import { getAnalyticsData, scheduleSave } from '@/lib/analytics-memory';
 import { loadContactClicksFromFile, saveContactClicksToFile } from '@/lib/analytics-storage';
 
 // Global contact clicks storage
@@ -17,7 +17,7 @@ declare global {
   var contactClicksLoaded: boolean | undefined;
 }
 
-export async function getContactClicks(): Promise<ContactClick[]> {
+async function getContactClicks(): Promise<ContactClick[]> {
   if (!global.contactClicks) {
     global.contactClicks = [];
   }
